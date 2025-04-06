@@ -157,11 +157,17 @@ PROJECT_VERSION=1.0.0
 The Cursor Workflow System consists of several interconnected components:
 
 ```mermaid
-graph TD
+graph TB
     subgraph "Cursor Workflow System 🚀"
+        direction TB
         CLI["⚙️ CLI Interface<br><i>scripts/dev.js</i><br><i>User command entry point</i>"]
         
+        Commands["🎮 Command Definitions<br><i>commands.js</i><br><i>Process user commands</i>"]
+        
+        CLI ---> Commands
+        
         subgraph "Core Module System 📦"
+            direction TB
             Tasks["📋 Task Management<br><i>tasks.js</i><br><i>Create, update, and track tasks</i>"]
             Rules["📜 Rule System<br><i>rules.js</i><br><i>Define and apply coding standards</i>"]
             Analysis["🔍 Complexity Analysis<br><i>complexity.js</i><br><i>Evaluate task difficulty</i>"]
@@ -171,10 +177,17 @@ graph TD
             Expand["🔀 Task Expansion<br><i>expand.js</i><br><i>Break down complex tasks</i>"]
         end
         
-        Commands["🎮 Command Definitions<br><i>commands.js</i><br><i>Process user commands</i>"]
+        Commands ---> Tasks
+        Commands ---> Rules
+        Commands ---> Analysis
+        Commands ---> Scheduler
+        Commands ---> Reports
+        Commands ---> Evolution
+        Commands ---> Expand
     end
     
     subgraph "Storage Components 💾"
+        direction TB
         TasksJSON["📄 tasks.json<br><i>Main task database</i>"]
         TaskFiles["📑 Task MD Files<br><i>Individual task details</i>"]
         RuleFiles["📝 Rule MDC Files<br><i>Coding standards definitions</i>"]
@@ -182,38 +195,29 @@ graph TD
     end
     
     subgraph "External Systems 🌐"
+        direction TB
         LLMAPI["🧠 AI Models<br><i>Claude/GPT</i><br><i>Generate content & analysis</i>"]
         IDE["💻 Cursor IDE<br><i>Editor integration</i><br><i>Apply rules while coding</i>"]
     end
     
-    CLI --> Commands
+    Tasks <---> TasksJSON
+    Tasks <---> TaskFiles
+    Rules <---> RuleFiles
+    Reports ---> HTMLReports
     
-    Commands --> Tasks
-    Commands --> Rules
-    Commands --> Analysis
-    Commands --> Scheduler
-    Commands --> Reports
-    Commands --> Evolution
-    Commands --> Expand
+    Analysis <---> LLMAPI
+    Expand <---> LLMAPI
+    Evolution <---> LLMAPI
     
-    Tasks <--> TasksJSON
-    Tasks <--> TaskFiles
-    Rules <--> RuleFiles
-    Reports --> HTMLReports
+    IDE <---> Rules
+    IDE <---> Tasks
     
-    Analysis <--> LLMAPI
-    Expand <--> LLMAPI
-    Evolution <--> LLMAPI
-    
-    IDE <--> Rules
-    IDE <--> Tasks
-    
-    classDef cliStyle fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:black,width:250px,padding:15px;
-    classDef moduleStyle fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:black,width:300px,padding:15px;
-    classDef commandStyle fill:#fff2cc,stroke:#d6b656,stroke-width:2px,color:black,width:250px,padding:15px;
-    classDef storageStyle fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:black,width:250px,padding:15px;
-    classDef externalStyle fill:#ffe6cc,stroke:#d79b00,stroke-width:2px,color:black,width:250px,padding:15px;
-    classDef subgraphStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black,padding:20px;
+    classDef cliStyle fill:#d5e8d4,stroke:#82b366,stroke-width:3px,color:black,width:600px,padding:25px;
+    classDef moduleStyle fill:#dae8fc,stroke:#6c8ebf,stroke-width:3px,color:black,width:600px,padding:25px;
+    classDef commandStyle fill:#fff2cc,stroke:#d6b656,stroke-width:3px,color:black,width:600px,padding:25px;
+    classDef storageStyle fill:#d5e8d4,stroke:#82b366,stroke-width:3px,color:black,width:500px,padding:25px;
+    classDef externalStyle fill:#ffe6cc,stroke:#d79b00,stroke-width:3px,color:black,width:500px,padding:25px;
+    classDef subgraphStyle fill:#f5f5f5,stroke:#333,stroke-width:2px,color:black,padding:40px;
     
     class CLI cliStyle;
     class Tasks,Rules,Analysis,Scheduler,Reports,Evolution,Expand moduleStyle;
