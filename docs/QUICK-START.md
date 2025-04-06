@@ -89,12 +89,14 @@ graph LR
     E -->|Update Status| F[Complete Tasks]
     F -->|Mark as Done| A
     
-    style A fill:#f9d5e5,stroke:#333,stroke-width:2px
-    style B fill:#fbf0f0,stroke:#333,stroke-width:2px
-    style C fill:#daeaf6,stroke:#333,stroke-width:2px
-    style D fill:#c8eed9,stroke:#333,stroke-width:2px
-    style E fill:#ffe2c8,stroke:#333,stroke-width:2px
-    style F fill:#d7bde2,stroke:#333,stroke-width:2px
+    style A fill:#f9d5e5,stroke:#333,stroke-width:2px,color:black
+    style B fill:#fbf0f0,stroke:#333,stroke-width:2px,color:black
+    style C fill:#daeaf6,stroke:#333,stroke-width:2px,color:black
+    style D fill:#c8eed9,stroke:#333,stroke-width:2px,color:black
+    style E fill:#ffe2c8,stroke:#333,stroke-width:2px,color:black
+    style F fill:#d7bde2,stroke:#333,stroke-width:2px,color:black
+    
+    linkStyle default stroke:#333,stroke-width:1.5px,color:black
 ```
 
 The Cursor Workflow process:
@@ -121,6 +123,9 @@ stateDiagram-v2
     note right of InProgress: Currently being worked on
     note right of Done: Completed and verified
     note right of Deferred: Postponed for later
+    
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px,color:black
+    classDef note fill:#fff5ad,stroke:#333,stroke-width:1px,color:black
 ```
 
 ## Need Help?

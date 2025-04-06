@@ -203,14 +203,14 @@ graph TD
     IDE <--> Rules
     IDE <--> Tasks
     
-    style System fill:#f5f5f5,stroke:#333,stroke-width:1px
-    style Storage fill:#e8f4f8,stroke:#333,stroke-width:1px  
-    style External fill:#f9f2e6,stroke:#333,stroke-width:1px
-    style CLI fill:#d5e8d4,stroke:#333,stroke-width:2px
+    style System fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black
+    style Storage fill:#e8f4f8,stroke:#333,stroke-width:1px,color:black  
+    style External fill:#f9f2e6,stroke:#333,stroke-width:1px,color:black
+    style CLI fill:#d5e8d4,stroke:#333,stroke-width:2px,color:black
     
-    classDef module fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px;
-    classDef storage fill:#d5e8d4,stroke:#82b366,stroke-width:1px;
-    classDef external fill:#ffe6cc,stroke:#d79b00,stroke-width:1px;
+    classDef module fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px,color:black;
+    classDef storage fill:#d5e8d4,stroke:#82b366,stroke-width:1px,color:black;
+    classDef external fill:#ffe6cc,stroke:#d79b00,stroke-width:1px,color:black;
     
     class Tasks,Rules,Analysis,Scheduler,Reports,Evolution,Expand,Commands module;
     class TasksJSON,TaskFiles,RuleFiles,HTMLReports storage;
@@ -294,6 +294,8 @@ stateDiagram-v2
     Blocked: Cannot proceed due to dependencies
     Deferred: Postponed for later implementation
     Done: Completed and verified
+
+    classDef default fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black
 ```
 
 1. **Creation**: Tasks are created by parsing a PRD, manually adding them, or breaking down larger tasks
@@ -330,10 +332,10 @@ graph TD
         H --> I
         I --> J["Task 10: Testing<br>🚫 blocked"]
         
-        classDef done fill:#d5e8d4,stroke:#82b366,stroke-width:2px;
-        classDef progress fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px;
-        classDef pending fill:#f5f5f5,stroke:#666666,stroke-width:1px;
-        classDef blocked fill:#f8cecc,stroke:#b85450,stroke-width:2px;
+        classDef done fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:black;
+        classDef progress fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:black;
+        classDef pending fill:#f5f5f5,stroke:#666666,stroke-width:1px,color:black;
+        classDef blocked fill:#f8cecc,stroke:#b85450,stroke-width:2px,color:black;
         
         class A,B,E done;
         class C,H progress;
@@ -442,10 +444,10 @@ graph TD
         S --> T[Rule Updates]
         T --> B
         
-        classDef definition fill:#d5e8d4,stroke:#82b366,stroke-width:1px;
-        classDef application fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px;
-        classDef evolution fill:#ffe6cc,stroke:#d79b00,stroke-width:1px;
-        classDef type fill:#e1d5e7,stroke:#9673a6,stroke-width:1px;
+        classDef definition fill:#d5e8d4,stroke:#82b366,stroke-width:1px,color:black;
+        classDef application fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px,color:black;
+        classDef evolution fill:#ffe6cc,stroke:#d79b00,stroke-width:1px,color:black;
+        classDef type fill:#e1d5e7,stroke:#9673a6,stroke-width:1px,color:black;
         
         class B,C definition;
         class D,E,F,G,H type;
@@ -704,10 +706,10 @@ flowchart TD
         C6 -.-> D1
         D6 -.-> B1
         
-        classDef start fill:#d5e8d4,stroke:#82b366,stroke-width:1px;
-        classDef daily fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px;
-        classDef creation fill:#ffe6cc,stroke:#d79b00,stroke-width:1px;
-        classDef completion fill:#e1d5e7,stroke:#9673a6,stroke-width:1px;
+        classDef start fill:#d5e8d4,stroke:#82b366,stroke-width:1px,color:black;
+        classDef daily fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px,color:black;
+        classDef creation fill:#ffe6cc,stroke:#d79b00,stroke-width:1px,color:black;
+        classDef completion fill:#e1d5e7,stroke:#9673a6,stroke-width:1px,color:black;
         
         class A1,A2,A3,A4,A5,A6 start;
         class B1,B2,B3,B4,B5,B6 daily;
