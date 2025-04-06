@@ -157,73 +157,124 @@ PROJECT_VERSION=1.0.0
 The Cursor Workflow System consists of several interconnected components:
 
 ```mermaid
-graph TB
-    subgraph "Cursor Workflow System 🚀"
-        direction TB
-        CLI["<div style='font-size:24px'>⚙️ CLI Interface</div><div style='font-size:18px'><i>scripts/dev.js</i></div><div style='font-size:18px'><i>User command entry point</i></div>"]
-        
-        Commands["<div style='font-size:24px'>🎮 Command Definitions</div><div style='font-size:18px'><i>commands.js</i></div><div style='font-size:18px'><i>Process user commands</i></div>"]
-        
-        CLI ===> Commands
-        
-        subgraph "Core Module System 📦"
-            direction TB
-            Tasks["<div style='font-size:24px'>📋 Task Management</div><div style='font-size:18px'><i>tasks.js</i></div><div style='font-size:18px'><i>Create, update, and track tasks</i></div>"]
-            Rules["<div style='font-size:24px'>📜 Rule System</div><div style='font-size:18px'><i>rules.js</i></div><div style='font-size:18px'><i>Define and apply coding standards</i></div>"]
-            Analysis["<div style='font-size:24px'>🔍 Complexity Analysis</div><div style='font-size:18px'><i>complexity.js</i></div><div style='font-size:18px'><i>Evaluate task difficulty</i></div>"]
-            Scheduler["<div style='font-size:24px'>📅 Task Scheduling</div><div style='font-size:18px'><i>scheduler.js</i></div><div style='font-size:18px'><i>Prioritize and sequence work</i></div>"]
-            Reports["<div style='font-size:24px'>📊 HTML Reporting</div><div style='font-size:18px'><i>reports.js</i></div><div style='font-size:18px'><i>Generate visual dashboards</i></div>"]
-            Evolution["<div style='font-size:24px'>🔄 Rule Evolution</div><div style='font-size:18px'><i>evolution.js</i></div><div style='font-size:18px'><i>Improve standards over time</i></div>"]
-            Expand["<div style='font-size:24px'>🔀 Task Expansion</div><div style='font-size:18px'><i>expand.js</i></div><div style='font-size:18px'><i>Break down complex tasks</i></div>"]
-        end
-        
-        Commands ===> Tasks
-        Commands ===> Rules
-        Commands ===> Analysis
-        Commands ===> Scheduler
-        Commands ===> Reports
-        Commands ===> Evolution
-        Commands ===> Expand
-    end
+flowchart TD
+    %% Define the main components with larger size and more details
+    CLI["<div style='font-size:28px; font-weight:bold'>⚙️ CLI Interface</div>
+         <div style='font-size:20px'><i>scripts/dev.js</i></div>
+         <div style='font-size:20px'>Command-line entry point</div>"]
     
-    subgraph "Storage Components 💾"
-        direction TB
-        TasksJSON["<div style='font-size:24px'>📄 tasks.json</div><div style='font-size:18px'><i>Main task database</i></div>"]
-        TaskFiles["<div style='font-size:24px'>📑 Task MD Files</div><div style='font-size:18px'><i>Individual task details</i></div>"]
-        RuleFiles["<div style='font-size:24px'>📝 Rule MDC Files</div><div style='font-size:18px'><i>Coding standards definitions</i></div>"]
-        HTMLReports["<div style='font-size:24px'>📈 HTML Reports</div><div style='font-size:18px'><i>Generated visualizations</i></div>"]
-    end
+    CMD["<div style='font-size:28px; font-weight:bold'>🎮 Command Processor</div>
+         <div style='font-size:20px'><i>commands.js</i></div>
+         <div style='font-size:20px'>Routes user commands to modules</div>"]
     
-    subgraph "External Systems 🌐"
-        direction TB
-        LLMAPI["<div style='font-size:24px'>🧠 AI Models</div><div style='font-size:18px'><i>Claude/GPT</i></div><div style='font-size:18px'><i>Generate content & analysis</i></div>"]
-        IDE["<div style='font-size:24px'>💻 Cursor IDE</div><div style='font-size:18px'><i>Editor integration</i></div><div style='font-size:18px'><i>Apply rules while coding</i></div>"]
-    end
+    %% Task Management Components
+    TASK["<div style='font-size:28px; font-weight:bold'>📋 Task Management</div>
+          <div style='font-size:20px'><i>tasks.js</i></div>
+          <div style='font-size:20px'>Create and track tasks</div>"]
     
-    Tasks <====> TasksJSON
-    Tasks <====> TaskFiles
-    Rules <====> RuleFiles
-    Reports ====> HTMLReports
+    EXPAND["<div style='font-size:28px; font-weight:bold'>🔀 Task Expansion</div>
+            <div style='font-size:20px'><i>expand.js</i></div>
+            <div style='font-size:20px'>Break down complex tasks</div>"]
     
-    Analysis <====> LLMAPI
-    Expand <====> LLMAPI
-    Evolution <====> LLMAPI
+    CMPLX["<div style='font-size:28px; font-weight:bold'>🔍 Complexity Analysis</div>
+           <div style='font-size:20px'><i>complexity.js</i></div>
+           <div style='font-size:20px'>Evaluate task difficulty</div>"]
     
-    IDE <====> Rules
-    IDE <====> Tasks
+    SCHED["<div style='font-size:28px; font-weight:bold'>📅 Task Scheduling</div>
+           <div style='font-size:20px'><i>scheduler.js</i></div>
+           <div style='font-size:20px'>Prioritize work items</div>"]
     
-    classDef cliStyle fill:#d5e8d4,stroke:#82b366,stroke-width:4px,color:black,width:800px,padding:40px;
-    classDef moduleStyle fill:#dae8fc,stroke:#6c8ebf,stroke-width:4px,color:black,width:800px,padding:40px;
-    classDef commandStyle fill:#fff2cc,stroke:#d6b656,stroke-width:4px,color:black,width:800px,padding:40px;
-    classDef storageStyle fill:#d5e8d4,stroke:#82b366,stroke-width:4px,color:black,width:700px,padding:40px;
-    classDef externalStyle fill:#ffe6cc,stroke:#d79b00,stroke-width:4px,color:black,width:700px,padding:40px;
-    classDef subgraphStyle fill:#f5f5f5,stroke:#333,stroke-width:3px,color:black,padding:60px;
+    %% Rule System Components
+    RULE["<div style='font-size:28px; font-weight:bold'>📜 Rule System</div>
+          <div style='font-size:20px'><i>rules.js</i></div>
+          <div style='font-size:20px'>Define coding standards</div>"]
     
-    class CLI cliStyle;
-    class Tasks,Rules,Analysis,Scheduler,Reports,Evolution,Expand moduleStyle;
-    class Commands commandStyle;
-    class TasksJSON,TaskFiles,RuleFiles,HTMLReports storageStyle;
-    class LLMAPI,IDE externalStyle;
+    EVOL["<div style='font-size:28px; font-weight:bold'>🔄 Rule Evolution</div>
+          <div style='font-size:20px'><i>evolution.js</i></div>
+          <div style='font-size:20px'>Improve standards over time</div>"]
+    
+    %% Reporting Components
+    REPORT["<div style='font-size:28px; font-weight:bold'>📊 HTML Reporting</div>
+            <div style='font-size:20px'><i>reports.js</i></div>
+            <div style='font-size:20px'>Generate visual dashboards</div>"]
+    
+    %% Storage Components
+    JSON["<div style='font-size:28px; font-weight:bold'>📄 tasks.json</div>
+          <div style='font-size:20px'>Main task database</div>"]
+    
+    TASKFILES["<div style='font-size:28px; font-weight:bold'>📑 Task Files</div>
+               <div style='font-size:20px'>Individual MD task definitions</div>"]
+    
+    RULEFILES["<div style='font-size:28px; font-weight:bold'>📝 Rule Files</div>
+               <div style='font-size:20px'>MDC rule definitions</div>"]
+    
+    HTML["<div style='font-size:28px; font-weight:bold'>📈 HTML Reports</div>
+          <div style='font-size:20px'>Generated visualizations</div>"]
+    
+    %% External System Components
+    AI["<div style='font-size:28px; font-weight:bold'>🧠 AI Models</div>
+        <div style='font-size:20px'>Claude/GPT</div>
+        <div style='font-size:20px'>Generate content & analysis</div>"]
+    
+    IDE["<div style='font-size:28px; font-weight:bold'>💻 Cursor IDE</div>
+         <div style='font-size:20px'>Editor integration</div>
+         <div style='font-size:20px'>Apply rules while coding</div>"]
+    
+    %% Define the connections
+    CLI ==> CMD
+    
+    %% Command connections to modules
+    CMD ==> TASK
+    CMD ==> RULE
+    CMD ==> CMPLX
+    CMD ==> SCHED
+    CMD ==> EXPAND
+    CMD ==> EVOL
+    CMD ==> REPORT
+    
+    %% Task management connections
+    TASK <==> JSON
+    TASK <==> TASKFILES
+    TASK --- CMPLX
+    TASK --- EXPAND
+    TASK --- SCHED
+    
+    %% Rule system connections
+    RULE <==> RULEFILES
+    RULE --- EVOL
+    
+    %% Reporting connections
+    REPORT ==> HTML
+    
+    %% AI Integration
+    CMPLX <==> AI
+    EXPAND <==> AI
+    EVOL <==> AI
+    
+    %% IDE Integration
+    IDE <==> RULE
+    IDE <==> TASK
+    
+    %% Style definitions - using much larger boxes and more prominent styles
+    classDef cliNode fill:#d5e8d4,stroke:#82b366,stroke-width:6px,color:black,width:900px,padding:50px,border-radius:15px;
+    classDef cmdNode fill:#fff2cc,stroke:#d6b656,stroke-width:6px,color:black,width:900px,padding:50px,border-radius:15px;
+    classDef taskNode fill:#dae8fc,stroke:#6c8ebf,stroke-width:6px,color:black,width:900px,padding:50px,border-radius:15px;
+    classDef ruleNode fill:#d5e8d4,stroke:#82b366,stroke-width:6px,color:black,width:900px,padding:50px,border-radius:15px;
+    classDef reportNode fill:#ffe6cc,stroke:#d79b00,stroke-width:6px,color:black,width:900px,padding:50px,border-radius:15px;
+    classDef storageNode fill:#e1d5e7,stroke:#9673a6,stroke-width:6px,color:black,width:900px,padding:40px,border-radius:15px;
+    classDef externalNode fill:#f8cecc,stroke:#b85450,stroke-width:6px,color:black,width:900px,padding:40px,border-radius:15px;
+    
+    %% Apply styles to nodes
+    class CLI cliNode;
+    class CMD cmdNode;
+    class TASK,CMPLX,EXPAND,SCHED taskNode;
+    class RULE,EVOL ruleNode;
+    class REPORT reportNode;
+    class JSON,TASKFILES,RULEFILES,HTML storageNode;
+    class AI,IDE externalNode;
+    
+    %% Link styling
+    linkStyle default stroke:#333,stroke-width:4px;
 ```
 
 ### Core Modules
