@@ -215,7 +215,7 @@ graph TD
     class Tasks,Rules,Analysis,Scheduler,Reports,Evolution,Expand,Commands module;
     class TasksJSON,TaskFiles,RuleFiles,HTMLReports storage;
     class LLMAPI,IDE external;
-</code_block_to_apply_changes_from>
+```
 
 ### Core Modules
 
