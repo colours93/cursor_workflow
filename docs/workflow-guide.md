@@ -157,45 +157,60 @@ PROJECT_VERSION=1.0.0
 The Cursor Workflow System consists of several interconnected components:
 
 ```mermaid
-graph TD
-    subgraph System ["Cursor Workflow System"]
-        CLI["CLI Interface<br><i>scripts/dev.js</i><br><i>User command entry point</i>"]
-        Tasks["Task Management<br><i>tasks.js</i><br><i>Create, update, and track tasks</i>"]
-        Rules["Rule System<br><i>rules.js</i><br><i>Define and apply coding standards</i>"]
-        Analysis["Complexity Analysis<br><i>complexity.js</i><br><i>Evaluate task difficulty</i>"]
-        Scheduler["Task Scheduling<br><i>scheduler.js</i><br><i>Prioritize and sequence work</i>"]
-        Reports["HTML Reporting<br><i>reports.js</i><br><i>Generate visual dashboards</i>"]
-        Evolution["Rule Evolution<br><i>evolution.js</i><br><i>Improve standards over time</i>"]
-        Expand["Task Expansion<br><i>expand.js</i><br><i>Break down complex tasks</i>"]
-        Commands["Command Definitions<br><i>commands.js</i><br><i>Process user commands</i>"]
+flowchart TD
+    %% Main CLI interface
+    CLI["CLI Interface<br><i>scripts/dev.js</i>"]
+    
+    %% Command layer
+    Commands["Command Definitions<br><i>commands.js</i>"]
+    
+    %% Core modules
+    subgraph CoreModules["Core Functionality"]
+        direction TB
+        Tasks["Task Management<br><i>tasks.js</i>"]
+        Rules["Rule System<br><i>rules.js</i>"]
     end
     
-    subgraph Storage ["Storage Components"]
-        TasksJSON["tasks.json<br><i>Main task database</i>"]
-        TaskFiles["Task MD Files<br><i>Individual task details</i>"]
-        RuleFiles["Rule MDC Files<br><i>Coding standards definitions</i>"]
-        HTMLReports["HTML Reports<br><i>Generated visualizations</i>"]
+    %% Advanced modules
+    subgraph AdvancedModules["Advanced Features"]
+        direction TB
+        Analysis["Complexity Analysis<br><i>complexity.js</i>"]
+        Scheduler["Task Scheduling<br><i>scheduler.js</i>"]
+        Reports["HTML Reporting<br><i>reports.js</i>"]
+        Evolution["Rule Evolution<br><i>evolution.js</i>"]
+        Expand["Task Expansion<br><i>expand.js</i>"]
     end
     
-    subgraph External ["External Systems"]
-        LLMAPI["AI Models<br><i>Claude/GPT</i><br><i>Generate content & analysis</i>"]
-        IDE["Cursor IDE<br><i>Editor integration</i><br><i>Apply rules while coding</i>"]
+    %% Storage elements
+    subgraph StorageSystem["Storage"]
+        direction TB
+        TasksJSON["tasks.json<br><i>Task Database</i>"]
+        TaskFiles["Task MD Files<br><i>Task Details</i>"]
+        RuleFiles["Rule MDC Files<br><i>Coding Standards</i>"]
+        HTMLReports["HTML Reports<br><i>Dashboards</i>"]
     end
     
-    CLI --> Commands
-    Commands --> Tasks
-    Commands --> Rules
-    Commands --> Analysis
-    Commands --> Scheduler
-    Commands --> Reports
-    Commands --> Evolution
-    Commands --> Expand
+    %% External systems
+    subgraph ExternalSystems["External Systems"]
+        direction TB
+        LLMAPI["AI Models<br><i>Claude/GPT</i>"]
+        IDE["Cursor IDE<br><i>Editor Integration</i>"]
+    end
     
+    %% Main flow
+    CLI ==> Commands
+    
+    %% Command connections
+    Commands ==> CoreModules
+    Commands ==> AdvancedModules
+    
+    %% Storage connections
     Tasks <--> TasksJSON
     Tasks <--> TaskFiles
     Rules <--> RuleFiles
     Reports --> HTMLReports
     
+    %% External connections
     Analysis <--> LLMAPI
     Expand <--> LLMAPI
     Evolution <--> LLMAPI
@@ -203,35 +218,27 @@ graph TD
     IDE <--> Rules
     IDE <--> Tasks
     
-    style System fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black,padding:15px
-    style Storage fill:#e8f4f8,stroke:#333,stroke-width:1px,color:black,padding:15px
-    style External fill:#f9f2e6,stroke:#333,stroke-width:1px,color:black,padding:15px
+    %% Styling
+    classDef default fill:#f8f8f8,stroke:#333,stroke-width:1px,color:black,width:280px,padding:15px,margin:20px,font-size:14px
+    classDef container fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black,padding:20px
     
-    style CLI fill:#d5e8d4,stroke:#333,stroke-width:2px,color:black,width:220px,padding:10px
+    class CLI,Commands default
+    class CoreModules,AdvancedModules,StorageSystem,ExternalSystems container
     
-    classDef module fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px,color:black,width:220px,padding:10px;
-    classDef storage fill:#d5e8d4,stroke:#82b366,stroke-width:1px,color:black,width:220px,padding:10px;
-    classDef external fill:#ffe6cc,stroke:#d79b00,stroke-width:1px,color:black,width:220px,padding:10px;
-    
-    class Tasks,Rules,Analysis,Scheduler,Reports,Evolution,Expand,Commands module;
-    class TasksJSON,TaskFiles,RuleFiles,HTMLReports storage;
-    class LLMAPI,IDE external;
+    %% Connection styling
+    linkStyle default stroke:#333,stroke-width:2px
 ```
 
-### Core Modules
+### Core Components
 
-The system is organized into modular components:
+The system architecture consists of these main elements:
 
-- **tasks.js**: Core task management functionality
-- **rules.js**: Rule definition, loading, and application
-- **complexity.js**: Task complexity analysis
-- **scheduler.js**: Task scheduling and prioritization
-- **reports.js**: HTML report generation
-- **evolution.js**: Rule evolution and suggestion
-- **expand.js**: Task expansion into subtasks
-- **commands.js**: CLI command definitions
-
-These modules work together to provide a cohesive workflow system that handles all aspects of task-driven development.
+1. **CLI Interface** - Entry point for users to interact with the system
+2. **Command Layer** - Handles user commands and interactions
+3. **Core Modules** - Handles core task and rule management
+4. **Advanced Modules** - Handles advanced features like complexity analysis and scheduling
+5. **Storage System** - Manages task and rule data
+6. **External Systems** - Integrates with AI models and editor integration
 
 ## Task Management
 
