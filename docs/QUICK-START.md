@@ -82,27 +82,38 @@ Cursor Workflow shines when paired with Cursor AI:
 
 ```mermaid
 flowchart TB
-    A["(Creation)<br><i>Define what needs to be built</i>"] -->|Parse PRD or Add Task| B["(Analysis)<br><i>Understand task difficulty</i>"]
-    B -->|Identify Complex Tasks| C["(Breakdown)<br><i>Split into manageable pieces</i>"]
-    C -->|Create Subtasks| D["(Implementation)<br><i>Write actual code</i>"]
-    D -->|Code & Test| E["(Tracking)<br><i>Monitor status & updates</i>"]
-    E -->|Update Status| F["(Completion)<br><i>Mark work as finished</i>"]
+    A["🏗️ (Creation)<br><i>Define what needs to be built</i>"] -->|Parse PRD or Add Task| B["🔍 (Analysis)<br><i>Understand task difficulty</i>"]
+    B -->|Identify Complex Tasks| C["🧩 (Breakdown)<br><i>Split into manageable pieces</i>"]
+    C -->|Create Subtasks| D["💻 (Implementation)<br><i>Write actual code</i>"]
+    D -->|Code & Test| E["📊 (Tracking)<br><i>Monitor status & updates</i>"]
+    E -->|Update Status| F["✅ (Completion)<br><i>Mark work as finished</i>"]
     F -->|Mark as Done| A
     
-    classDef stateStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black,width:250px,padding:10px,border-radius:8px
-    class A,B,C,D,E,F stateStyle
+    classDef creation fill:#ffcccc,stroke:#333,stroke-width:2px,color:black,width:250px,padding:10px,border-radius:8px
+    classDef analysis fill:#ffe6cc,stroke:#333,stroke-width:2px,color:black,width:250px,padding:10px,border-radius:8px
+    classDef breakdown fill:#fff2cc,stroke:#333,stroke-width:2px,color:black,width:250px,padding:10px,border-radius:8px
+    classDef implementation fill:#e1d5e7,stroke:#333,stroke-width:2px,color:black,width:250px,padding:10px,border-radius:8px
+    classDef tracking fill:#d0e0e3,stroke:#333,stroke-width:2px,color:black,width:250px,padding:10px,border-radius:8px
+    classDef completion fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:black,width:250px,padding:10px,border-radius:8px
+    
+    class A creation
+    class B analysis
+    class C breakdown
+    class D implementation
+    class E tracking
+    class F completion
     
     linkStyle default stroke:#333,stroke-width:1.5px,color:black
 ```
 
 The Cursor Workflow process:
 
-1. **Create Tasks**: Define what needs to be done
-2. **Analyze Complexity**: Understand task difficulty and scope
-3. **Break Down Tasks**: Split complex tasks into manageable subtasks
-4. **Implement Tasks**: Do the actual development work
-5. **Track Progress**: Monitor and update task status
-6. **Complete Tasks**: Finish and verify work, then move to new tasks
+1. **🏗️ Create Tasks**: Define what needs to be done
+2. **🔍 Analyze Complexity**: Understand task difficulty and scope
+3. **🧩 Break Down Tasks**: Split complex tasks into manageable subtasks
+4. **💻 Implement Tasks**: Do the actual development work
+5. **📊 Track Progress**: Monitor and update task status
+6. **✅ Complete Tasks**: Finish and verify work, then move to new tasks
 
 ## Task Lifecycle
 
