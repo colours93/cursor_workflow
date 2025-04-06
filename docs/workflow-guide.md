@@ -334,6 +334,7 @@ Each task is stored in `tasks/tasks.json` and can optionally have a correspondin
 Tasks move through a defined lifecycle:
 
 ```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true, 'background': '#000000' }}}%%
 stateDiagram-v2
     direction LR
     
@@ -354,8 +355,19 @@ stateDiagram-v2
     Deferred: Postponed for later implementation
     Done: Completed and verified
 
-    classDef stateStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:#FFFFFF
-    class Creation,Pending,InProgress,Done,Blocked,Deferred stateStyle
+    classDef creation fill:#FF9100,stroke:#FFAB40,stroke-width:3px,color:white;
+    classDef pending fill:#2979FF,stroke:#448AFF,stroke-width:3px,color:white;
+    classDef inprogress fill:#AA00FF,stroke:#D500F9,stroke-width:3px,color:white;
+    classDef done fill:#00C853,stroke:#00E676,stroke-width:3px,color:white;
+    classDef blocked fill:#FF1744,stroke:#FF5252,stroke-width:3px,color:white;
+    classDef deferred fill:#FF9100,stroke:#FFAB40,stroke-width:3px,color:white;
+    
+    class Creation creation;
+    class Pending pending;
+    class InProgress inprogress;
+    class Done done;
+    class Blocked blocked;
+    class Deferred deferred;
 ```
 
 1. **Creation**: Tasks are created by parsing a PRD, manually adding them, or breaking down larger tasks
