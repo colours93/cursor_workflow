@@ -5,7 +5,7 @@ alwaysApply: true
 ---
  # Testing Standards
 
-This rule defines the testing standards for the BambiLand project. Follow these guidelines when:
+This rule defines the testing standards for the Cursor Workflow project. Follow these guidelines when:
 
 1. Writing new tests
 2. Modifying existing tests

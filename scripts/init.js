@@ -8,7 +8,7 @@ const glob = globModule.glob;
 
 // Initialize the workflow system
 export function initWorkflow(options) {
-  console.log(chalk.cyan('Initializing BambiLand Workflow System...'));
+  console.log(chalk.cyan('Initializing Cursor Workflow Workflow System...'));
   
   // Create necessary directories
   setupDirectories();
@@ -112,7 +112,7 @@ function createInitialTask() {
     const demoTask = {
       id: 1,
       title: 'Set Up Project Structure',
-      description: 'Initialize the project structure following the BambiLand standards',
+      description: 'Initialize the project structure following the Cursor Workflow standards',
       status: 'pending',
       priority: 'high',
       createdAt: new Date().toISOString(),
@@ -131,7 +131,7 @@ function createInitialTask() {
     content += `# Status: pending\n`;
     content += `# Dependencies: none\n`;
     content += `# Priority: high\n`;
-    content += `# Description: Initialize the project structure following the BambiLand standards\n\n`;
+    content += `# Description: Initialize the project structure following the Cursor Workflow standards\n\n`;
     content += `# Details:\n`;
     content += `Create the initial project structure following the guidelines in the project_structure rule. This includes setting up directories, configuration files, and basic components.\n\n`;
     content += `# Test Strategy:\n`;

@@ -3,10 +3,10 @@ description:
 globs: 
 alwaysApply: true
 ---
-**BambiLand Styling Standards**
+**Cursor Workflow Styling Standards**
 
 ## Description
-Styling standards for the BambiLand React Native application with pink-themed "bimbo/barbie" aesthetic.
+Styling standards for the Cursor Workflow React Native application with pink-themed "bimbo/barbie" aesthetic.
 
 ## Applies to
 **/*.{js,jsx,ts,tsx}

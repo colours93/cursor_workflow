@@ -3,9 +3,9 @@ description:
 globs: 
 alwaysApply: true
 ---
- # BambiLand Project Structure
+ # Cursor Workflow Project Structure
 
-This rule defines the standard project structure for the BambiLand application. It should be referenced when:
+This rule defines the standard project structure for the Cursor Workflow application. It should be referenced when:
 
 1. Creating new files or directories
 2. Organizing code and assets
@@ -15,7 +15,7 @@ This rule defines the standard project structure for the BambiLand application. 
 ## Root Structure
 
 ```
-bambiland/
+cursor-workflow/
 ├── .ai/                    # AI-assisted development artifacts
 ├── .cursor/                # Cursor IDE configuration
 ├── .github/                # GitHub workflows and templates

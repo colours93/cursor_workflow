@@ -2,9 +2,9 @@
 
 /**
  * dev.js
- * BambiLand Workflow - Task and Rule Management
+ * Cursor Workflow Workflow - Task and Rule Management
  * 
- * This is the entry point for the BambiLand Workflow system.
+ * This is the entry point for the Cursor Workflow Workflow system.
  * It provides a CLI for managing tasks and rules.
  */
 

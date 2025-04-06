@@ -10,7 +10,7 @@ import { initWorkflow } from './init.js';
 export function runCLI(argv) {
   program
     .version('1.0.0')
-    .description('BambiLand Workflow - Task and Rule Management');
+    .description('Cursor Workflow Workflow - Task and Rule Management');
 
   // Task Commands
   program

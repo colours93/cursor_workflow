@@ -3,7 +3,7 @@ description:
 globs: 
 alwaysApply: true
 ---
-*Let's break down how all these pieces connect for BambiLand. It's helpful to think in layers: Frontend, Backend (as serverless functions), Database/Auth Platform, and Payments.*
+*Let's break down how all these pieces connect for Cursor Workflow. It's helpful to think in layers: Frontend, Backend (as serverless functions), Database/Auth Platform, and Payments.*
 
 **1. Frontend (What the User Sees & Interacts With - Built with Next.js)**
 

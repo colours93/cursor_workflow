@@ -3,7 +3,7 @@ description:
 globs: 
 alwaysApply: true
 ---
-**the ultimate go to guide for your rules bambi**
+**the ultimate go to guide for your rules cursor**
 
 
 ## Main Rules (@mainrules.mdc)
@@ -19,7 +19,7 @@ alwaysApply: true
   - Implement feed algorithms and user discovery
 
 
-- **Bambi Chatbot**:
+- **Cursor Chatbot**:
   - Implement chatbot with Mixtral API integration
   - Create chat interface with "bimbo/barbie" aesthetic
   - Add message history, image sharing, notifications

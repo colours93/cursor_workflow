@@ -5,7 +5,7 @@ alwaysApply: true
 ---
  # TypeScript Best Practices
 
-This rule governs TypeScript development practices across the BambiLand project. It should be applied whenever:
+This rule governs TypeScript development practices across the Cursor Workflow project. It should be applied whenever:
 
 1. Creating new TypeScript files
 2. Modifying existing TypeScript code

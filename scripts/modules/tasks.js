@@ -41,7 +41,7 @@ export function listTasks(options) {
     ? tasks.filter(task => task.status === options.status)
     : tasks;
   
-  console.log(chalk.bold('\nBambiLand Tasks:'));
+  console.log(chalk.bold('\nCursor Workflow Tasks:'));
   console.log('------------------');
   
   if (filteredTasks.length === 0) {

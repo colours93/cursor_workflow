@@ -3,10 +3,10 @@ description:
 globs: 
 alwaysApply: true
 ---
-**BambiLand-Specific Guidelines**
+**Cursor Workflow-Specific Guidelines**
 
 ## Description
-Specialized guidelines for the BambiLand app's unique features and requirements.
+Specialized guidelines for the Cursor Workflow app's unique features and requirements.
 
 ## Applies to
 **/*.{js,jsx,ts,tsx}
@@ -29,8 +29,8 @@ Specialized guidelines for the BambiLand app's unique features and requirements.
 - Create proper user discovery features
 - Add proper notification system
 
-### Bambi Chatbot
-- Implement the Bambi chatbot with Mixtral API integration
+### Cursor Chatbot
+- Implement the Cursor chatbot with Mixtral API integration
 - Create proper chat interface with the "bimbo/barbie" aesthetic
 - Add proper message history and persistence
 - Implement proper chat features like image sharing

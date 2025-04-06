@@ -5,7 +5,7 @@ alwaysApply: true
 ---
  # Supabase Integration
 
-This rule governs how to properly integrate Supabase with the BambiLand application. Follow these guidelines when:
+This rule governs how to properly integrate Supabase with the Cursor Workflow application. Follow these guidelines when:
 
 1. Setting up Supabase authentication
 2. Creating or modifying database tables

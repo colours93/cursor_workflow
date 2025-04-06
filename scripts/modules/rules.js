@@ -55,7 +55,7 @@ export function loadRules() {
 export function listRules() {
   const rules = loadRules();
   
-  console.log(chalk.bold('\nBambiLand Development Rules:'));
+  console.log(chalk.bold('\nCursor Workflow Development Rules:'));
   console.log('---------------------------');
   
   if (rules.length === 0) {

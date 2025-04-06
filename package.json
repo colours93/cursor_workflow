@@ -1,5 +1,5 @@
 {
-  "name": "bambiland-workflow-system",
+  "name": "cursor-workflow-system",
   "version": "1.0.0",
   "description": "Task-driven development workflow system with rules-based guidance",
   "main": "scripts/dev.js",
@@ -21,7 +21,7 @@
     "cursor",
     "ai"
   ],
-  "author": "BambiLand",
+  "author": "Cursor Workflow",
   "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.2",

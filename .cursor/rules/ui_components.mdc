@@ -5,7 +5,7 @@ alwaysApply: false
 ---
  # UI Components
 
-This rule defines standards for UI component development in the BambiLand project. Follow these guidelines when:
+This rule defines standards for UI component development in the Cursor Workflow project. Follow these guidelines when:
 
 1. Creating new UI components
 2. Modifying existing components

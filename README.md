@@ -1,4 +1,4 @@
-# BambiLand Workflow System
+# Cursor Workflow System
 
 A task-driven development workflow system with rules-based guidance for AI-assisted software development.
 

@@ -1,6 +1,6 @@
-# BambiLand Workflow System Guide
+# Cursor Workflow System Guide
 
-This guide explains how to use the BambiLand Workflow System for task-driven, rule-based development.
+This guide explains how to use the Cursor Workflow System for task-driven, rule-based development.
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@ This guide explains how to use the BambiLand Workflow System for task-driven, ru
 
 ## Introduction
 
-The BambiLand Workflow System is designed to provide a structured approach to software development, integrating task management with development rules. This system helps teams:
+The Cursor Workflow System is designed to provide a structured approach to software development, integrating task management with development rules. This system helps teams:
 
 - Break complex projects into manageable tasks
 - Maintain consistent code standards
@@ -219,4 +219,4 @@ The workflow system is designed to work with Cursor AI:
 
 ## Conclusion
 
-The BambiLand Workflow System provides a structured approach to development that combines task management with rule-based guidance. By following this workflow, teams can maintain high-quality code, track progress effectively, and integrate AI assistance into their development process. 
+The Cursor Workflow System provides a structured approach to development that combines task management with rule-based guidance. By following this workflow, teams can maintain high-quality code, track progress effectively, and integrate AI assistance into their development process. 

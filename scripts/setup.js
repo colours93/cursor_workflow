@@ -2,9 +2,9 @@
 
 /**
  * setup.js
- * BambiLand Workflow - Setup Script
+ * Cursor Workflow Workflow - Setup Script
  * 
- * This script helps users set up the BambiLand Workflow system.
+ * This script helps users set up the Cursor Workflow Workflow system.
  */
 
 import fs from 'fs';
@@ -12,7 +12,7 @@ import path from 'path';
 import { execSync } from 'child_process';
 import chalk from 'chalk';
 
-console.log(chalk.cyan('Setting up BambiLand Workflow System...'));
+console.log(chalk.cyan('Setting up Cursor Workflow Workflow System...'));
 
 // Check if Node.js and npm are installed
 try {
@@ -53,7 +53,7 @@ try {
 }
 
 console.log(chalk.green('\nSetup complete!'));
-console.log('You can now use the BambiLand Workflow System:');
+console.log('You can now use the Cursor Workflow Workflow System:');
 console.log('  - Run ' + chalk.cyan('npm run workflow:list') + ' to list all tasks');
 console.log('  - Run ' + chalk.cyan('npm run workflow:rules') + ' to list all rules');
 console.log('  - Run ' + chalk.cyan('npm run workflow:next') + ' to show the next task to work on');
