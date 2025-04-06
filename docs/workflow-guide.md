@@ -157,71 +157,72 @@ PROJECT_VERSION=1.0.0
 The Cursor Workflow System consists of several interconnected components:
 
 ```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true, 'background': '#000000' }}}%%
 flowchart TD
     %% Force vertical layout with explicit subgraphs and direction
-    subgraph Flow
+    subgraph Flow [""]
         direction TB
         %% Entry point
-        CLI["<div style='font-size:24px; font-weight:bold'>⚙️ CLI Interface</div>
-             <div style='font-size:18px'><i>scripts/dev.js</i></div>"]
+        CLI["<div style='font-size:24px; font-weight:bold; color:#FFFFFF'>⚙️ CLI Interface</div>
+             <div style='font-size:18px; color:#FFFFFF'><i>scripts/dev.js</i></div>"]
         
         %% Command layer
-        CMD["<div style='font-size:24px; font-weight:bold'>🎮 Command Processor</div>
-             <div style='font-size:18px'><i>commands.js</i></div>"]
+        CMD["<div style='font-size:24px; font-weight:bold; color:#FFFFFF'>🎮 Command Processor</div>
+             <div style='font-size:18px; color:#FFFFFF'><i>commands.js</i></div>"]
         
         %% Core modules layer
-        subgraph Modules
+        subgraph Modules [""]
             direction TB
             %% Task Management
-            TASK["<div style='font-size:24px; font-weight:bold'>📋 Task Management</div>
-                <div style='font-size:18px'><i>tasks.js</i></div>"]
+            TASK["<div style='font-size:24px; font-weight:bold; color:#FFFFFF'>📋 Task Management</div>
+                <div style='font-size:18px; color:#FFFFFF'><i>tasks.js</i></div>"]
             
             %% Rule System
-            RULE["<div style='font-size:24px; font-weight:bold'>📜 Rule System</div>
-                <div style='font-size:18px'><i>rules.js</i></div>"]
+            RULE["<div style='font-size:24px; font-weight:bold; color:#FFFFFF'>📜 Rule System</div>
+                <div style='font-size:18px; color:#FFFFFF'><i>rules.js</i></div>"]
                 
             %% Reporting
-            REPORT["<div style='font-size:24px; font-weight:bold'>📊 HTML Reporting</div>
-                <div style='font-size:18px'><i>reports.js</i></div>"]
+            REPORT["<div style='font-size:24px; font-weight:bold; color:#FFFFFF'>📊 HTML Reporting</div>
+                <div style='font-size:18px; color:#FFFFFF'><i>reports.js</i></div>"]
         end
         
         %% Task submodules
-        subgraph TaskModules
+        subgraph TaskModules [""]
             direction TB
-            CMPLX["<div style='font-size:22px; font-weight:bold'>🔍 Complexity Analysis</div>
-                  <div style='font-size:16px'><i>complexity.js</i></div>"]
+            CMPLX["<div style='font-size:22px; font-weight:bold; color:#FFFFFF'>🔍 Complexity Analysis</div>
+                  <div style='font-size:16px; color:#FFFFFF'><i>complexity.js</i></div>"]
             
-            EXPAND["<div style='font-size:22px; font-weight:bold'>🔀 Task Expansion</div>
-                   <div style='font-size:16px'><i>expand.js</i></div>"]
+            EXPAND["<div style='font-size:22px; font-weight:bold; color:#FFFFFF'>🔀 Task Expansion</div>
+                   <div style='font-size:16px; color:#FFFFFF'><i>expand.js</i></div>"]
             
-            SCHED["<div style='font-size:22px; font-weight:bold'>📅 Task Scheduling</div>
-                  <div style='font-size:16px'><i>scheduler.js</i></div>"]
+            SCHED["<div style='font-size:22px; font-weight:bold; color:#FFFFFF'>📅 Task Scheduling</div>
+                  <div style='font-size:16px; color:#FFFFFF'><i>scheduler.js</i></div>"]
         end
         
         %% Rule submodules
-        subgraph RuleModules
+        subgraph RuleModules [""]
             direction TB
-            EVOL["<div style='font-size:22px; font-weight:bold'>🔄 Rule Evolution</div>
-                 <div style='font-size:16px'><i>evolution.js</i></div>"]
+            EVOL["<div style='font-size:22px; font-weight:bold; color:#FFFFFF'>🔄 Rule Evolution</div>
+                 <div style='font-size:16px; color:#FFFFFF'><i>evolution.js</i></div>"]
         end
         
         %% Storage layer
-        subgraph Storage
+        subgraph Storage [""]
             direction TB
-            JSON["<div style='font-size:20px; font-weight:bold'>📄 tasks.json</div>"]
-            TASKFILES["<div style='font-size:20px; font-weight:bold'>📑 Task Files</div>"]
-            RULEFILES["<div style='font-size:20px; font-weight:bold'>📝 Rule Files</div>"]
-            HTML["<div style='font-size:20px; font-weight:bold'>📈 HTML Reports</div>"]
+            JSON["<div style='font-size:20px; font-weight:bold; color:#FFFFFF'>📄 tasks.json</div>"]
+            TASKFILES["<div style='font-size:20px; font-weight:bold; color:#FFFFFF'>📑 Task Files</div>"]
+            RULEFILES["<div style='font-size:20px; font-weight:bold; color:#FFFFFF'>📝 Rule Files</div>"]
+            HTML["<div style='font-size:20px; font-weight:bold; color:#FFFFFF'>📈 HTML Reports</div>"]
         end
         
         %% External systems
-        subgraph External
+        subgraph External [""]
             direction TB
-            AI["<div style='font-size:20px; font-weight:bold'>🧠 AI Models</div>
-               <div style='font-size:16px'>Claude/GPT</div>"]
+            AI["<div style='font-size:20px; font-weight:bold; color:#FFFFFF'>🧠 AI Models</div>
+               <div style='font-size:16px; color:#FFFFFF'>Claude/GPT</div>"]
             
-            IDE["<div style='font-size:20px; font-weight:bold'>💻 Cursor IDE</div>
-                <div style='font-size:16px'>Editor integration</div>"]
+            IDE["<div style='font-size:20px; font-weight:bold; color:#FFFFFF'>💻 Cursor IDE</div>
+                <div style='font-size:16px; color:#FFFFFF'>Editor integration</div>"]
         end
     end
     
@@ -253,12 +254,12 @@ flowchart TD
     %% Reporting connections
     REPORT --> HTML
     
-    %% Style definitions - NARROW width to ensure vertical flow
-    classDef mainNode fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:black,width:280px,padding:10px,border-radius:10px;
-    classDef moduleNode fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:black,width:260px,padding:10px,border-radius:10px;
-    classDef submoduleNode fill:#ffe6cc,stroke:#d79b00,stroke-width:2px,color:black,width:240px,padding:8px,border-radius:8px;
-    classDef storageNode fill:#e1d5e7,stroke:#9673a6,stroke-width:2px,color:black,width:200px,padding:6px,border-radius:8px;
-    classDef externalNode fill:#f8cecc,stroke:#b85450,stroke-width:2px,color:black,width:200px,padding:6px,border-radius:8px;
+    %% Style definitions - VIBRANT colors on black background
+    classDef mainNode fill:#00C853,stroke:#00E676,stroke-width:3px,color:white,width:280px,padding:15px,border-radius:10px;
+    classDef moduleNode fill:#2979FF,stroke:#448AFF,stroke-width:3px,color:white,width:260px,padding:15px,border-radius:10px;
+    classDef submoduleNode fill:#FF9100,stroke:#FFAB40,stroke-width:3px,color:white,width:240px,padding:12px,border-radius:8px;
+    classDef storageNode fill:#AA00FF,stroke:#D500F9,stroke-width:3px,color:white,width:200px,padding:10px,border-radius:8px;
+    classDef externalNode fill:#FF1744,stroke:#FF5252,stroke-width:3px,color:white,width:200px,padding:10px,border-radius:8px;
     
     %% Apply styles to nodes
     class CLI,CMD mainNode;
@@ -267,9 +268,12 @@ flowchart TD
     class JSON,TASKFILES,RULEFILES,HTML storageNode;
     class AI,IDE externalNode;
     
-    %% Subgraph styling
-    classDef subgraphStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black;
-    class Modules,TaskModules,RuleModules,Storage,External subgraphStyle;
+    %% Link styling
+    linkStyle default stroke:#FFFFFF,stroke-width:2px;
+    
+    %% Subgraph styling for black background
+    classDef subgraphStyle fill:#000000,stroke:#333333,stroke-width:1px,color:#FFFFFF;
+    class Flow,Modules,TaskModules,RuleModules,Storage,External subgraphStyle;
 ```
 
 ### Core Modules
@@ -350,7 +354,7 @@ stateDiagram-v2
     Deferred: Postponed for later implementation
     Done: Completed and verified
 
-    classDef stateStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black
+    classDef stateStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:#FFFFFF
     class Creation,Pending,InProgress,Done,Blocked,Deferred stateStyle
 ```
 
@@ -388,10 +392,10 @@ graph TD
         H --> I
         I --> J["Task 10: Testing<br>🚫 blocked"]
         
-        classDef done fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:black;
-        classDef progress fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:black;
-        classDef pending fill:#f5f5f5,stroke:#666666,stroke-width:1px,color:black;
-        classDef blocked fill:#f8cecc,stroke:#b85450,stroke-width:2px,color:black;
+        classDef done fill:#d5e8d4,stroke:#82b366,stroke-width:3px,color:white;
+        classDef progress fill:#dae8fc,stroke:#6c8ebf,stroke-width:3px,color:white;
+        classDef pending fill:#f5f5f5,stroke:#666666,stroke-width:1px,color:#FFFFFF;
+        classDef blocked fill:#f8cecc,stroke:#b85450,stroke-width:3px,color:white;
         
         class A,B,E done;
         class C,H progress;
@@ -500,10 +504,10 @@ graph TD
         S --> T[Rule Updates]
         T --> B
         
-        classDef definition fill:#d5e8d4,stroke:#82b366,stroke-width:1px,color:black;
-        classDef application fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px,color:black;
-        classDef evolution fill:#ffe6cc,stroke:#d79b00,stroke-width:1px,color:black;
-        classDef type fill:#e1d5e7,stroke:#9673a6,stroke-width:1px,color:black;
+        classDef definition fill:#d5e8d4,stroke:#82b366,stroke-width:1px,color:#FFFFFF;
+        classDef application fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px,color:#FFFFFF;
+        classDef evolution fill:#ffe6cc,stroke:#d79b00,stroke-width:1px,color:#FFFFFF;
+        classDef type fill:#e1d5e7,stroke:#9673a6,stroke-width:1px,color:#FFFFFF;
         
         class B,C definition;
         class D,E,F,G,H type;
