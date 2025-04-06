@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+import { program } from 'commander';
+import dotenv from 'dotenv';
+import { runCLI } from './modules/commands.js';
+
 /**
  * dev.js
  * Cursor Workflow Workflow - Task and Rule Management
@@ -13,7 +17,8 @@ if (process.env.DEBUG === '1') {
   console.error('DEBUG - dev.js received args:', process.argv.slice(2));
 }
 
-import { runCLI } from './modules/commands.js';
+// Initialize environment variables
+dotenv.config();
 
 // Run the CLI with the process arguments
 runCLI(process.argv); 

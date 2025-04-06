@@ -2,7 +2,11 @@
   "name": "cursor-workflow-system",
   "version": "1.0.0",
   "description": "Task-driven development workflow system with rules-based guidance",
+  "type": "module",
   "main": "scripts/dev.js",
+  "bin": {
+    "cursor-workflow": "./scripts/dev.js"
+  },
   "scripts": {
     "dev": "node scripts/dev.js",
     "init": "node scripts/dev.js init",
@@ -11,7 +15,18 @@
     "expand": "node scripts/dev.js expand",
     "generate": "node scripts/dev.js generate",
     "show": "node scripts/dev.js show",
-    "set-status": "node scripts/dev.js set-status"
+    "set-status": "node scripts/dev.js set-status",
+    "analyze": "node scripts/dev.js analyze-complexity",
+    "schedule": "node scripts/dev.js schedule-tasks",
+    "report": "node scripts/dev.js generate-report",
+    "dashboard": "node scripts/dev.js generate-dashboard",
+    "workflow:list": "node scripts/dev.js list",
+    "workflow:rules": "node scripts/dev.js rule-list",
+    "workflow:next": "node scripts/dev.js next",
+    "workflow:expand": "node scripts/dev.js expand",
+    "workflow:verify": "node scripts/dev.js verify",
+    "workflow:analyze": "node scripts/dev.js analyze",
+    "workflow:suggest": "node scripts/dev.js suggest"
   },
   "keywords": [
     "workflow",
@@ -25,10 +40,10 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.2",
+    "commander": "^9.5.0",
+    "dotenv": "^16.4.7",
+    "fs-extra": "^11.3.0",
     "glob": "^8.0.3",
-    "commander": "^9.4.1",
-    "dotenv": "^16.0.3",
-    "fs-extra": "^11.1.1",
     "uuid": "^9.0.0"
   },
   "engines": {
@@ -36,6 +51,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/colours93/cursor_workflow.git"
-  }
-} 
+    "url": "git+https://github.com/colours93/cursor_workflow.git"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "bugs": {
+    "url": "https://github.com/colours93/cursor_workflow/issues"
+  },
+  "homepage": "https://github.com/colours93/cursor_workflow#readme"
+}

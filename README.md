@@ -1,181 +1,165 @@
 # Cursor Workflow System
 
-A task-driven development workflow system with rules-based guidance for AI-assisted software development.
+A comprehensive task-driven development workflow system with rules-based guidance for software development projects.
 
-## 🚀 Features
+## Features
 
-- Task management with subtasks, dependencies, and priorities
-- Rule-based development guidelines
-- Task complexity analysis and expansion
-- Progress tracking and visualization
-- AI-driven task breakdown
-- Integration with Cursor editor
+- **Task Management**: Create, organize, and track development tasks
+- **Task Complexity Analysis**: Analyze task complexity and suggest appropriate subtask breakdown
+- **Task Scheduling**: Schedule tasks based on priority, dependencies, and estimated time
+- **Task Expansion**: Break down complex tasks into manageable subtasks
+- **Rules-Based Guidance**: Define and enforce development best practices
+- **HTML Reports**: Generate visual dashboards and detailed task reports
+- **Project Evolution**: Track and manage changes to your development approach
 
-## 📋 System Components
+## Installation
 
-### 1. Task Management
+### Local Installation
 
-Tasks are stored in `tasks/tasks.json` and can be managed through various commands:
-
-- **List tasks**: View all tasks and their status
-- **Show task details**: Display details of a specific task
-- **Update task status**: Mark tasks as pending, in-progress, or done
-- **Expand tasks**: Break down complex tasks into manageable subtasks
-- **Analyze complexity**: Evaluate task complexity and suggest breakdown strategies
-
-### 2. Rules System
-
-Development rules provide guidance on code standards, architecture, and best practices:
-
-- Rules are stored in `.cursor/rules/`
-- Tasks reference applicable rules to follow during implementation
-- Rules can be organized in categories (core-rules, ts-rules, etc.)
-- The system helps AI tools access relevant rules for specific tasks
-
-### 3. Project Documentation
-
-The workflow supports comprehensive project documentation:
-
-- Architecture documents
-- Product requirements
-- User stories
-- Task details
-- Technical specifications
-
-## 🛠️ Getting Started
-
-### Installation
-
-1. Clone this repository:
-```
+```bash
+# Clone the repository
 git clone https://github.com/colours93/cursor_workflow.git
 cd cursor_workflow
-```
 
-2. Install dependencies:
-```
+# Install dependencies
 npm install
+
+# Run a command
+npm run dev
 ```
 
-3. Initialize the workflow system:
-```
-node scripts/dev.js init
-```
+### Global Installation
 
-### Basic Usage
+```bash
+# Install globally
+npm install -g cursor-workflow-system
 
-- **List all tasks**:
-```
-node scripts/dev.js list
+# Now you can use the CLI from anywhere
+cursor-workflow list
 ```
 
-- **See the next task to work on**:
-```
-node scripts/dev.js next
-```
+## Quick Start
 
-- **Expand a task into subtasks**:
-```
-node scripts/dev.js expand --id=<task_id> --num=<number_of_subtasks>
-```
+```bash
+# Initialize a new project
+cursor-workflow init
 
-- **Update task status**:
-```
-node scripts/dev.js set-status --id=<task_id> --status=<status>
-```
+# Or initialize with an existing PRD
+cursor-workflow parse-prd --input=path/to/prd.md
 
-- **Show task details**:
-```
-node scripts/dev.js show --id=<task_id>
-```
+# List tasks
+cursor-workflow list
 
-- **Generate individual task files**:
-```
-node scripts/dev.js generate
-```
+# Get the next task to work on
+cursor-workflow next
 
-## 📊 Workflow Process
+# Analyze task complexity
+cursor-workflow analyze-complexity
 
-1. **Initialize**: Set up the project structure and initial tasks
-2. **Plan**: Break down complex tasks into subtasks
-3. **Develop**: Implement features following applicable rules
-4. **Track**: Update task status as work progresses
-5. **Verify**: Test against acceptance criteria
-6. **Document**: Create and update documentation
+# Break down a complex task
+cursor-workflow expand --id=1
 
-## 🔄 Development Cycle
+# Schedule tasks based on priorities and dependencies
+cursor-workflow schedule-tasks
 
-The typical development cycle using this workflow is:
-
-1. Run `list` to see available tasks
-2. Select a task based on dependencies and priority
-3. Use `expand` to break down complex tasks
-4. Implement the task following relevant rules
-5. Update status when complete
-6. Verify against test criteria
-
-## 📝 Task Structure
-
-Tasks have the following structure:
-
-```json
-{
-  "id": 1,
-  "title": "Task Title",
-  "description": "Brief description",
-  "status": "pending",
-  "priority": "high",
-  "details": "Detailed implementation notes",
-  "testStrategy": "Verification approach",
-  "applicableRules": ["rule1", "rule2"],
-  "subtasks": [...]
-}
+# Generate HTML reports
+cursor-workflow generate-report --id=1
+cursor-workflow generate-dashboard
 ```
 
-## 📚 Rules Format
+## Command Reference
 
-Rules are stored in Markdown files with front matter:
+### Task Management
 
-```md
----
-description: Clear description of when to apply this rule
-globs: path/to/files/*.ext, other/path/**/*
-alwaysApply: boolean
----
+- `list`: List all tasks with their status
+- `show`: Show detailed information about a specific task
+- `next`: Get the next task to work on based on priority and dependencies
+- `set-status`: Update the status of a task
+- `add-dependency`: Add a dependency between tasks
+- `remove-dependency`: Remove a dependency between tasks
 
-# Rule Title
+### Task Analysis and Expansion
 
-## Critical Rules
+- `analyze-complexity`: Analyze task complexity and generate recommendations
+- `expand`: Break down a complex task into subtasks
+- `complexity-report`: Display the task complexity analysis report
 
-- Concise, bulleted list of actionable rules
+### Task Scheduling
 
-## Examples
+- `schedule-tasks`: Generate a schedule based on task priorities and dependencies
+- `set-due-date`: Set the due date for a task
+- `set-estimated-hours`: Set the estimated hours for a task
+- `set-priority`: Set the priority for a task
 
-<example>
-Valid example
-</example>
+### Reporting
 
-<example type="invalid">
-Invalid example
-</example>
+- `generate-report`: Generate an HTML report for a specific task
+- `generate-dashboard`: Generate an HTML dashboard for all tasks
+
+### Project Setup and Maintenance
+
+- `init`: Initialize a new project
+- `parse-prd`: Parse a PRD document and generate initial tasks
+- `generate`: Generate individual task files from tasks.json
+- `fix-dependencies`: Find and fix invalid dependencies
+- `validate-dependencies`: Check for invalid dependencies
+
+## Directory Structure
+
+```
+cursor_workflow/
+├── scripts/           # Core scripts and modules
+│   ├── modules/       # Functional modules
+│   └── dev.js         # Main CLI entry point
+├── tasks/             # Task files and data
+│   ├── examples/      # Example tasks
+│   └── tasks.json     # Task data store
+├── templates/         # Templates for tasks and rules
+├── reports/           # Generated HTML reports
+├── docs/              # Documentation
+└── .cursor/           # Cursor IDE configuration
+    └── rules/         # Rules for development guidance
 ```
 
-## 🔧 Commands Reference
+## Rules-Based Development
 
-| Command | Description | Example |
-|---------|-------------|---------|
-| `list` | List all tasks | `node scripts/dev.js list` |
-| `next` | Show next task to work on | `node scripts/dev.js next` |
-| `expand` | Break down task into subtasks | `node scripts/dev.js expand --id=1 --num=5` |
-| `set-status` | Update task status | `node scripts/dev.js set-status --id=1 --status=done` |
-| `show` | Show task details | `node scripts/dev.js show --id=1` |
-| `generate` | Generate task files | `node scripts/dev.js generate` |
-| `init` | Initialize workflow | `node scripts/dev.js init` |
+The Cursor Workflow System integrates with Cursor IDE's rules system to provide:
 
-## 📑 License
+- Development best practices
+- Code style guidelines
+- Architecture patterns
+- Testing standards
+- Project-specific conventions
 
-MIT
+Rules can be defined in the `.cursor/rules/` directory and will be automatically applied by Cursor IDE when working on relevant files.
 
-## 🤝 Contributing
+## Environment Variables
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/colours93/cursor_workflow/issues). 
+Create a `.env` file to customize your workflow:
+
+```
+# API Keys
+ANTHROPIC_API_KEY=sk-ant-api03-...
+
+# LLM Settings
+MODEL=claude-3-7-sonnet-20250219
+MAX_TOKENS=4000
+TEMPERATURE=0.7
+
+# Default Values
+DEFAULT_SUBTASKS=3
+DEFAULT_PRIORITY=medium
+DEFAULT_ESTIMATED_HOURS=4
+
+# Project Info
+PROJECT_NAME=My Amazing Project
+PROJECT_VERSION=1.0.0
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

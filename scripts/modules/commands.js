@@ -6,6 +6,9 @@ import { listRules, showRule, findRulesForTask, verifyTaskAgainstRules } from '.
 import { expandTask } from './expand.js';
 import { analyzeEvolution, suggestRuleUpdates, applyRuleUpdates } from './evolution.js';
 import { initWorkflow } from './init.js';
+import { analyzeComplexity } from './complexity.js';
+import { scheduleTasks, setPriority, setEstimatedHours, setDueDate } from './scheduler.js';
+import { generateTaskHtml, generateDashboard } from './reports.js';
 
 export function runCLI(argv) {
   program
@@ -103,6 +106,60 @@ export function runCLI(argv) {
     .description('Initialize the workflow system')
     .option('--import-rules <path>', 'Import rules from directory')
     .action(initWorkflow);
+
+  // Complexity Analysis Commands
+  program
+    .command('complexity')
+    .description('Analyze task complexity')
+    .option('--id <id>', 'Task ID')
+    .option('--file <file>', 'Task file path')
+    .option('--output <output>', 'Output file for report')
+    .action(analyzeComplexity);
+
+  // Scheduler Commands
+  program
+    .command('schedule')
+    .description('Generate task schedule')
+    .option('--file <file>', 'Tasks file path')
+    .option('--output <output>', 'Output schedule file')
+    .action(scheduleTasks);
+
+  program
+    .command('set-priority')
+    .description('Set task priority')
+    .option('--id <id>', 'Task ID')
+    .option('--priority <priority>', 'Priority level (low, medium, high, critical)')
+    .action(setPriority);
+
+  program
+    .command('set-hours')
+    .description('Set estimated hours for task')
+    .option('--id <id>', 'Task ID')
+    .option('--hours <hours>', 'Estimated hours')
+    .action(setEstimatedHours);
+
+  program
+    .command('set-due')
+    .description('Set due date for task')
+    .option('--id <id>', 'Task ID')
+    .option('--date <date>', 'Due date (YYYY-MM-DD)')
+    .action(setDueDate);
+
+  // Report Commands
+  program
+    .command('report')
+    .description('Generate HTML report for a task')
+    .option('--id <id>', 'Task ID')
+    .option('--file <file>', 'Tasks file path')
+    .option('--output <output>', 'Output HTML file')
+    .action(generateTaskHtml);
+
+  program
+    .command('dashboard')
+    .description('Generate HTML dashboard for all tasks')
+    .option('--file <file>', 'Tasks file path')
+    .option('--output <output>', 'Output HTML file')
+    .action(generateDashboard);
 
   program.parse(argv);
 }
