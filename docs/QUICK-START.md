@@ -81,15 +81,15 @@ Cursor Workflow shines when paired with Cursor AI:
 ## Visual Guide
 
 ```mermaid
-graph TB
-    A["Create Tasks<br><i>Define what needs to be built</i>"] -->|Parse PRD or Add Task| B["Analyze Complexity<br><i>Understand task difficulty</i>"]
-    B -->|Identify Complex Tasks| C["Break Down Tasks<br><i>Split into manageable pieces</i>"]
-    C -->|Create Subtasks| D["Implement Tasks<br><i>Write actual code</i>"]
-    D -->|Code & Test| E["Track Progress<br><i>Monitor status & updates</i>"]
-    E -->|Update Status| F["Complete Tasks<br><i>Mark work as finished</i>"]
+flowchart TB
+    A["(Creation)<br><i>Define what needs to be built</i>"] -->|Parse PRD or Add Task| B["(Analysis)<br><i>Understand task difficulty</i>"]
+    B -->|Identify Complex Tasks| C["(Breakdown)<br><i>Split into manageable pieces</i>"]
+    C -->|Create Subtasks| D["(Implementation)<br><i>Write actual code</i>"]
+    D -->|Code & Test| E["(Tracking)<br><i>Monitor status & updates</i>"]
+    E -->|Update Status| F["(Completion)<br><i>Mark work as finished</i>"]
     F -->|Mark as Done| A
     
-    classDef stateStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black,width:250px,padding:10px
+    classDef stateStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black,width:250px,padding:10px,border-radius:8px
     class A,B,C,D,E,F stateStyle
     
     linkStyle default stroke:#333,stroke-width:1.5px,color:black
