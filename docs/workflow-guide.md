@@ -482,6 +482,7 @@ The scheduler generates a timeline that:
 ## Rule System
 
 ```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true, 'background': '#000000' }}}%%
 graph TD
     subgraph "Rule System Overview"
         A[Developer] --> B[Rule Definition]
@@ -505,10 +506,10 @@ graph TD
         S --> T[Rule Updates]
         T --> B
         
-        classDef definition fill:#d5e8d4,stroke:#82b366,stroke-width:1px,color:#FFFFFF;
-        classDef application fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px,color:#FFFFFF;
-        classDef evolution fill:#ffe6cc,stroke:#d79b00,stroke-width:1px,color:#FFFFFF;
-        classDef type fill:#e1d5e7,stroke:#9673a6,stroke-width:1px,color:#FFFFFF;
+        classDef definition fill:#00C853,stroke:#00E676,stroke-width:3px,color:white;
+        classDef application fill:#2979FF,stroke:#448AFF,stroke-width:3px,color:white;
+        classDef evolution fill:#FF9100,stroke:#FFAB40,stroke-width:3px,color:white;
+        classDef type fill:#AA00FF,stroke:#D500F9,stroke-width:3px,color:white;
         
         class B,C definition;
         class D,E,F,G,H type;
