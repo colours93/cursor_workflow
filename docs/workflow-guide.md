@@ -157,60 +157,50 @@ PROJECT_VERSION=1.0.0
 The Cursor Workflow System consists of several interconnected components:
 
 ```mermaid
-flowchart TD
-    %% Main CLI interface
-    CLI["CLI Interface<br><i>scripts/dev.js</i>"]
-    
-    %% Command layer
-    Commands["Command Definitions<br><i>commands.js</i>"]
-    
-    %% Core modules
-    subgraph CoreModules["Core Functionality"]
-        direction TB
-        Tasks["Task Management<br><i>tasks.js</i>"]
-        Rules["Rule System<br><i>rules.js</i>"]
+graph TD
+    subgraph "Cursor Workflow System 🚀"
+        CLI["⚙️ CLI Interface<br><i>scripts/dev.js</i><br><i>User command entry point</i>"]
+        
+        subgraph "Core Module System 📦"
+            Tasks["📋 Task Management<br><i>tasks.js</i><br><i>Create, update, and track tasks</i>"]
+            Rules["📜 Rule System<br><i>rules.js</i><br><i>Define and apply coding standards</i>"]
+            Analysis["🔍 Complexity Analysis<br><i>complexity.js</i><br><i>Evaluate task difficulty</i>"]
+            Scheduler["📅 Task Scheduling<br><i>scheduler.js</i><br><i>Prioritize and sequence work</i>"]
+            Reports["📊 HTML Reporting<br><i>reports.js</i><br><i>Generate visual dashboards</i>"]
+            Evolution["🔄 Rule Evolution<br><i>evolution.js</i><br><i>Improve standards over time</i>"]
+            Expand["🔀 Task Expansion<br><i>expand.js</i><br><i>Break down complex tasks</i>"]
+        end
+        
+        Commands["🎮 Command Definitions<br><i>commands.js</i><br><i>Process user commands</i>"]
     end
     
-    %% Advanced modules
-    subgraph AdvancedModules["Advanced Features"]
-        direction TB
-        Analysis["Complexity Analysis<br><i>complexity.js</i>"]
-        Scheduler["Task Scheduling<br><i>scheduler.js</i>"]
-        Reports["HTML Reporting<br><i>reports.js</i>"]
-        Evolution["Rule Evolution<br><i>evolution.js</i>"]
-        Expand["Task Expansion<br><i>expand.js</i>"]
+    subgraph "Storage Components 💾"
+        TasksJSON["📄 tasks.json<br><i>Main task database</i>"]
+        TaskFiles["📑 Task MD Files<br><i>Individual task details</i>"]
+        RuleFiles["📝 Rule MDC Files<br><i>Coding standards definitions</i>"]
+        HTMLReports["📈 HTML Reports<br><i>Generated visualizations</i>"]
     end
     
-    %% Storage elements
-    subgraph StorageSystem["Storage"]
-        direction TB
-        TasksJSON["tasks.json<br><i>Task Database</i>"]
-        TaskFiles["Task MD Files<br><i>Task Details</i>"]
-        RuleFiles["Rule MDC Files<br><i>Coding Standards</i>"]
-        HTMLReports["HTML Reports<br><i>Dashboards</i>"]
+    subgraph "External Systems 🌐"
+        LLMAPI["🧠 AI Models<br><i>Claude/GPT</i><br><i>Generate content & analysis</i>"]
+        IDE["💻 Cursor IDE<br><i>Editor integration</i><br><i>Apply rules while coding</i>"]
     end
     
-    %% External systems
-    subgraph ExternalSystems["External Systems"]
-        direction TB
-        LLMAPI["AI Models<br><i>Claude/GPT</i>"]
-        IDE["Cursor IDE<br><i>Editor Integration</i>"]
-    end
+    CLI --> Commands
     
-    %% Main flow
-    CLI ==> Commands
+    Commands --> Tasks
+    Commands --> Rules
+    Commands --> Analysis
+    Commands --> Scheduler
+    Commands --> Reports
+    Commands --> Evolution
+    Commands --> Expand
     
-    %% Command connections
-    Commands ==> CoreModules
-    Commands ==> AdvancedModules
-    
-    %% Storage connections
     Tasks <--> TasksJSON
     Tasks <--> TaskFiles
     Rules <--> RuleFiles
     Reports --> HTMLReports
     
-    %% External connections
     Analysis <--> LLMAPI
     Expand <--> LLMAPI
     Evolution <--> LLMAPI
@@ -218,27 +208,34 @@ flowchart TD
     IDE <--> Rules
     IDE <--> Tasks
     
-    %% Styling
-    classDef default fill:#f8f8f8,stroke:#333,stroke-width:1px,color:black,width:280px,padding:15px,margin:20px,font-size:14px
-    classDef container fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black,padding:20px
+    classDef cliStyle fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:black,width:250px,padding:15px;
+    classDef moduleStyle fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:black,width:300px,padding:15px;
+    classDef commandStyle fill:#fff2cc,stroke:#d6b656,stroke-width:2px,color:black,width:250px,padding:15px;
+    classDef storageStyle fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:black,width:250px,padding:15px;
+    classDef externalStyle fill:#ffe6cc,stroke:#d79b00,stroke-width:2px,color:black,width:250px,padding:15px;
+    classDef subgraphStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black,padding:20px;
     
-    class CLI,Commands default
-    class CoreModules,AdvancedModules,StorageSystem,ExternalSystems container
-    
-    %% Connection styling
-    linkStyle default stroke:#333,stroke-width:2px
+    class CLI cliStyle;
+    class Tasks,Rules,Analysis,Scheduler,Reports,Evolution,Expand moduleStyle;
+    class Commands commandStyle;
+    class TasksJSON,TaskFiles,RuleFiles,HTMLReports storageStyle;
+    class LLMAPI,IDE externalStyle;
 ```
 
-### Core Components
+### Core Modules
 
-The system architecture consists of these main elements:
+The system is organized into modular components:
 
-1. **CLI Interface** - Entry point for users to interact with the system
-2. **Command Layer** - Handles user commands and interactions
-3. **Core Modules** - Handles core task and rule management
-4. **Advanced Modules** - Handles advanced features like complexity analysis and scheduling
-5. **Storage System** - Manages task and rule data
-6. **External Systems** - Integrates with AI models and editor integration
+- **tasks.js**: Core task management functionality
+- **rules.js**: Rule definition, loading, and application
+- **complexity.js**: Task complexity analysis
+- **scheduler.js**: Task scheduling and prioritization
+- **reports.js**: HTML report generation
+- **evolution.js**: Rule evolution and suggestion
+- **expand.js**: Task expansion into subtasks
+- **commands.js**: CLI command definitions
+
+These modules work together to provide a cohesive workflow system that handles all aspects of task-driven development.
 
 ## Task Management
 
