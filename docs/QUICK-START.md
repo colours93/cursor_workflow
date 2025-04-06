@@ -80,15 +80,48 @@ Cursor Workflow shines when paired with Cursor AI:
 
 ## Visual Guide
 
-```
-TASKS → ANALYSIS → BREAKDOWN → IMPLEMENTATION → TRACKING
+```mermaid
+graph LR
+    A[Create Tasks] -->|Parse PRD or Add Task| B[Analyze Complexity]
+    B -->|Identify Complex Tasks| C[Break Down Tasks]
+    C -->|Create Subtasks| D[Implement Tasks]
+    D -->|Code & Test| E[Track Progress]
+    E -->|Update Status| F[Complete Tasks]
+    F -->|Mark as Done| A
+    
+    style A fill:#f9d5e5,stroke:#333,stroke-width:2px
+    style B fill:#fbf0f0,stroke:#333,stroke-width:2px
+    style C fill:#daeaf6,stroke:#333,stroke-width:2px
+    style D fill:#c8eed9,stroke:#333,stroke-width:2px
+    style E fill:#ffe2c8,stroke:#333,stroke-width:2px
+    style F fill:#d7bde2,stroke:#333,stroke-width:2px
 ```
 
-1. **TASKS**: Define what needs to be done
-2. **ANALYSIS**: Understand the complexity
-3. **BREAKDOWN**: Split into manageable pieces
-4. **IMPLEMENTATION**: Do the actual work
-5. **TRACKING**: Monitor progress
+The Cursor Workflow process:
+
+1. **Create Tasks**: Define what needs to be done
+2. **Analyze Complexity**: Understand task difficulty and scope
+3. **Break Down Tasks**: Split complex tasks into manageable subtasks
+4. **Implement Tasks**: Do the actual development work
+5. **Track Progress**: Monitor and update task status
+6. **Complete Tasks**: Finish and verify work, then move to new tasks
+
+## Task Lifecycle
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending
+    Pending --> InProgress: start work
+    InProgress --> Done: complete
+    InProgress --> Deferred: postpone
+    Deferred --> Pending: reprioritize
+    Done --> [*]
+    
+    note right of Pending: Ready to be worked on
+    note right of InProgress: Currently being worked on
+    note right of Done: Completed and verified
+    note right of Deferred: Postponed for later
+```
 
 ## Need Help?
 

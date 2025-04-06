@@ -156,24 +156,66 @@ PROJECT_VERSION=1.0.0
 
 The Cursor Workflow System consists of several interconnected components:
 
-### Directory Structure
-
-```
-cursor_workflow/
-├── .cursor/                # Cursor IDE configuration
-│   └── rules/              # Rule definitions in .mdc format
-├── scripts/                # System scripts
-│   ├── modules/            # Functional modules 
-│   └── dev.js              # Main CLI entry point
-├── tasks/                  # Task data
-│   ├── tasks.json          # Task database
-│   └── task-*.md           # Individual task files
-├── templates/              # Templates for tasks and rules
-├── reports/                # Generated HTML reports
-├── docs/                   # Documentation
-│   └── workflow-guide.md   # This guide
-└── .env                    # Environment variables
-```
+```mermaid
+graph TD
+    subgraph System ["Cursor Workflow System"]
+        CLI[CLI Interface<br>scripts/dev.js]
+        Tasks[Task Management<br>tasks.js]
+        Rules[Rule System<br>rules.js]
+        Analysis[Complexity Analysis<br>complexity.js]
+        Scheduler[Task Scheduling<br>scheduler.js]
+        Reports[HTML Reporting<br>reports.js]
+        Evolution[Rule Evolution<br>evolution.js]
+        Expand[Task Expansion<br>expand.js]
+        Commands[Command Definitions<br>commands.js]
+    end
+    
+    subgraph Storage ["Storage"]
+        TasksJSON[tasks.json]
+        TaskFiles[Task MD Files]
+        RuleFiles[Rule MDC Files]
+        HTMLReports[HTML Reports]
+    end
+    
+    subgraph External ["External Systems"]
+        LLMAPI[AI Models<br>Claude/GPT]
+        IDE[Cursor IDE]
+    end
+    
+    CLI --> Commands
+    Commands --> Tasks
+    Commands --> Rules
+    Commands --> Analysis
+    Commands --> Scheduler
+    Commands --> Reports
+    Commands --> Evolution
+    Commands --> Expand
+    
+    Tasks <--> TasksJSON
+    Tasks <--> TaskFiles
+    Rules <--> RuleFiles
+    Reports --> HTMLReports
+    
+    Analysis <--> LLMAPI
+    Expand <--> LLMAPI
+    Evolution <--> LLMAPI
+    
+    IDE <--> Rules
+    IDE <--> Tasks
+    
+    style System fill:#f5f5f5,stroke:#333,stroke-width:1px
+    style Storage fill:#e8f4f8,stroke:#333,stroke-width:1px  
+    style External fill:#f9f2e6,stroke:#333,stroke-width:1px
+    style CLI fill:#d5e8d4,stroke:#333,stroke-width:2px
+    
+    classDef module fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px;
+    classDef storage fill:#d5e8d4,stroke:#82b366,stroke-width:1px;
+    classDef external fill:#ffe6cc,stroke:#d79b00,stroke-width:1px;
+    
+    class Tasks,Rules,Analysis,Scheduler,Reports,Evolution,Expand,Commands module;
+    class TasksJSON,TaskFiles,RuleFiles,HTMLReports storage;
+    class LLMAPI,IDE external;
+</code_block_to_apply_changes_from>
 
 ### Core Modules
 
@@ -232,6 +274,28 @@ Each task is stored in `tasks/tasks.json` and can optionally have a correspondin
 
 Tasks move through a defined lifecycle:
 
+```mermaid
+stateDiagram-v2
+    direction LR
+    
+    [*] --> Creation: New task
+    Creation --> Pending: Initial state
+    Pending --> InProgress: start work
+    InProgress --> Done: complete
+    InProgress --> Blocked: dependency not met
+    InProgress --> Deferred: postpone
+    Blocked --> Pending: dependency resolved
+    Deferred --> Pending: reprioritize
+    Done --> [*]: finished
+    
+    Creation: Task is created from PRD or manually
+    Pending: Ready to be worked on
+    InProgress: Currently being implemented
+    Blocked: Cannot proceed due to dependencies
+    Deferred: Postponed for later implementation
+    Done: Completed and verified
+```
+
 1. **Creation**: Tasks are created by parsing a PRD, manually adding them, or breaking down larger tasks
 2. **Pending**: Initial state for tasks awaiting implementation
 3. **In Progress**: Tasks currently being worked on
@@ -248,6 +312,35 @@ cursor-workflow set-status --id=3 --status=in-progress
 ### Task Dependencies
 
 Tasks can depend on other tasks, creating a directed acyclic graph (DAG) of work:
+
+```mermaid
+graph TD
+    subgraph "Task Dependencies Example"
+        A["Task 1: Project Setup<br>✅ done"] --> B["Task 2: Database Schema<br>✅ done"]
+        A --> C["Task 3: Auth System<br>🔄 in-progress"]
+        B --> D["Task 4: API Endpoints<br>⏳ pending"]
+        C --> D
+        B --> E["Task 5: Data Models<br>✅ done"]
+        E --> F["Task 6: Backend Logic<br>⏳ pending"]
+        D --> F
+        C --> G["Task 7: Frontend Auth<br>⏳ pending"]
+        E --> H["Task 8: UI Components<br>🔄 in-progress"]
+        F --> I["Task 9: Integration<br>🚫 blocked"]
+        G --> I
+        H --> I
+        I --> J["Task 10: Testing<br>🚫 blocked"]
+        
+        classDef done fill:#d5e8d4,stroke:#82b366,stroke-width:2px;
+        classDef progress fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px;
+        classDef pending fill:#f5f5f5,stroke:#666666,stroke-width:1px;
+        classDef blocked fill:#f8cecc,stroke:#b85450,stroke-width:2px;
+        
+        class A,B,E done;
+        class C,H progress;
+        class D,F,G pending;
+        class I,J blocked;
+    end
+```
 
 ```bash
 # Make task 5 dependent on task 3
@@ -324,6 +417,43 @@ The scheduler generates a timeline that:
 - Warns about tight deadlines or bottlenecks
 
 ## Rule System
+
+```mermaid
+graph TD
+    subgraph "Rule System Overview"
+        A[Developer] --> B[Rule Definition]
+        B --> C{Rule Type}
+        C -->|Core Rules| D[Fundamental Project Rules]
+        C -->|TS Rules| E[TypeScript Standards]
+        C -->|Tool Rules| F[Tool Usage Guidelines]
+        C -->|UI Rules| G[UI Standards]
+        C -->|Global Rules| H[Universal Standards]
+        
+        I[Task] --> J[Rule Application]
+        J --> K{How Applied}
+        K -->|Manual| L[Developer Reference]
+        K -->|Task Association| M[Task Metadata]
+        K -->|Automatic| N[Cursor IDE]
+        K -->|Verification| O[Code Check]
+        
+        P[Project Evolution] --> Q[Rule Evolution]
+        Q --> R[Pattern Analysis]
+        R --> S[Suggestions]
+        S --> T[Rule Updates]
+        T --> B
+        
+        classDef definition fill:#d5e8d4,stroke:#82b366,stroke-width:1px;
+        classDef application fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px;
+        classDef evolution fill:#ffe6cc,stroke:#d79b00,stroke-width:1px;
+        classDef type fill:#e1d5e7,stroke:#9673a6,stroke-width:1px;
+        
+        class B,C definition;
+        class D,E,F,G,H type;
+        class I,J,K application;
+        class L,M,N,O application;
+        class P,Q,R,S,T evolution;
+    end
+```
 
 ### Rule Structure
 
@@ -530,6 +660,61 @@ The dashboard provides:
 | `dashboard` | Generate project dashboard | `cursor-workflow dashboard` |
 
 ## Workflow Patterns
+
+```mermaid
+flowchart TD
+    subgraph "Cursor Workflow Patterns"
+        direction TB
+        
+        subgraph "Start New Project"
+            A1[Initialize System] --> A2[Create Rules]
+            A2 --> A3[Parse PRD]
+            A3 --> A4[Analyze Tasks]
+            A4 --> A5[Expand Complex Tasks]
+            A5 --> A6[Schedule Tasks]
+        end
+        
+        subgraph "Daily Development"
+            B1[Check Next Task] --> B2[Review Details]
+            B2 --> B3[Start Working]
+            B3 --> B4[Follow Rules]
+            B4 --> B5[Mark Complete]
+            B5 --> B6[Update Dashboard]
+            B6 --> B1
+        end
+        
+        subgraph "Task Creation"
+            C1[Create Task] --> C2[Analyze Complexity]
+            C2 --> C3[Expand to Subtasks]
+            C3 --> C4[Set Dependencies]
+            C4 --> C5[Assign Priorities]
+            C5 --> C6[Generate Files]
+        end
+        
+        subgraph "Task Completion"
+            D1[Implement Task] --> D2[Verify Against Rules]
+            D2 --> D3[Run Tests]
+            D3 --> D4[Mark Complete]
+            D4 --> D5[Generate Report]
+            D5 --> D6[Update Dashboard]
+        end
+        
+        A6 -.-> B1
+        B6 -.-> C1
+        C6 -.-> D1
+        D6 -.-> B1
+        
+        classDef start fill:#d5e8d4,stroke:#82b366,stroke-width:1px;
+        classDef daily fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px;
+        classDef creation fill:#ffe6cc,stroke:#d79b00,stroke-width:1px;
+        classDef completion fill:#e1d5e7,stroke:#9673a6,stroke-width:1px;
+        
+        class A1,A2,A3,A4,A5,A6 start;
+        class B1,B2,B3,B4,B5,B6 daily;
+        class C1,C2,C3,C4,C5,C6 creation;
+        class D1,D2,D3,D4,D5,D6 completion;
+    end
+```
 
 ### Starting a New Project
 
