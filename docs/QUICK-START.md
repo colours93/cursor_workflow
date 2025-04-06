@@ -1,6 +1,6 @@
 # Cursor Workflow: Quick Start Guide
 
-Welcome to Cursor Workflow! This guide will help you get started quickly with this powerful task management system for developers.
+This is for new cursor users to help keep track of their project.
 
 ## What is Cursor Workflow?
 
