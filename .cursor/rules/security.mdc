@@ -1,0 +1,82 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+**Security Rules (STRICT VERSION)**
+
+## DO NOT
+- DO NOT store sensitive data in plain text
+- DO NOT disable certificate validation
+- DO NOT ignore authentication requirements
+- DO NOT log sensitive information
+- DO NOT bypass security checks for convenience
+
+## Required Security Patterns
+- Implement certificate pinning for all network requests
+- Use secure storage for sensitive information
+- Implement biometric authentication for sensitive operations
+- Apply proper input validation for all user inputs
+- Implement proper token management with secure refresh
+
+## Implementation Steps
+1. Review security requirements for the specific task
+2. Identify sensitive data and operations
+3. Apply appropriate security patterns from above
+4. Test with security edge cases
+5. Document security considerations
+
+
+### OWASP Mobile Top 10 (2025) Compliance
+
+Ensure the app follows the latest OWASP Mobile Top 10 recommendations:
+
+1. **M1: Improper Credential Usage**
+   - Use secure storage for credentials
+   - Implement proper token management with refresh
+   - Require strong passwords or biometric authentication
+
+2. **M2: Insecure Data Storage**
+   - Use encrypted storage with proper key management
+   - Implement secure data purging
+   - Minimize sensitive data storage
+
+3. **M3: Insecure Communication**
+   - Implement certificate pinning
+   - Use TLS 1.3 with strong cipher suites
+   - Apply proper security headers
+
+4. **M4: Insecure Authentication**
+   - Implement multi-factor authentication
+   - Use biometrics with fallback mechanisms
+   - Apply proper session management
+
+5. **M5: Insufficient Cryptography**
+   - Use modern cryptographic algorithms (AES-256, RSA-4096)
+   - Implement proper key rotation
+   - Use secure random number generation
+
+6. **M6: Insecure Authorization**
+   - Implement proper role-based access control
+   - Verify all access server-side
+   - Use principle of least privilege
+
+7. **M7: Client Code Quality Issues**
+   - Use static code analysis
+   - Conduct security code reviews
+   - Implement proper error handling
+
+8. **M8: Code Tampering**
+   - Implement jailbreak/root detection
+   - Apply anti-tampering measures
+   - Use code obfuscation techniques
+
+9. **M9: Reverse Engineering**
+   - Implement code obfuscation
+   - Use anti-debugging techniques
+   - Apply proper app hardening
+
+10. **M10: Extraneous Functionality**
+    - Remove debug code in production
+    - Disable developer settings in production
+    - Properly secure test endpoints

@@ -1,0 +1,54 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+**BambiLand-Specific Guidelines**
+
+## Description
+Specialized guidelines for the BambiLand app's unique features and requirements.
+
+## Applies to
+**/*.{js,jsx,ts,tsx}
+
+## Rules
+
+###Supabase data backend
+-Use supabase for all data storage and user profiles
+-follow official docs
+
+###Stripe subscription for exclusive content
+-Implement stripe intergration with supabase
+-follow official docs
+
+### Social Media Features
+- Implement proper social media features with image/video sharing
+- Create proper post creation and editing functionality
+- Add proper like, comment, and share functionality
+- Implement proper feed algorithms
+- Create proper user discovery features
+- Add proper notification system
+
+### Bambi Chatbot
+- Implement the Bambi chatbot with Mixtral API integration
+- Create proper chat interface with the "bimbo/barbie" aesthetic
+- Add proper message history and persistence
+- Implement proper chat features like image sharing
+- Create proper chat notification system
+- Add proper chat moderation features
+
+### Reddit Integration
+- Implement proper Reddit account integration using OAuth
+- Create proper Reddit content fetching and display
+- Add proper Reddit interaction features
+- Implement proper Reddit notification handling
+- Create proper Reddit profile display
+- Add proper Reddit content sharing features
+
+### User Profile System
+- Create a comprehensive user profile system
+- Implement proper profile editing capabilities
+- Add proper profile statistics and achievements
+- Create proper profile privacy settings
+- Implement proper profile sharing features
+- Add proper profile verification features

@@ -1,0 +1,62 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+**BambiLand Styling Standards**
+
+## Description
+Styling standards for the BambiLand React Native application with pink-themed "bimbo/barbie" aesthetic.
+
+## Applies to
+**/*.{js,jsx,ts,tsx}
+
+## Rules
+
+### Color Palette
+- Primary Pink: `#FF69B4` (Hot Pink) - Primary buttons, titles, key UI elements
+- Secondary Pink: `#FFB6C1` (Light Pink) - Secondary text, backgrounds, accents
+- Background Gradient: Linear gradient from `#FFF0F5` (Lavender Blush) to `#FFFFFF` (White)
+- Accent Colors:
+  - `#FF1493` (Deep Pink) - Important actions, highlights
+  - `#FFC0CB` (Pink) - Subtle backgrounds, dividers
+  - `#FFFFFF` (White) - Card backgrounds, text on dark backgrounds
+  - `#000000` (Black) - Sparingly for text
+  - `#4CAF50` (Green) - Success states
+  - `#FF5252` (Red) - Error states
+  - `#FFC107` (Amber) - Warning states
+
+### Typography
+- Title Font:
+  - iOS: `Noteworthy-Bold` with italic styling
+  - Android: `Cursive` with italic styling
+  - Sizes: 24dp–30dp (main titles), 18dp–22dp (section titles)
+  - Color: `#FF69B4` (Hot Pink)
+  - Text Shadow: Subtle pink glow (`rgba(255, 105, 180, 0.3)`)
+  - Letter Spacing: 0.5px
+- Body Font:
+  - iOS: System font
+  - Android: `Roboto`
+  - Sizes: 14dp–16dp (primary text), 12dp (secondary text)
+  - Color: `#FFB6C1` (Light Pink), `#FF69B4` for emphasis
+  - Line Height: 1.5× font size
+
+### UI Elements
+- Buttons:
+  - Primary Button: 48dp height, 24dp corner radius, 24dp horizontal padding
+  - Secondary Button: 44dp height, 1dp border, 22dp corner radius
+  - Icon Button: 40dp × 40dp, minimum 44dp × 44dp touch target
+- Cards:
+  - Standard Card: 16dp padding, 16dp corner radius, 2dp shadow
+  - Featured Card: 280dp × 180dp, 16dp corner radius
+  - Post Card: Screen width - 32dp, 16dp padding, 16dp corner radius
+- Input Fields:
+  - Text Input: 48dp height, 8dp corner radius, 16dp padding
+  - Text Area: 120dp min height, 8dp corner radius, 16dp padding
+  - Search Input: 40dp height, 20dp corner radius, 16dp padding
+
+### Animation Language
+- Transitions: Spring animation (tension: 40, friction: 8), 300ms duration
+- Feedback: Scale 0.95×–1.05× on press
+- Loading: Pink pulsing or spinning gradient circles
+- Page Transitions: Slide and fade (300ms)

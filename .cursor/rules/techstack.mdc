@@ -1,0 +1,91 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+*Let's break down how all these pieces connect for BambiLand. It's helpful to think in layers: Frontend, Backend (as serverless functions), Database/Auth Platform, and Payments.*
+
+**1. Frontend (What the User Sees & Interacts With - Built with Next.js)**
+
+*   **Tech Stack:**
+    *   **Framework:** Next.js (using the App Router)
+    *   **UI Library:** React
+    *   **Language:** TypeScript
+    *   **Styling:** Tailwind CSS
+    *   **Runtime (Dev/Build):** Node.js
+    *   **Package Manager:** npm/npx
+    *   **API Client:** Supabase Client Library (JS/TS version for browsers)
+    *   **Payment Element Rendering:** Stripe.js (Client-side library)
+*   **How it Connects:**
+    *   **UI Rendering:** Next.js/React renders the HTML and components the user sees, styled with Tailwind utility classes. TypeScript ensures type safety in components and logic.
+    *   **User Authentication:** Uses the Supabase JS client library to interact *directly* with Supabase Auth for sign-up, login, and managing user sessions (JWTs). It knows if a user is logged in or not.
+    *   **Displaying Data:** Fetches general data or user-specific data by making authenticated requests to your Supabase Edge Functions (written in Deno).
+    *   **Initiating Payments:** When a user wants to subscribe, the frontend likely calls a specific Supabase Edge Function (Deno) to *initiate* the Stripe Checkout process.
+    *   **Handling Payments:** Might use Stripe.js to securely embed Stripe's payment form (Elements) directly in the frontend, based on information received from the backend function.
+
+**2. Backend Logic (Running as Serverless Functions - Hosted on Supabase)**
+
+*   **Tech Stack:**
+    *   **Runtime:** Deno
+    *   **Language:** TypeScript
+    *   **Hosting:** Supabase Edge Functions
+    *   **API Clients:**
+        *   Supabase Admin Client (Deno version - for secure DB/Auth access)
+        *   Stripe SDK (Deno/Node version - for interacting with Stripe API)
+*   **How it Connects:**
+    *   **Triggered by Frontend:** These functions are essentially API endpoints. The Next.js frontend calls them (e.g., using `fetch`).
+    *   **Secure Operations:** This is where sensitive actions happen. Because these functions run server-side (on Supabase's infrastructure), they can securely hold secrets like your Supabase Service Role Key and Stripe Secret Key.
+    *   **Interacting with Stripe:** When the frontend requests a subscription checkout, a Deno function receives the request, validates the user (using Supabase Admin client), and then uses the Stripe SDK (with the secret key) to:
+        *   Create a Stripe Customer if one doesn't exist (storing the `stripe_customer_id` back in the Supabase user profile).
+        *   Create a Stripe Checkout Session for the desired subscription plan.
+        *   Return the Checkout Session ID or URL back to the Next.js frontend.
+    *   **Handling Stripe Webhooks:** Stripe needs to tell your application when a payment succeeds or a subscription changes. It does this via **webhooks**. You'll create another Deno Edge Function specifically to *receive* these webhook events from Stripe. This function will:
+        *   Verify the webhook signature (using your Stripe webhook secret) to ensure it's genuinely from Stripe.
+        *   Process the event (e.g., `checkout.session.completed`).
+        *   Update the user's profile in the Supabase Database (e.g., set `subscription_status` to 'active' or store the subscription ID).
+    *   **Interacting with Supabase DB:** Securely reads/writes data to the Supabase database using the Supabase Admin client (e.g., updating subscription status, fetching protected data only the server should access).
+
+**3. Database & Authentication Platform**
+
+*   **Tech Stack:**
+    *   **Platform:** Supabase
+    *   **Database:** PostgreSQL
+    *   **Authentication:** Supabase Auth (handles JWTs, user management)
+*   **How it Connects:**
+    *   **Central Hub:** Stores all user data (profiles, `stripe_customer_id`, `subscription_status`, etc.) and application data.
+    *   **Authentication Source:** Manages user identities and sessions.
+    *   **Accessed By:**
+        *   Frontend (via Supabase JS Client) for auth and reading non-sensitive data.
+        *   Backend Deno Functions (via Supabase Admin Client) for secure reads/writes and user management tasks triggered by application logic or webhooks.
+
+**4. Payment Gateway**
+
+*   **Tech Stack:**
+    *   **Service:** Stripe
+*   **How it Connects:**
+    *   **API:** Provides APIs for creating customers, subscriptions, checkout sessions, processing payments. Called securely by the backend Deno functions.
+    *   **Webhooks:** Sends events (payment success, failures, subscription changes) back to a specific backend Deno function endpoint.
+    *   **Client-Side Library (Stripe.js):** Used by the frontend to securely collect payment details without them ever hitting your server directly.
+
+**Summary Flow (Subscription Example):**
+
+1.  User clicks "Subscribe" in **Next.js** app.
+2.  **Next.js** calls a "create-checkout-session" **Supabase Edge Function (Deno)**.
+3.  **Deno** function validates user (using **Supabase** Auth/DB), calls **Stripe** API to create checkout session.
+4.  **Deno** function returns Session ID to **Next.js**.
+5.  **Next.js** uses **Stripe.js** to redirect user to Stripe Checkout (or display Stripe Element).
+6.  User pays on **Stripe**.
+7.  **Stripe** sends `checkout.session.completed` webhook event to a different **Supabase Edge Function (Deno)**.
+8.  **Deno** webhook function verifies the event, updates the user's `subscription_status` in the **Supabase** database.
+9.  User is redirected back to **Next.js** app, which can now check the **Supabase** DB and see the user is subscribed, granting access to paid content.
+
+This architecture separates concerns: the **Next.js frontend** handles presentation and user interaction, **Supabase** provides the core database and auth, **Stripe** handles payments, and **Deno running on Supabase Edge Functions** acts as the secure intermediary logic connecting them all, especially for sensitive operations involving Stripe and database updates triggered by payments. **TypeScript** provides type safety across both frontend (Next.js) and backend (Deno functions), while **Tailwind** handles the frontend styling.
+
+*Summery*
+
+1.  **Next.js + Supabase:** This is a very common combination. Many guides and tutorials exist for using Next.js as the frontend with Supabase providing the backend database and authentication (Supabase Docs, Linode, JSTopics, Medium).
+2.  **Supabase Edge Functions (with Deno):** Supabase documentation explicitly states that Edge Functions are developed using **Deno** and are ideal for tasks like integrating with third-party services (like Stripe) and handling webhooks. (Supabase Docs, Restack.io).
+3.  **Stripe Integration via Edge Functions:** The pattern of using Supabase Edge Functions (written in Deno) to handle secure Stripe operations (like creating checkout sessions) and processing Stripe webhooks is explicitly documented by Supabase and discussed in community forums (Supabase Docs, Reddit, GitHub).
+4.  **Overall Flow:** The flow where the Next.js frontend initiates actions (like starting a checkout), calls backend logic (Edge Functions) for secure Stripe API interactions, and receives updates via Stripe webhooks handled by separate Edge Functions is a standard and recommended pattern (Medium articles, DEV Community, egghead.io).
+
+So, the plan to use Next.js for the frontend, Supabase for the DB/Auth, and Deno within Supabase Edge Functions for the secure backend logic connecting to Stripe is a sound and well-supported architecture.

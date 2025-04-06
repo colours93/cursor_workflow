@@ -1,0 +1,431 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+ # UI Components
+
+This rule defines standards for UI component development in the BambiLand project. Follow these guidelines when:
+
+1. Creating new UI components
+2. Modifying existing components
+3. Implementing layouts and pages
+4. Working with the design system
+5. Adding interactive elements
+
+## Component Architecture
+
+1. **Component Structure**:
+   - Keep components focused on a single responsibility
+   - Split complex components into smaller, reusable pieces
+   - Use composition over inheritance for component relationships
+   - Implement proper prop drilling or context for deeper component trees
+
+2. **Component Types**:
+   - **UI Primitives**: Base components like Button, Input, Card (in `components/ui/`)
+   - **Composite Components**: Components built from primitives (in feature directories)
+   - **Layout Components**: Page structure and layout (in `components/layout/`)
+   - **Page Components**: Main content for routes (in `app/` directories)
+   - **Feature Components**: Domain-specific components (in feature directories)
+
+3. **Component Organization**:
+   - Place reusable UI primitives in `components/ui/`
+   - Group related components in subdirectories
+   - Co-locate component tests, styles, and utilities
+
+## Component Styling
+
+1. **Tailwind Integration**:
+   - Use Tailwind CSS for consistent styling
+   - Follow utility-first approach
+   - Use Tailwind classes directly in JSX
+   - Create component variants using Tailwind classes
+
+```tsx
+// components/ui/Button/Button.tsx
+import { cva, type VariantProps } from 'class-variance-authority';
+import { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
+
+const buttonVariants = cva(
+  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background',
+  {
+    variants: {
+      variant: {
+        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        outline: 'border border-input hover:bg-accent hover:text-accent-foreground',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'underline-offset-4 hover:underline text-primary',
+      },
+      size: {
+        default: 'h-10 py-2 px-4',
+        sm: 'h-9 px-3 rounded-md',
+        lg: 'h-11 px-8 rounded-md',
+        icon: 'h-10 w-10',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  }
+);
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    return (
+      <button
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+
+Button.displayName = 'Button';
+
+export { Button, buttonVariants };
+```
+
+2. **Style Organization**:
+   - Use component-specific styles for complex components
+   - Create shared styles for common patterns
+   - Define theme variables in the Tailwind config
+   - Use CSS variables for dynamic theming
+
+3. **Custom Styling**:
+   - Use `@apply` sparingly and only for complex, reusable patterns
+   - Prefer CSS-in-JS or CSS Modules for component-specific styles
+   - Use consistent naming patterns for CSS classes
+
+## Accessibility
+
+1. **WAI-ARIA Compliance**:
+   - Add appropriate ARIA attributes when needed
+   - Implement proper keyboard navigation
+   - Use semantic HTML elements
+   - Ensure proper focus management
+
+```tsx
+// Example of accessible accordion component
+function Accordion({ items }) {
+  return (
+    <div className="w-full">
+      {items.map((item, i) => (
+        <AccordionItem
+          key={i}
+          title={item.title}
+          content={item.content}
+          id={`accordion-item-${i}`}
+        />
+      ))}
+    </div>
+  );
+}
+
+function AccordionItem({ title, content, id }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const contentId = `${id}-content`;
+  const headingId = `${id}-heading`;
+
+  return (
+    <div className="border-b border-gray-200">
+      <h3>
+        <button
+          id={headingId}
+          aria-expanded={isOpen}
+          aria-controls={contentId}
+          className="flex justify-between w-full py-4 text-left"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {title}
+          <span aria-hidden="true">{isOpen ? '−' : '+'}</span>
+        </button>
+      </h3>
+      {isOpen && (
+        <div 
+          id={contentId}
+          role="region"
+          aria-labelledby={headingId}
+          className="pb-4"
+        >
+          {content}
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+2. **Color and Contrast**:
+   - Maintain WCAG 2.1 AA compliance for color contrast
+   - Provide alternative text for images and icons
+   - Design for color blindness and other visual impairments
+   - Test with accessibility tools
+
+3. **Screen Reader Support**:
+   - Use proper heading hierarchy
+   - Implement skip links for navigation
+   - Add descriptive labels for interactive elements
+   - Test with screen readers
+
+## Component Documentation
+
+1. **Component Props**:
+   - Document all props with TypeScript interfaces
+   - Add JSDoc comments for complex props
+   - Provide default values where appropriate
+   - Use strict prop types
+
+```tsx
+/**
+ * Tooltip component that displays additional information on hover
+ */
+interface TooltipProps {
+  /**
+   * The content to display inside the tooltip
+   */
+  content: React.ReactNode;
+  
+  /**
+   * The element that triggers the tooltip
+   */
+  children: React.ReactNode;
+  
+  /**
+   * The position of the tooltip relative to the trigger
+   * @default 'top'
+   */
+  position?: 'top' | 'right' | 'bottom' | 'left';
+  
+  /**
+   * Delay in ms before showing the tooltip
+   * @default 300
+   */
+  delay?: number;
+}
+```
+
+2. **Component Examples**:
+   - Provide usage examples in comments or documentation
+   - Document component variants and states
+   - Create Storybook stories for visual documentation
+
+3. **Design System Integration**:
+   - Link components to design system tokens
+   - Document spacing, sizing, and layout guidelines
+   - Maintain consistency with design specifications
+
+## Form Components
+
+1. **Form Structure**:
+   - Use consistent form layout patterns
+   - Group related form fields
+   - Implement proper form validation
+   - Provide clear error messages
+
+2. **Form Controls**:
+   - Create reusable input components
+   - Implement accessible labels and help text
+   - Support different input states (focus, error, disabled)
+   - Use controlled components for form state
+
+```tsx
+// components/ui/Input/Input.tsx
+import { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
+
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  error?: string;
+  label?: string;
+  helperText?: string;
+}
+
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, error, label, helperText, id, ...props }, ref) => {
+    const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+    
+    return (
+      <div className="w-full">
+        {label && (
+          <label
+            htmlFor={inputId}
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            {label}
+          </label>
+        )}
+        <input
+          id={inputId}
+          className={cn(
+            "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            error && "border-red-500 focus-visible:ring-red-500",
+            className
+          )}
+          aria-invalid={!!error}
+          aria-describedby={
+            error 
+              ? `${inputId}-error` 
+              : helperText 
+              ? `${inputId}-description` 
+              : undefined
+          }
+          ref={ref}
+          {...props}
+        />
+        {helperText && !error && (
+          <p
+            id={`${inputId}-description`}
+            className="mt-1 text-sm text-gray-500"
+          >
+            {helperText}
+          </p>
+        )}
+        {error && (
+          <p
+            id={`${inputId}-error`}
+            className="mt-1 text-sm text-red-500"
+          >
+            {error}
+          </p>
+        )}
+      </div>
+    );
+  }
+);
+
+Input.displayName = 'Input';
+
+export { Input };
+```
+
+3. **Form Validation**:
+   - Use Zod or a similar library for schema validation
+   - Provide inline validation feedback
+   - Support server-side validation errors
+   - Implement consistent error styles
+
+## Interactive Components
+
+1. **State Management**:
+   - Use React state for simple component state
+   - Implement useState/useReducer for complex state
+   - Add proper loading and error states
+   - Handle edge cases (empty states, errors, etc.)
+
+2. **Event Handling**:
+   - Use consistent patterns for event handlers
+   - Implement proper event types with TypeScript
+   - Use event delegation when appropriate
+   - Properly clean up event listeners
+
+3. **Animations and Transitions**:
+   - Use CSS transitions for simple animations
+   - Implement React Transition Group for complex transitions
+   - Ensure animations respect reduced motion preferences
+   - Keep animations subtle and purposeful
+
+## Responsive Design
+
+1. **Mobile-First Approach**:
+   - Design components for mobile first
+   - Use Tailwind's responsive modifiers
+   - Implement appropriate breakpoints
+   - Test on various screen sizes
+
+```tsx
+// Example of responsive layout
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  {items.map(item => (
+    <Card key={item.id} {...item} />
+  ))}
+</div>
+```
+
+2. **Adaptive Components**:
+   - Design components to adapt to container size
+   - Use flex and grid layouts for flexibility
+   - Implement responsive typography
+   - Handle touch vs. pointer interactions appropriately
+
+3. **Viewport Considerations**:
+   - Test on different device orientations
+   - Handle keyboard appearance on mobile
+   - Implement proper touch targets
+   - Consider device-specific behavior
+
+## Performance Optimization
+
+1. **Render Optimization**:
+   - Use React.memo for expensive components
+   - Implement useMemo and useCallback for memoization
+   - Avoid unnecessary renders
+   - Keep component tree depth reasonable
+
+2. **Bundle Size**:
+   - Minimize dependencies
+   - Use code splitting for large components
+   - Optimize images and assets
+   - Monitor bundle size changes
+
+3. **Loading States**:
+   - Implement appropriate loading indicators
+   - Use skeleton screens for perceived performance
+   - Add suspense boundaries
+   - Handle slow network conditions gracefully
+
+## Testing
+
+1. **Component Testing**:
+   - Write unit tests for all components
+   - Test component variations and states
+   - Use React Testing Library for tests
+   - Implement accessibility testing
+
+2. **Visual Testing**:
+   - Add snapshot tests for UI components
+   - Implement visual regression testing
+   - Test different themes and color modes
+   - Verify responsive behavior
+
+3. **Integration Testing**:
+   - Test component composition
+   - Verify interaction between components
+   - Test form submission flows
+   - Verify end-to-end user journeys
+
+## Common Patterns
+
+1. **Lists and Collections**:
+   - Implement virtualization for long lists
+   - Add proper keyboard navigation
+   - Support sorting and filtering
+   - Handle empty and loading states
+
+2. **Modal and Dialog Patterns**:
+   - Trap focus within modals
+   - Handle keyboard navigation (Escape to close)
+   - Implement proper z-index management
+   - Provide animation for opening/closing
+
+3. **Navigation Components**:
+   - Create accessible navigation menus
+   - Implement responsive navigation patterns
+   - Add proper active state indicators
+   - Support keyboard navigation
+
+4. **Error Handling Patterns**:
+   - Design consistent error states
+   - Implement recoverable error UIs
+   - Add retry mechanisms
+   - Provide helpful error messages

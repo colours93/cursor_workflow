@@ -1,0 +1,112 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+**the ultimate go to guide for your rules bambi**
+
+
+## Main Rules (@mainrules.mdc)
+- **Conent Subsciption Implementation**:
+  - Implement stripe subscription for ai art/content
+  - Create patreon style page 
+  
+
+
+- **Social Media Features**:
+  - Implement image/video sharing, post creation/editing
+  - Add like, comment, share functionality
+  - Implement feed algorithms and user discovery
+
+
+- **Bambi Chatbot**:
+  - Implement chatbot with Mixtral API integration
+  - Create chat interface with "bimbo/barbie" aesthetic
+  - Add message history, image sharing, notifications
+
+- **Reddit Integration**:
+  - Implement Reddit account integration using OAuth
+  - Create content fetching, display and interaction features
+
+- **User Profile System**:
+  - Create comprehensive user profile system
+  - Implement profile editing, statistics, achievements
+
+## Ultimate Belief (@ultimatebelief.mdc)
+- **Core Philosophy**: Prioritize simplicity, precision, and following directions exactly
+
+- **Fundamental Rules**:
+  - **Exact Scope Adherence**: Implement ONLY what was explicitly requested - nothing more
+  - **Minimalist Implementation**: Always start with the simplest possible solution
+  - **Respect Existing Code**: Match the style of existing code, don't "improve" working code
+  - **Communication Protocol**: Present analysis BEFORE implementation
+  - **Resource Efficiency**: Minimize tool usage to only what's necessary
+
+- **Implementation Guidelines**:
+  - Generate only the code needed for the specific request
+  - Don't create additional files unless requested
+  - Don't add dependencies without explicit permission
+  - Focus on correctness over completeness
+  - Test mentally before providing code
+
+- **Anti-Patterns to Avoid**:
+  - The Over-Engineer: Adding excessive abstractions, complex class hierarchies
+  - The File Wanderer: Touching unrelated files, creating new files without permission
+  - The Junior Impressor: Using complex solutions to show off, adding flashy features
+  - The Resource Hog: Making excessive tool calls, generating verbose responses
+
+## CONVERSATION VS TASK DISTINCTION
+- For QUESTIONS: Provide ONLY information and advice - NO code changes, NO files created, NO actions taken
+- For TASKS: Follow the task workflow below but WAIT for explicit confirmation before implementation
+- If unsure if something is a question or task, ASSUME IT'S A QUESTION and just provide information
+
+## TASK WORKFLOW (ONLY FOR EXPLICIT TASKS)
+1. ASSESS: Review cursor rules specifically relevant to this exact task (ignore irrelevant rules)
+2. RESEARCH: Use Brave Search MCP to find ONLY information directly related to the specific task:
+   a) Official documentation (primary source)
+   b) Community solutions for similar problems
+   c) GitHub examples of minimal implementations
+3. ANALYZE: Create a <feature>_guide.md with 2-3 options, always including the SIMPLEST POSSIBLE approach
+4. WAIT: Do NOT proceed with implementation until receiving explicit confirmation
+5. IMPLEMENT: After confirmation, execute the MINIMAL solution with NO additional features
+
+## ANTI-CLAUDE CODING PRINCIPLES
+- Implement ONLY what was explicitly requested - nothing more
+- Write the MINIMUM viable code to solve the problem
+- NEVER add "nice-to-have" features or "future-proofing"
+- NEVER modify files not specifically mentioned
+- NEVER rename variables/functions unless explicitly requested
+- NEVER restructure working code to make it "better"
+- NEVER add comments to existing code
+- MATCH existing coding style exactly
+
+## TOOL USAGE
+- Use tools ONLY when explicitly directed to perform a task
+- NEVER use tools when just answering questions
+- Be HONEST about tool capabilities
+- Use the MINIMUM number of tool calls needed
+- CONFIRM which tools are available before claiming limitations
+
+## IMPLEMENTATION REALITY CHECK
+- Always implement with REAL data sources and storage from the start
+- NEVER use mock data as an actual solution - only temporarily during development
+- All features must be testable with REAL APIs and data flows
+- Implement proper error handling for real-world scenarios
+- Test with actual authentication, network requests, and data persistence
+- Create REAL backend connections rather than simulated responses
+- NEVER suggest "we'll add the real implementation later" - do it right the first time
+
+## MODE AWARENESS
+- In NORMAL CHAT MODE: I cannot run tools or commands, only provide guidance
+- In AGENT MODE: I can use tools and execute commands following the task workflow
+- Always be clear about which mode I'm operating in
+- Never claim capabilities I don't have in my current mode
+
+## IMPLEMENTATION CHECKLIST (VERIFY BEFORE SUBMITTING)
+1. Does this implement EXACTLY what was requested? (no more, no less)
+2. Have I touched ONLY the files specifically mentioned?
+3. Is this the SIMPLEST possible solution?
+4. Have I removed ALL unnecessary code, comments, and features?
+5. Does this match the existing codebase style?
+6. Does it use REAL data implementation rather than mocks?
+7. Have I tested with real-world scenarios and edge cases?

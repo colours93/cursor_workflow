@@ -1,0 +1,176 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ # TypeScript Best Practices
+
+This rule governs TypeScript development practices across the BambiLand project. It should be applied whenever:
+
+1. Creating new TypeScript files
+2. Modifying existing TypeScript code
+3. Reviewing TypeScript-related code
+4. Making architectural decisions involving TypeScript
+5. Developing components, utilities, or API integrations
+
+## Type Safety
+
+1. **Strong Typing**:
+   - Explicitly define types for all variables, parameters, and return values
+   - Use interfaces and types to describe data structures
+   - Avoid using `any` type; use `unknown` if type is truly unknown
+   - Utilize TypeScript's utility types (`Partial`, `Pick`, `Omit`, etc.) when appropriate
+
+2. **Type Inference**:
+   - Allow TypeScript to infer types when the type is obvious
+   - Explicitly type function parameters and return values
+   - Use type inference for variables initialized with literal values
+
+3. **Nullable Types**:
+   - Use optional properties (`property?: type`) instead of union with `null` or `undefined`
+   - Use the nullish coalescing operator (`??`) for handling nullish values
+   - Use optional chaining (`?.`) for accessing nested properties
+
+## Type Definitions
+
+1. **Interfaces vs. Types**:
+   - Use `interface` for defining object shapes that may be extended
+   - Use `type` for unions, intersections, and simple object shapes
+   - Prefer extending interfaces over type intersections when possible
+
+2. **Naming Conventions**:
+   - Use PascalCase for interface and type names
+   - Prefix interfaces that describe React props with `Props` (e.g., `ButtonProps`)
+   - Use descriptive names that indicate the purpose
+
+3. **Organization**:
+   - Place shared type definitions in `src/types/` directory
+   - Group related interfaces and types in the same file
+   - Co-locate component-specific types with their components
+
+## React with TypeScript
+
+1. **Component Props**:
+   - Define prop interfaces for all components
+   - Use optional props with default values where appropriate
+   - Document prop purpose with JSDoc comments
+
+2. **Event Handling**:
+   - Use proper event types from React (`React.MouseEvent`, `React.ChangeEvent`, etc.)
+   - Type event handlers with appropriate parameter types
+   - Define callback prop types accurately
+
+3. **State Management**:
+   - Type state objects explicitly
+   - Use generic types for hooks (`useState<T>`, `useReducer<State, Action>`)
+   - Define action types for reducers
+
+## Advanced TypeScript
+
+1. **Generics**:
+   - Use generics for reusable components and functions
+   - Constrain generic types when necessary (`<T extends BaseType>`)
+   - Provide default types for generics when applicable
+
+2. **Discriminated Unions**:
+   - Use discriminated unions for state machines and complex objects
+   - Include a `type` property to discriminate between union variants
+   - Leverage exhaustive checks with discriminated unions
+
+3. **Utility Functions**:
+   - Create strongly typed utility functions
+   - Use function overloads for complex behavior
+   - Leverage generic constraints to ensure correct usage
+
+## Code Organization
+
+1. **File Structure**:
+   - Use `.ts` extension for pure TypeScript files
+   - Use `.tsx` extension for files containing JSX
+   - Group related types in dedicated type files
+
+2. **Import/Export**:
+   - Use named exports for most declarations
+   - Use default export only for primary component/function of a file
+   - Re-export related types from barrel files (`index.ts`)
+
+3. **Module Declarations**:
+   - Place third-party module declarations in `src/types/modules.d.ts`
+   - Use declaration merging to extend existing modules when needed
+   - Create separate declaration files for complex module declarations
+
+## Type Safety and API Integration
+
+1. **API Request/Response Types**:
+   - Define explicit types for API request and response objects
+   - Validate API responses against defined types
+   - Use zod or similar libraries for runtime type validation
+
+2. **Supabase Types**:
+   - Generate and use database types with Supabase CLI
+   - Define proper types for Supabase queries and mutations
+   - Use TypeScript to ensure type safety in database operations
+
+3. **Error Handling**:
+   - Create specific error types for different error scenarios
+   - Use discriminated unions for error handling
+   - Ensure errors are properly typed throughout the application
+
+## Best Practices
+
+1. **Type Guards**:
+   - Create custom type guards using `is` operator for complex type narrowing
+   - Use built-in type guards (`typeof`, `instanceof`) when appropriate
+   - Implement exhaustive type checking for switches and conditionals
+
+2. **Immutability**:
+   - Use `readonly` modifier for properties that should not change
+   - Use `Readonly<T>` and `ReadonlyArray<T>` for immutable data structures
+   - Use spread operators for creating modified copies of objects and arrays
+
+3. **Strictness**:
+   - Enable strict mode in `tsconfig.json`
+   - Enable all recommended TypeScript strict flags
+   - Use ESLint with TypeScript plugins to enforce best practices
+
+## Common Type Patterns
+
+1. **Form State**:
+```typescript
+interface FormState<T> {
+  values: T;
+  errors: Partial<Record<keyof T, string>>;
+  touched: Partial<Record<keyof T, boolean>>;
+  isSubmitting: boolean;
+  isValid: boolean;
+}
+```
+
+2. **API Response**:
+```typescript
+interface ApiResponse<T> {
+  data: T | null;
+  error: {
+    code: string;
+    message: string;
+  } | null;
+  isLoading: boolean;
+}
+```
+
+3. **Discriminated Union**:
+```typescript
+type AuthState = 
+  | { status: 'unauthenticated' }
+  | { status: 'authenticating' }
+  | { status: 'authenticated', user: User };
+```
+
+4. **Component Props with Children**:
+```typescript
+interface ContainerProps {
+  children: React.ReactNode;
+  className?: string;
+  testId?: string;
+}
+```

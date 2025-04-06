@@ -1,0 +1,341 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ # Supabase Integration
+
+This rule governs how to properly integrate Supabase with the BambiLand application. Follow these guidelines when:
+
+1. Setting up Supabase authentication
+2. Creating or modifying database tables
+3. Implementing data access patterns
+4. Extending Supabase functionality
+5. Managing realtime subscriptions
+
+## Authentication Setup
+
+1. **Client Configuration**:
+   - Create a Supabase client in `lib/supabase/client.ts`
+   - Implement appropriate error handling for authentication methods
+   - Use environment variables for Supabase URL and anon key
+
+```typescript
+// lib/supabase/client.ts
+import { createBrowserClient } from '@supabase/ssr';
+import { Database } from '@/types/database';
+
+export function createClient() {
+  return createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}
+```
+
+2. **Server-Side Authentication**:
+   - Create a separate server-side client in `lib/supabase/server.ts`
+   - Use cookies to maintain auth state between requests
+   - Implement middleware for protected routes
+
+```typescript
+// lib/supabase/server.ts
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
+import { Database } from '@/types/database';
+
+export function createServerClient() {
+  const cookieStore = cookies();
+  
+  return createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name) {
+          return cookieStore.get(name)?.value;
+        },
+        set(name, value, options) {
+          cookieStore.set(name, value, options);
+        },
+        remove(name, options) {
+          cookieStore.set(name, '', { ...options, maxAge: 0 });
+        },
+      },
+    }
+  );
+}
+```
+
+3. **Authentication Provider**:
+   - Create a context provider to handle auth state
+   - Implement auth hooks for components to use
+   - Handle auth state changes and syncing with backend
+
+## Database Schema
+
+1. **Table Structure**:
+   - Use appropriate PostgreSQL data types
+   - Implement proper foreign key constraints
+   - Define appropriate indexes for performance
+   - Use Row Level Security (RLS) for access control
+
+2. **Row Level Security**:
+   - Implement RLS policies for all tables
+   - Use JWT claims for user-specific policies
+   - Document policy intentions clearly
+   - Test policies thoroughly to ensure correct access
+
+Example RLS policy:
+
+```sql
+-- Allow users to only see their own data
+CREATE POLICY "Users can view their own profiles"
+  ON profiles
+  FOR SELECT
+  USING (auth.uid() = user_id);
+
+-- Allow users to update only their own data
+CREATE POLICY "Users can update their own profiles"
+  ON profiles
+  FOR UPDATE
+  USING (auth.uid() = user_id);
+```
+
+3. **Type Generation**:
+   - Use Supabase CLI to generate TypeScript types
+   - Store generated types in `types/database.ts`
+   - Keep types in sync with schema changes
+
+## Data Access Patterns
+
+1. **Query Structure**:
+   - Create service modules for related database operations
+   - Use strongly typed queries with TypeScript
+   - Implement error handling and validation
+
+```typescript
+// lib/supabase/services/profileService.ts
+import { createServerClient } from '@/lib/supabase/server';
+import type { Profile } from '@/types/database';
+
+export async function getProfile(userId: string): Promise<Profile | null> {
+  const supabase = createServerClient();
+  
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('user_id', userId)
+    .single();
+    
+  if (error) {
+    console.error('Error fetching profile:', error);
+    return null;
+  }
+  
+  return data;
+}
+```
+
+2. **Query Optimization**:
+   - Select only necessary columns
+   - Use appropriate filters to reduce data transfer
+   - Implement pagination for large datasets
+   - Use count() for pagination meta data
+
+3. **Transactions**:
+   - Use PostgreSQL functions for complex transactions
+   - Implement proper error handling and rollbacks
+   - Document transaction boundaries clearly
+
+## Realtime Subscriptions
+
+1. **Subscription Setup**:
+   - Create specialized hooks for realtime data
+   - Handle subscription cleanup on component unmount
+   - Implement proper error handling
+
+```typescript
+// hooks/useRealtimeData.ts
+import { useEffect, useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import type { RealtimeChannel } from '@supabase/supabase-js';
+
+export function useRealtimeData<T>(
+  table: string,
+  column: string,
+  value: string
+) {
+  const [data, setData] = useState<T | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  
+  useEffect(() => {
+    const supabase = createClient();
+    let channel: RealtimeChannel;
+    
+    async function fetchInitialData() {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from(table)
+          .select('*')
+          .eq(column, value)
+          .single();
+          
+        if (error) throw error;
+        setData(data);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error(String(err)));
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchInitialData();
+    
+    // Set up realtime subscription
+    channel = supabase
+      .channel(`${table}:${column}:${value}`)
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table,
+          filter: `${column}=eq.${value}`,
+        },
+        (payload) => {
+          if (payload.eventType === 'DELETE') {
+            setData(null);
+          } else {
+            setData(payload.new as T);
+          }
+        }
+      )
+      .subscribe();
+      
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [table, column, value]);
+  
+  return { data, loading, error };
+}
+```
+
+2. **Broadcast Changes**:
+   - Use database triggers to broadcast changes
+   - Implement proper filters for targeted subscriptions
+   - Document subscription patterns for developers
+
+## Storage
+
+1. **File Organization**:
+   - Create appropriate buckets for different file types
+   - Implement RLS policies for storage buckets
+   - Use proper file naming conventions
+
+2. **Upload Handling**:
+   - Create reusable upload components and hooks
+   - Implement file validation (size, type, etc.)
+   - Handle upload progress and errors gracefully
+
+```typescript
+// hooks/useFileUpload.ts
+import { useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
+
+export function useFileUpload(bucket: string) {
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<Error | null>(null);
+  
+  async function uploadFile(file: File, path: string) {
+    const supabase = createClient();
+    
+    try {
+      setUploading(true);
+      setProgress(0);
+      
+      const { error: uploadError } = await supabase.storage
+        .from(bucket)
+        .upload(path, file, {
+          onUploadProgress(progress) {
+            setProgress(Math.round((progress.loaded / progress.total) * 100));
+          },
+        });
+        
+      if (uploadError) throw uploadError;
+      
+      // Get public URL
+      const { data } = supabase.storage.from(bucket).getPublicUrl(path);
+      
+      return data.publicUrl;
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error(String(err)));
+      throw err;
+    } finally {
+      setUploading(false);
+    }
+  }
+  
+  return {
+    uploadFile,
+    uploading,
+    progress,
+    error,
+  };
+}
+```
+
+## Error Handling
+
+1. **Error Types**:
+   - Create specific error types for Supabase operations
+   - Handle common errors gracefully (auth, permission, network)
+   - Provide user-friendly error messages
+
+2. **Logging**:
+   - Log database errors with appropriate context
+   - Create error reporting for critical failures
+   - Implement proper error boundaries in UI
+
+## Environment Setup
+
+1. **Local Development**:
+   - Set up local Supabase instance using Docker
+   - Use Supabase CLI for development workflow
+   - Document environment setup process
+
+2. **Environment Variables**:
+   - Store Supabase credentials in `.env.local`
+   - Document required environment variables in `.env.example`
+   - Use different projects for development, testing, and production
+
+```
+# .env.example
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+```
+
+## Security Best Practices
+
+1. **Authentication Security**:
+   - Implement proper password policies
+   - Enable 2FA when necessary
+   - Use proper JWT validation
+   - Handle session timeouts appropriately
+
+2. **Data Security**:
+   - Never expose service role key to clients
+   - Use prepared statements for queries
+   - Validate input data before storage
+   - Sanitize data before display
+
+3. **API Security**:
+   - Use proper CORS settings
+   - Implement rate limiting
+   - Monitor for unusual patterns
+   - Regularly review RLS policies

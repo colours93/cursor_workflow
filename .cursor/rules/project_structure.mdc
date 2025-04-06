@@ -1,0 +1,253 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ # BambiLand Project Structure
+
+This rule defines the standard project structure for the BambiLand application. It should be referenced when:
+
+1. Creating new files or directories
+2. Organizing code and assets
+3. Planning project architecture
+4. Discussing where new features should be placed
+
+## Root Structure
+
+```
+bambiland/
+├── .ai/                    # AI-assisted development artifacts
+├── .cursor/                # Cursor IDE configuration
+├── .github/                # GitHub workflows and templates
+├── public/                 # Static assets served as-is
+├── src/                    # Application source code
+├── .env.example            # Example environment variables
+├── .eslintrc.js            # ESLint configuration
+├── .gitignore              # Git ignore rules
+├── next.config.js          # Next.js configuration
+├── package.json            # Dependencies and scripts
+├── README.md               # Project overview
+├── tailwind.config.js      # Tailwind CSS configuration
+└── tsconfig.json           # TypeScript configuration
+```
+
+## Source Code Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (auth)/             # Authentication routes group
+│   ├── (dashboard)/        # Dashboard routes group
+│   ├── (marketing)/        # Marketing/public routes group
+│   ├── api/                # API routes
+│   └── layout.tsx          # Root layout
+├── components/             # React components
+│   ├── auth/               # Authentication components
+│   ├── common/             # Shared/reusable components
+│   ├── dashboard/          # Dashboard components
+│   ├── layout/             # Layout components
+│   └── ui/                 # UI primitives
+├── config/                 # Configuration constants
+├── hooks/                  # Custom React hooks
+├── lib/                    # Utility libraries and functions
+│   ├── api/                # API client
+│   ├── auth/               # Authentication utilities
+│   ├── supabase/           # Supabase client and utilities
+│   └── validators/         # Input validation
+├── providers/              # React context providers
+├── styles/                 # Global styles and theme
+├── types/                  # TypeScript type definitions
+└── utils/                  # Utility functions
+```
+
+## Component Organization
+
+Components should be organized in a feature-based structure, with each feature having its own directory:
+
+```
+components/
+├── auth/                   # Authentication components
+│   ├── LoginForm.tsx
+│   ├── RegisterForm.tsx
+│   └── index.ts            # Re-exports (barrel file)
+├── common/                 # Shared components
+│   ├── ErrorBoundary.tsx
+│   ├── Loading.tsx
+│   └── index.ts
+├── ui/                     # UI primitives
+│   ├── Button/
+│   │   ├── Button.tsx
+│   │   ├── Button.test.tsx
+│   │   └── index.ts
+│   ├── Card/
+│   │   ├── Card.tsx
+│   │   ├── CardHeader.tsx
+│   │   ├── CardBody.tsx
+│   │   ├── CardFooter.tsx
+│   │   └── index.ts
+│   └── index.ts            # Re-exports all UI components
+```
+
+## App Router Structure
+
+The Next.js App Router structure organizes routes in route groups:
+
+```
+app/
+├── (auth)/                 # Authentication route group
+│   ├── login/
+│   │   └── page.tsx
+│   ├── register/
+│   │   └── page.tsx
+│   └── layout.tsx          # Auth layout (shared across auth pages)
+├── (dashboard)/            # Dashboard route group
+│   ├── dashboard/
+│   │   └── page.tsx
+│   ├── profile/
+│   │   └── page.tsx
+│   └── layout.tsx          # Dashboard layout
+├── (marketing)/            # Marketing/public route group
+│   ├── about/
+│   │   └── page.tsx
+│   ├── contact/
+│   │   └── page.tsx
+│   └── layout.tsx          # Marketing layout
+├── api/                    # API routes
+│   └── [...]/
+│       └── route.ts
+├── globals.css             # Global CSS
+├── layout.tsx              # Root layout
+└── page.tsx                # Homepage
+```
+
+## API Organization
+
+API routes should follow RESTful practices and be organized by resource:
+
+```
+app/api/
+├── auth/
+│   ├── login/
+│   │   └── route.ts        # POST /api/auth/login
+│   └── register/
+│       └── route.ts        # POST /api/auth/register
+├── users/
+│   ├── route.ts            # GET /api/users
+│   └── [id]/
+│       └── route.ts        # GET/PATCH/DELETE /api/users/[id]
+└── [...]/                  # Other API resources
+```
+
+## Type Definitions
+
+TypeScript type definitions should be organized by domain:
+
+```
+types/
+├── auth.ts                 # Authentication-related types
+├── api.ts                  # API-related types
+├── database.ts             # Database schema types (from Supabase)
+├── common.ts               # Common utility types
+└── index.ts                # Re-exports all types
+```
+
+## Asset Organization
+
+Assets should be organized by type:
+
+```
+public/
+├── favicon.ico
+├── images/                 # Image assets
+│   ├── logo.svg
+│   └── [...]/
+├── fonts/                  # Custom fonts
+└── [...]/                  # Other static assets
+```
+
+## Naming Conventions
+
+1. **Files and Directories**:
+   - Use PascalCase for React components: `Button.tsx`, `LoginForm.tsx`
+   - Use camelCase for utility files: `authUtils.ts`, `dateHelpers.ts`
+   - Use kebab-case for assets: `hero-image.png`, `background-pattern.svg`
+
+2. **Route Groups**:
+   - Enclose route groups in parentheses: `(auth)`, `(dashboard)`
+   - Use descriptive names that indicate the purpose of the group
+
+3. **Component Naming**:
+   - Name components based on their function: `UserProfile`, `LoginForm`
+   - Be specific and clear: prefer `UserProfileAvatar` over `ProfileImage`
+   - Use consistent prefixing for related components: `CardHeader`, `CardBody`, `CardFooter`
+
+## File Structure Guidelines
+
+1. **Component Files**:
+   - Each component should be in its own file
+   - Complex components may have multiple files in a directory
+   - Include an `index.ts` for re-exporting components
+
+2. **Route Structure**:
+   - Keep route components focused on data fetching and layout
+   - Extract business logic and UI into components
+   - Use `loading.tsx`, `error.tsx`, and `not-found.tsx` appropriately
+
+3. **Hook Organization**:
+   - Place custom hooks in the `hooks/` directory
+   - Name hooks with the prefix `use`: `useAuth`, `useForm`
+   - Group related hooks in subdirectories if needed
+
+## Best Practices
+
+1. **Importing Components**:
+   - Import from barrel files (`index.ts`) rather than direct paths
+   - Use absolute imports from the `src/` directory
+   - Group imports in a consistent order: React, external libraries, internal modules, types, styles
+
+2. **Creating New Features**:
+   - Add components to appropriate directories based on feature
+   - Create new directories for large features
+   - Update barrel files to re-export new components
+
+3. **Code Organization**:
+   - Keep files focused and not too large (under 300 lines as a guideline)
+   - Split large components into smaller, focused components
+   - Co-locate related files (component, test, styles)
+
+## Examples
+
+**Component Structure Example**:
+
+```tsx
+// src/components/auth/LoginForm.tsx
+import { useState } from 'react';
+import { Button, TextField } from '@/components/ui';
+import { useAuth } from '@/hooks/useAuth';
+import type { LoginCredentials } from '@/types/auth';
+
+interface LoginFormProps {
+  onSuccess?: () => void;
+  onError?: (error: Error) => void;
+}
+
+export function LoginForm({ onSuccess, onError }: LoginFormProps) {
+  // Component implementation
+}
+```
+
+**Page Structure Example**:
+
+```tsx
+// src/app/(auth)/login/page.tsx
+import { LoginForm } from '@/components/auth';
+import { AuthLayout } from '@/components/layout';
+
+export default function LoginPage() {
+  return (
+    <AuthLayout title="Log In">
+      <LoginForm />
+    </AuthLayout>
+  );
+}
+```

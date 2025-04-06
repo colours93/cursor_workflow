@@ -1,0 +1,571 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ # Testing Standards
+
+This rule defines the testing standards for the BambiLand project. Follow these guidelines when:
+
+1. Writing new tests
+2. Modifying existing tests
+3. Setting up testing infrastructure
+4. Reviewing test coverage
+5. Implementing new features that require testing
+
+## Test Types
+
+1. **Unit Tests**:
+   - Test individual functions, hooks, and components in isolation
+   - Mock dependencies and external services
+   - Focus on specific behavior and edge cases
+   - Keep tests small and focused
+
+2. **Integration Tests**:
+   - Test interactions between multiple components or services
+   - Verify that components work together correctly
+   - Test user flows that span multiple components
+   - Minimize mocking where possible
+
+3. **End-to-End Tests**:
+   - Test complete user flows from start to finish
+   - Use real browser environment
+   - Interact with the application as a user would
+   - Focus on critical user journeys
+
+4. **API Tests**:
+   - Test API endpoints for correct behavior
+   - Verify request/response formats
+   - Test error handling and edge cases
+   - Mock external dependencies
+
+## Testing Libraries
+
+1. **Primary Testing Tools**:
+   - **Jest**: Test runner and assertion library
+   - **React Testing Library**: Component testing
+   - **Cypress**: End-to-end testing
+   - **MSW (Mock Service Worker)**: API mocking
+
+2. **Testing Utilities**:
+   - Create reusable test utilities in `__tests__/utils/`
+   - Implement common testing patterns as helpers
+   - Provide mock data generators
+   - Create test fixtures for common scenarios
+
+## Test Organization
+
+1. **File Structure**:
+   - Co-locate unit tests with the code being tested
+   - Use `__tests__` directory for test files
+   - Name test files with `.test.tsx` or `.test.ts` extension
+   - Group related test files for integration tests
+
+```
+src/
+├── components/
+│   └── Button/
+│       ├── Button.tsx
+│       ├── Button.test.tsx
+│       └── index.ts
+├── hooks/
+│   ├── useAuth.ts
+│   └── useAuth.test.ts
+└── __tests__/
+    ├── integration/
+    │   └── auth-flow.test.tsx
+    ├── e2e/
+    │   └── login.spec.ts
+    └── utils/
+        └── test-utils.tsx
+```
+
+2. **Test Naming**:
+   - Use descriptive names that indicate what is being tested
+   - Follow a consistent naming pattern
+   - Group related tests with `describe` blocks
+   - Use clear test descriptions
+
+```typescript
+describe('Button component', () => {
+  describe('when variant is primary', () => {
+    it('renders with primary styles', () => {
+      // Test implementation
+    });
+    
+    it('applies hover styles correctly', () => {
+      // Test implementation
+    });
+  });
+  
+  describe('when disabled', () => {
+    it('has disabled attribute', () => {
+      // Test implementation
+    });
+    
+    it('does not trigger onClick when clicked', () => {
+      // Test implementation
+    });
+  });
+});
+```
+
+## Component Testing
+
+1. **Testing Approach**:
+   - Focus on component behavior, not implementation details
+   - Test from the user's perspective
+   - Verify rendered output and interactions
+   - Test accessibility features
+
+2. **Component Rendering**:
+   - Test that components render without errors
+   - Verify that correct elements are in the DOM
+   - Check that props are applied correctly
+   - Test different component states
+
+```typescript
+// components/Button/Button.test.tsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { Button } from './Button';
+
+describe('Button', () => {
+  it('renders with the correct text', () => {
+    render(<Button>Click me</Button>);
+    expect(screen.getByRole('button', { name: /click me/i })).toBeInTheDocument();
+  });
+  
+  it('calls onClick handler when clicked', async () => {
+    const handleClick = jest.fn();
+    render(<Button onClick={handleClick}>Click me</Button>);
+    
+    await userEvent.click(screen.getByRole('button'));
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+  
+  it('applies the correct classes based on variant', () => {
+    const { rerender } = render(<Button variant="primary">Primary</Button>);
+    expect(screen.getByRole('button')).toHaveClass('bg-primary');
+    
+    rerender(<Button variant="secondary">Secondary</Button>);
+    expect(screen.getByRole('button')).toHaveClass('bg-secondary');
+  });
+  
+  it('is disabled when disabled prop is true', () => {
+    render(<Button disabled>Disabled</Button>);
+    expect(screen.getByRole('button')).toBeDisabled();
+  });
+});
+```
+
+3. **Test Utilities**:
+   - Create a custom render function for components that need context
+   - Implement test providers for contexts
+   - Create helper functions for common test patterns
+
+```typescript
+// __tests__/utils/test-utils.tsx
+import { render, RenderOptions } from '@testing-library/react';
+import { ReactElement } from 'react';
+import { AuthProvider } from '@/providers/AuthProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+
+interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
+  withAuth?: boolean;
+  withTheme?: boolean;
+  authState?: {
+    user: any | null;
+    isAuthenticated: boolean;
+  };
+}
+
+function AllProviders({ 
+  children, 
+  authState = { user: null, isAuthenticated: false } 
+}: { 
+  children: React.ReactNode;
+  authState?: { user: any | null; isAuthenticated: boolean };
+}) {
+  return (
+    <ThemeProvider>
+      <AuthProvider initialState={authState}>
+        {children}
+      </AuthProvider>
+    </ThemeProvider>
+  );
+}
+
+function customRender(
+  ui: ReactElement,
+  options: CustomRenderOptions = {}
+) {
+  const { 
+    withAuth = true, 
+    withTheme = true, 
+    authState,
+    ...renderOptions 
+  } = options;
+  
+  if (withAuth || withTheme) {
+    return render(ui, {
+      wrapper: (props) => AllProviders({ ...props, authState }),
+      ...renderOptions,
+    });
+  }
+  
+  return render(ui, renderOptions);
+}
+
+export * from '@testing-library/react';
+export { customRender as render };
+```
+
+## Hook Testing
+
+1. **Testing Custom Hooks**:
+   - Use `renderHook` from `@testing-library/react-hooks`
+   - Test hook initialization, updates, and cleanup
+   - Verify that hooks respond correctly to prop changes
+   - Test error handling and edge cases
+
+```typescript
+// hooks/useCounter.test.ts
+import { renderHook, act } from '@testing-library/react-hooks';
+import { useCounter } from './useCounter';
+
+describe('useCounter', () => {
+  it('initializes with the provided value', () => {
+    const { result } = renderHook(() => useCounter(5));
+    expect(result.current.count).toBe(5);
+  });
+  
+  it('increments the count when increment is called', () => {
+    const { result } = renderHook(() => useCounter(0));
+    
+    act(() => {
+      result.current.increment();
+    });
+    
+    expect(result.current.count).toBe(1);
+  });
+  
+  it('decrements the count when decrement is called', () => {
+    const { result } = renderHook(() => useCounter(10));
+    
+    act(() => {
+      result.current.decrement();
+    });
+    
+    expect(result.current.count).toBe(9);
+  });
+  
+  it('updates when initialValue changes', () => {
+    const { result, rerender } = renderHook(
+      ({ initialValue }) => useCounter(initialValue),
+      { initialProps: { initialValue: 0 } }
+    );
+    
+    rerender({ initialValue: 10 });
+    
+    expect(result.current.count).toBe(10);
+  });
+});
+```
+
+2. **Context Testing**:
+   - Test context providers and consumers
+   - Verify that context values are correctly updated
+   - Test context interactions with components
+   - Use custom render functions for context testing
+
+## API Testing
+
+1. **API Mocking**:
+   - Use MSW to mock API responses
+   - Create handlers for different API scenarios
+   - Test successful responses and error cases
+   - Verify that components handle API responses correctly
+
+```typescript
+// __tests__/mocks/handlers.ts
+import { rest } from 'msw';
+
+export const handlers = [
+  rest.get('/api/users', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json([
+        { id: 1, name: 'User 1' },
+        { id: 2, name: 'User 2' },
+      ])
+    );
+  }),
+  
+  rest.get('/api/users/:id', (req, res, ctx) => {
+    const { id } = req.params;
+    
+    if (id === '999') {
+      return res(
+        ctx.status(404),
+        ctx.json({ message: 'User not found' })
+      );
+    }
+    
+    return res(
+      ctx.status(200),
+      ctx.json({ id: Number(id), name: `User ${id}` })
+    );
+  }),
+  
+  rest.post('/api/users', (req, res, ctx) => {
+    const { name } = req.body as any;
+    
+    if (!name) {
+      return res(
+        ctx.status(400),
+        ctx.json({ message: 'Name is required' })
+      );
+    }
+    
+    return res(
+      ctx.status(201),
+      ctx.json({ id: 3, name })
+    );
+  }),
+];
+```
+
+2. **API Integration Testing**:
+   - Test API client functions
+   - Verify request formats and parameters
+   - Test error handling and retries
+   - Mock Supabase responses for API tests
+
+## End-to-End Testing
+
+1. **Cypress Configuration**:
+   - Configure Cypress for e2e testing
+   - Create custom Cypress commands for common actions
+   - Set up test fixtures and mock data
+   - Implement authentication handling
+
+2. **Test Scenarios**:
+   - Test critical user flows
+   - Verify UI interactions and navigation
+   - Test form submission and validation
+   - Verify application state changes
+
+```typescript
+// cypress/e2e/auth.cy.ts
+describe('Authentication', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+  
+  it('allows a user to sign in', () => {
+    cy.visit('/login');
+    
+    cy.get('input[name="email"]').type('test@example.com');
+    cy.get('input[name="password"]').type('password123');
+    cy.get('button[type="submit"]').click();
+    
+    cy.url().should('include', '/dashboard');
+    cy.get('[data-testid="user-greeting"]').should('contain', 'Welcome back');
+  });
+  
+  it('shows validation errors for invalid inputs', () => {
+    cy.visit('/login');
+    
+    cy.get('input[name="email"]').type('invalid-email');
+    cy.get('button[type="submit"]').click();
+    
+    cy.get('[data-testid="email-error"]').should('be.visible');
+    cy.get('[data-testid="email-error"]').should('contain', 'valid email');
+  });
+  
+  it('redirects to requested page after login', () => {
+    cy.visit('/profile?redirect=true');
+    
+    // Should be redirected to login
+    cy.url().should('include', '/login');
+    
+    cy.get('input[name="email"]').type('test@example.com');
+    cy.get('input[name="password"]').type('password123');
+    cy.get('button[type="submit"]').click();
+    
+    // Should be redirected back to profile
+    cy.url().should('include', '/profile');
+  });
+});
+```
+
+## Test Coverage
+
+1. **Coverage Requirements**:
+   - Aim for minimum 80% code coverage
+   - Focus on business-critical components and utilities
+   - Ensure all user-facing components are tested
+   - Test edge cases and error scenarios
+
+2. **Coverage Reporting**:
+   - Configure Jest to generate coverage reports
+   - Include coverage reports in CI/CD pipeline
+   - Review coverage reports regularly
+   - Address low-coverage areas
+
+3. **Coverage Strategy**:
+   - Prioritize testing based on component complexity
+   - Test critical user flows completely
+   - Focus on user-facing functionality
+   - Ensure all error paths are tested
+
+## Testing Best Practices
+
+1. **Test Isolation**:
+   - Keep tests independent from each other
+   - Clean up after each test
+   - Avoid shared mutable state
+   - Reset mocks between tests
+
+2. **Test Readability**:
+   - Write clear, descriptive test names
+   - Use meaningful variable names
+   - Structure tests logically
+   - Add comments for complex test scenarios
+
+3. **Test Maintenance**:
+   - Avoid testing implementation details
+   - Use stable selectors (roles, data-testid)
+   - Refactor tests when components change
+   - Avoid brittle tests
+
+4. **Testing Anti-Patterns**:
+   - Avoid snapshot testing for complex components
+   - Don't test third-party libraries
+   - Avoid excessive mocking
+   - Don't test configuration files
+
+## Continuous Integration
+
+1. **CI Configuration**:
+   - Run tests on pull requests
+   - Include testing in CI/CD pipeline
+   - Prevent merging if tests fail
+   - Generate and publish test reports
+
+2. **Test Performance**:
+   - Optimize slow tests
+   - Run tests in parallel where possible
+   - Use test filtering for faster feedback
+   - Implement test caching
+
+## Mock Data
+
+1. **Mock Data Generation**:
+   - Create factories for test data
+   - Use realistic data patterns
+   - Share mock data between tests
+   - Version control test fixtures
+
+```typescript
+// __tests__/utils/factories.ts
+import { faker } from '@faker-js/faker';
+import { User, Profile, Post } from '@/types';
+
+export function createUser(overrides = {}): User {
+  return {
+    id: faker.string.uuid(),
+    email: faker.internet.email(),
+    createdAt: faker.date.recent().toISOString(),
+    updatedAt: faker.date.recent().toISOString(),
+    ...overrides,
+  };
+}
+
+export function createProfile(overrides = {}): Profile {
+  return {
+    id: faker.string.uuid(),
+    userId: faker.string.uuid(),
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    avatar: faker.image.avatar(),
+    bio: faker.lorem.paragraph(),
+    ...overrides,
+  };
+}
+
+export function createPost(overrides = {}): Post {
+  return {
+    id: faker.string.uuid(),
+    authorId: faker.string.uuid(),
+    title: faker.lorem.sentence(),
+    content: faker.lorem.paragraphs(),
+    published: true,
+    createdAt: faker.date.recent().toISOString(),
+    updatedAt: faker.date.recent().toISOString(),
+    ...overrides,
+  };
+}
+```
+
+2. **Test Fixtures**:
+   - Create JSON fixtures for complex data
+   - Use fixtures for e2e tests
+   - Maintain fixtures with schema changes
+   - Document fixture purpose and usage
+
+## Accessibility Testing
+
+1. **A11y Testing Approach**:
+   - Include accessibility tests for all components
+   - Test keyboard navigation
+   - Verify ARIA attributes
+   - Check color contrast
+
+2. **A11y Testing Tools**:
+   - Use jest-axe for automated accessibility testing
+   - Include manual accessibility testing
+   - Test with screen readers
+   - Verify tab order and focus management
+
+```typescript
+// components/Button/Button.test.tsx (with a11y testing)
+import { render, screen } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
+import { Button } from './Button';
+
+expect.extend(toHaveNoViolations);
+
+describe('Button accessibility', () => {
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Button>Accessible Button</Button>);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+  
+  it('has proper focus indicators', () => {
+    render(<Button>Focus Test</Button>);
+    const button = screen.getByRole('button');
+    
+    button.focus();
+    expect(button).toHaveFocus();
+    // Check that focus styles are applied
+    expect(button).toHaveClass('focus-visible:ring-2');
+  });
+});
+```
+
+## Test Documentation
+
+1. **Test Documentation Practices**:
+   - Document test setup and prerequisites
+   - Explain complex test scenarios
+   - Document testing patterns and conventions
+   - Provide examples for new test types
+
+2. **Test Code Comments**:
+   - Add comments for non-obvious test logic
+   - Document test fixtures and mock data
+   - Explain test edge cases
+   - Comment on why tests are structured in a certain way
