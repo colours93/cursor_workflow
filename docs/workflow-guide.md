@@ -160,7 +160,7 @@ The Cursor Workflow System consists of several interconnected components:
 %%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true, 'background': '#000000' }}}%%
 flowchart TD
     %% Force vertical layout with explicit subgraphs and direction
-    subgraph Flow [""]
+    subgraph Flow
         direction TB
         %% Entry point
         CLI["<div style='font-size:24px; font-weight:bold; color:#FFFFFF'>⚙️ CLI Interface</div>
@@ -171,7 +171,7 @@ flowchart TD
              <div style='font-size:18px; color:#FFFFFF'><i>commands.js</i></div>"]
         
         %% Core modules layer
-        subgraph Modules [""]
+        subgraph Modules
             direction TB
             %% Task Management
             TASK["<div style='font-size:24px; font-weight:bold; color:#FFFFFF'>📋 Task Management</div>
@@ -187,7 +187,7 @@ flowchart TD
         end
         
         %% Task submodules
-        subgraph TaskModules [""]
+        subgraph TaskModules
             direction TB
             CMPLX["<div style='font-size:22px; font-weight:bold; color:#FFFFFF'>🔍 Complexity Analysis</div>
                   <div style='font-size:16px; color:#FFFFFF'><i>complexity.js</i></div>"]
@@ -200,14 +200,14 @@ flowchart TD
         end
         
         %% Rule submodules
-        subgraph RuleModules [""]
+        subgraph RuleModules
             direction TB
             EVOL["<div style='font-size:22px; font-weight:bold; color:#FFFFFF'>🔄 Rule Evolution</div>
                  <div style='font-size:16px; color:#FFFFFF'><i>evolution.js</i></div>"]
         end
         
         %% Storage layer
-        subgraph Storage [""]
+        subgraph Storage
             direction TB
             JSON["<div style='font-size:20px; font-weight:bold; color:#FFFFFF'>📄 tasks.json</div>"]
             TASKFILES["<div style='font-size:20px; font-weight:bold; color:#FFFFFF'>📑 Task Files</div>"]
@@ -216,7 +216,7 @@ flowchart TD
         end
         
         %% External systems
-        subgraph External [""]
+        subgraph External
             direction TB
             AI["<div style='font-size:20px; font-weight:bold; color:#FFFFFF'>🧠 AI Models</div>
                <div style='font-size:16px; color:#FFFFFF'>Claude/GPT</div>"]
@@ -678,4 +678,128 @@ The dashboard provides:
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `set-status` | Update task status | `
+| `set-status` | Update task status | `cursor-workflow set-status --id=3 --status=in-progress` |
+
+### Rule Management Commands
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `rule-find` | Find rules applicable to a task | `cursor-workflow rule-find --task-id=5` |
+| `verify` | Verify implementation against rules | `cursor-workflow verify --task-id=5 --path=src/components/` |
+
+### Analysis Commands
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `analyze-complexity` | Analyze task complexity | `cursor-workflow analyze-complexity` |
+| `complexity-report` | Generate a human-readable complexity report | `cursor-workflow complexity-report` |
+
+### Reporting Commands
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `report` | Generate a detailed HTML report for a task | `cursor-workflow report --id=5` |
+| `dashboard` | Generate a project dashboard | `cursor-workflow dashboard` |
+
+## Workflow Patterns
+
+### Starting a New Project
+
+1. **Define Project Scope**: Clearly outline the project's goals, objectives, and deliverables.
+2. **Break Down Requirements**: Convert project scope into specific tasks and subtasks.
+3. **Assign Resources**: Allocate resources (time, team members) to each task.
+4. **Set Deadlines**: Establish realistic deadlines for task completion.
+5. **Monitor Progress**: Regularly review and update project progress.
+
+### Daily Development Workflow
+
+1. **Morning Standup**: Brief daily meeting to discuss tasks, progress, and blockers.
+2. **Task Prioritization**: Prioritize tasks based on urgency and importance.
+3. **Daily Task Completion**: Focus on completing tasks assigned for the day.
+4. **Evening Review**: Reflect on completed tasks and plan for the next day.
+
+### Task Creation and Breakdown
+
+1. **Task Identification**: Identify tasks based on project requirements and dependencies.
+2. **Subtask Creation**: Break down complex tasks into smaller, manageable subtasks.
+3. **Task Dependency Mapping**: Map dependencies between tasks to ensure smooth workflow.
+
+### Task Completion and Verification
+
+1. **Task Completion**: Complete tasks according to assigned deadlines.
+2. **Code Review**: Review completed code for adherence to rules and standards.
+3. **Verification**: Verify task completion through automated tests or manual inspection.
+
+## Integration with AI
+
+### Using with Cursor IDE
+
+The Cursor IDE integrates with the Cursor Workflow System to provide AI-assisted coding and task management.
+
+### AI-assisted Task Expansion
+
+AI can assist in expanding tasks into subtasks, providing suggestions for task breakdown and completion.
+
+### AI-driven Complexity Analysis
+
+AI can analyze task complexity and recommend subtasks, estimated time, and specialized expertise needed.
+
+## Customization
+
+### Environment Variables
+
+Configure the Cursor Workflow System with environment variables to customize behavior and integration.
+
+### Templates
+
+Use templates to standardize task creation and rule application across projects.
+
+## Advanced Features
+
+### Project Evolution
+
+The Cursor Workflow System supports project evolution by analyzing completed tasks and suggesting rule updates.
+
+### Task Metrics and Analysis
+
+The system provides detailed metrics and analysis for task completion, progress, and complexity.
+
+## Best Practices
+
+1. **Regular Task Review**: Regularly review and update tasks to reflect project changes and progress.
+2. **Task Dependency Management**: Ensure task dependencies are managed effectively to avoid delays.
+3. **Rule Compliance**: Regularly verify rule compliance to maintain code quality and consistency.
+4. **Documentation**: Document task and rule information for better understanding and collaboration.
+
+## Troubleshooting
+
+### Common Issues
+
+- **Dependency Integrity**: Ensure task dependencies are maintained and prevent circular dependencies.
+- **Rule Compliance**: Verify rule compliance to maintain code quality and consistency.
+- **Task Scheduling**: Adjust task scheduling to avoid tight deadlines or bottlenecks.
+
+### Solution Steps
+
+1. **Validate Dependencies**: Use the `validate-dependencies` command to check for dependency integrity.
+2. **Fix Invalid Dependencies**: Use the `fix-dependencies` command to automatically resolve invalid dependencies.
+3. **Analyze Complexity**: Use the `analyze-complexity` command to identify and address complexity issues.
+
+## Glossary
+
+- **Task**: A discrete unit of work that represents a specific development activity.
+- **Rule**: A development standard, coding convention, or best practice.
+- **Workflow**: The process of breaking down requirements into tasks, analyzing task complexity, scheduling tasks, implementing tasks, verifying completion, and evolving rules based on emerging patterns.
+- **Cursor IDE**: A development environment that integrates with the Cursor Workflow System for AI-assisted coding and task management.
+- **Complexity Analysis**: The process of analyzing task complexity to help with estimation and breakdown.
+- **Task Scheduling**: The process of scheduling tasks based on priority, dependencies, and estimated time.
+- **Rule System**: The system that defines development standards, coding conventions, and best practices.
+- **HTML Reporting**: The process of generating detailed HTML reports for individual tasks and a project dashboard showing overall progress.
+- **Command Reference**: The section that provides detailed information on available commands and their usage.
+- **Workflow Patterns**: The section that provides detailed information on starting a new project, daily development workflow, task creation and breakdown, and task completion and verification.
+- **Integration with AI**: The section that provides detailed information on using the Cursor IDE, AI-assisted task expansion, and AI-driven complexity analysis.
+- **Customization**: The section that provides detailed information on environment variables and templates.
+- **Advanced Features**: The section that provides detailed information on project evolution and task metrics and analysis.
+- **Best Practices**: The section that provides detailed information on regular task review, task dependency management, rule compliance, and documentation.
+- **Troubleshooting**: The section that provides detailed information on common issues and solution steps.
+- **Glossary**: The section that provides detailed information on key terms and definitions.
