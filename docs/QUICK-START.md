@@ -124,8 +124,11 @@ stateDiagram-v2
     note right of Done: Completed and verified
     note right of Deferred: Postponed for later
     
-    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px,color:black
-    classDef note fill:#fff5ad,stroke:#333,stroke-width:1px,color:black
+    classDef stateStyle fill:#f9f9f9,stroke:#333,stroke-width:1px,color:black
+    classDef noteStyle fill:#fff5ad,stroke:#333,stroke-width:1px,color:black
+    
+    class Pending,InProgress,Done,Deferred stateStyle
+    class note noteStyle
 ```
 
 ## Need Help?

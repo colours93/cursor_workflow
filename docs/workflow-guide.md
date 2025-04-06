@@ -295,7 +295,8 @@ stateDiagram-v2
     Deferred: Postponed for later implementation
     Done: Completed and verified
 
-    classDef default fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black
+    classDef stateStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black
+    class Creation,Pending,InProgress,Done,Blocked,Deferred stateStyle
 ```
 
 1. **Creation**: Tasks are created by parsing a PRD, manually adding them, or breaking down larger tasks
