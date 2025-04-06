@@ -376,6 +376,7 @@ cursor-workflow set-status --id=3 --status=in-progress
 Tasks can depend on other tasks, creating a directed acyclic graph (DAG) of work:
 
 ```mermaid
+%%{init: {'theme': 'dark', 'themeVariables': { 'darkMode': true, 'background': '#000000' }}}%%
 graph TD
     subgraph "Task Dependencies Example"
         A["Task 1: Project Setup<br>✅ done"] --> B["Task 2: Database Schema<br>✅ done"]
@@ -392,10 +393,10 @@ graph TD
         H --> I
         I --> J["Task 10: Testing<br>🚫 blocked"]
         
-        classDef done fill:#d5e8d4,stroke:#82b366,stroke-width:3px,color:white;
-        classDef progress fill:#dae8fc,stroke:#6c8ebf,stroke-width:3px,color:white;
-        classDef pending fill:#f5f5f5,stroke:#666666,stroke-width:1px,color:#FFFFFF;
-        classDef blocked fill:#f8cecc,stroke:#b85450,stroke-width:3px,color:white;
+        classDef done fill:#00C853,stroke:#00E676,stroke-width:3px,color:white;
+        classDef progress fill:#2979FF,stroke:#448AFF,stroke-width:3px,color:white;
+        classDef pending fill:#333333,stroke:#666666,stroke-width:1px,color:#FFFFFF;
+        classDef blocked fill:#FF1744,stroke:#FF5252,stroke-width:3px,color:white;
         
         class A,B,E done;
         class C,H progress;
