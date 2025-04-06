@@ -157,122 +157,119 @@ PROJECT_VERSION=1.0.0
 The Cursor Workflow System consists of several interconnected components:
 
 ```mermaid
-flowchart TB
-    %% Define the main components with clear hierarchy for vertical flow
-    CLI["<div style='font-size:48px; font-weight:bold'>⚙️ CLI Interface</div>
-         <div style='font-size:48px'><i>scripts/dev.js</i></div>
-         <div style='font-size:48px'>Command-line entry point</div>"]
+flowchart TD
+    %% Force vertical layout with explicit subgraphs and direction
+    subgraph Flow
+        direction TB
+        %% Entry point
+        CLI["<div style='font-size:24px; font-weight:bold'>⚙️ CLI Interface</div>
+             <div style='font-size:18px'><i>scripts/dev.js</i></div>"]
+        
+        %% Command layer
+        CMD["<div style='font-size:24px; font-weight:bold'>🎮 Command Processor</div>
+             <div style='font-size:18px'><i>commands.js</i></div>"]
+        
+        %% Core modules layer
+        subgraph Modules
+            direction TB
+            %% Task Management
+            TASK["<div style='font-size:24px; font-weight:bold'>📋 Task Management</div>
+                <div style='font-size:18px'><i>tasks.js</i></div>"]
+            
+            %% Rule System
+            RULE["<div style='font-size:24px; font-weight:bold'>📜 Rule System</div>
+                <div style='font-size:18px'><i>rules.js</i></div>"]
+                
+            %% Reporting
+            REPORT["<div style='font-size:24px; font-weight:bold'>📊 HTML Reporting</div>
+                <div style='font-size:18px'><i>reports.js</i></div>"]
+        end
+        
+        %% Task submodules
+        subgraph TaskModules
+            direction TB
+            CMPLX["<div style='font-size:22px; font-weight:bold'>🔍 Complexity Analysis</div>
+                  <div style='font-size:16px'><i>complexity.js</i></div>"]
+            
+            EXPAND["<div style='font-size:22px; font-weight:bold'>🔀 Task Expansion</div>
+                   <div style='font-size:16px'><i>expand.js</i></div>"]
+            
+            SCHED["<div style='font-size:22px; font-weight:bold'>📅 Task Scheduling</div>
+                  <div style='font-size:16px'><i>scheduler.js</i></div>"]
+        end
+        
+        %% Rule submodules
+        subgraph RuleModules
+            direction TB
+            EVOL["<div style='font-size:22px; font-weight:bold'>🔄 Rule Evolution</div>
+                 <div style='font-size:16px'><i>evolution.js</i></div>"]
+        end
+        
+        %% Storage layer
+        subgraph Storage
+            direction TB
+            JSON["<div style='font-size:20px; font-weight:bold'>📄 tasks.json</div>"]
+            TASKFILES["<div style='font-size:20px; font-weight:bold'>📑 Task Files</div>"]
+            RULEFILES["<div style='font-size:20px; font-weight:bold'>📝 Rule Files</div>"]
+            HTML["<div style='font-size:20px; font-weight:bold'>📈 HTML Reports</div>"]
+        end
+        
+        %% External systems
+        subgraph External
+            direction TB
+            AI["<div style='font-size:20px; font-weight:bold'>🧠 AI Models</div>
+               <div style='font-size:16px'>Claude/GPT</div>"]
+            
+            IDE["<div style='font-size:20px; font-weight:bold'>💻 Cursor IDE</div>
+                <div style='font-size:16px'>Editor integration</div>"]
+        end
+    end
     
-    CMD["<div style='font-size:48px; font-weight:bold'>🎮 Command Processor</div>
-         <div style='font-size:48px'><i>commands.js</i></div>
-         <div style='font-size:48px'>Routes user commands to modules</div>"]
-    
-    %% Task Management Components
-    TASK["<div style='font-size:48px; font-weight:bold'>📋 Task Management</div>
-          <div style='font-size:48px'><i>tasks.js</i></div>
-          <div style='font-size:48px'>Create and track tasks</div>"]
-    
-    EXPAND["<div style='font-size:48px; font-weight:bold'>🔀 Task Expansion</div>
-            <div style='font-size:48px'><i>expand.js</i></div>
-            <div style='font-size:48px'>Break down complex tasks</div>"]
-    
-    CMPLX["<div style='font-size:48px; font-weight:bold'>🔍 Complexity Analysis</div>
-           <div style='font-size:48px'><i>complexity.js</i></div>
-           <div style='font-size:48px'>Evaluate task difficulty</div>"]
-    
-    SCHED["<div style='font-size:48px; font-weight:bold'>📅 Task Scheduling</div>
-           <div style='font-size:48px'><i>scheduler.js</i></div>
-           <div style='font-size:48px'>Prioritize work items</div>"]
-    
-    %% Rule System Components
-    RULE["<div style='font-size:48px; font-weight:bold'>📜 Rule System</div>
-          <div style='font-size:48px'><i>rules.js</i></div>
-          <div style='font-size:48px'>Define coding standards</div>"]
-    
-    EVOL["<div style='font-size:48px; font-weight:bold'>🔄 Rule Evolution</div>
-          <div style='font-size:48px'><i>evolution.js</i></div>
-          <div style='font-size:48px'>Improve standards over time</div>"]
-    
-    %% Reporting Components
-    REPORT["<div style='font-size:48px; font-weight:bold'>📊 HTML Reporting</div>
-            <div style='font-size:48px'><i>reports.js</i></div>
-            <div style='font-size:48px'>Generate visual dashboards</div>"]
-    
-    %% Storage Components
-    JSON["<div style='font-size:42px; font-weight:bold'>📄 tasks.json</div>
-          <div style='font-size:32px'>Main task database</div>"]
-    
-    TASKFILES["<div style='font-size:42px; font-weight:bold'>📑 Task Files</div>
-               <div style='font-size:32px'>Individual MD task definitions</div>"]
-    
-    RULEFILES["<div style='font-size:42px; font-weight:bold'>📝 Rule Files</div>
-               <div style='font-size:32px'>MDC rule definitions</div>"]
-    
-    HTML["<div style='font-size:42px; font-weight:bold'>📈 HTML Reports</div>
-          <div style='font-size:32px'>Generated visualizations</div>"]
-    
-    %% External System Components
-    AI["<div style='font-size:42px; font-weight:bold'>🧠 AI Models</div>
-        <div style='font-size:32px'>Claude/GPT</div>
-        <div style='font-size:32px'>Generate content & analysis</div>"]
-    
-    IDE["<div style='font-size:42px; font-weight:bold'>💻 Cursor IDE</div>
-         <div style='font-size:32px'>Editor integration</div>
-         <div style='font-size:32px'>Apply rules while coding</div>"]
-    
-    %% Define vertical connections - critical for TB flow
+    %% Define vertical connections - force top to bottom flow
     CLI --> CMD
     
-    %% Command connections to modules in a vertical/branching pattern
+    %% Command connections
     CMD --> TASK
     CMD --> RULE
     CMD --> REPORT
     
-    %% Task management vertical hierarchy
-    TASK --> CMPLX
-    TASK --> EXPAND
-    TASK --> SCHED
-    
-    %% Storage connections - positioned below their respective modules
+    %% Task connections
+    TASK --> TaskModules
     TASK --> JSON
     TASK --> TASKFILES
     
-    %% Rule system vertical hierarchy
-    RULE --> EVOL
+    %% Task module details
+    CMPLX -.-> AI
+    EXPAND -.-> AI
+    
+    %% Rule connections
+    RULE --> RuleModules
     RULE --> RULEFILES
+    RULE -.-> IDE
+    
+    %% Rule module details
+    EVOL -.-> AI
     
     %% Reporting connections
     REPORT --> HTML
     
-    %% AI Integration - keep connections clean and vertical where possible
-    CMPLX --> AI
-    EXPAND --> AI
-    EVOL --> AI
-    
-    %% IDE Integration - keep connections clean 
-    RULE --> IDE
-    TASK --> IDE
-    
-    %% Style definitions - SUPER SIZED (3x) for massive components while keeping vertical flow
-    classDef cliNode fill:#d5e8d4,stroke:#82b366,stroke-width:8px,color:black,width:700px,padding:45px,border-radius:30px;
-    classDef cmdNode fill:#fff2cc,stroke:#d6b656,stroke-width:8px,color:black,width:700px,padding:45px,border-radius:30px;
-    classDef taskNode fill:#dae8fc,stroke:#6c8ebf,stroke-width:8px,color:black,width:700px,padding:45px,border-radius:30px;
-    classDef ruleNode fill:#d5e8d4,stroke:#82b366,stroke-width:8px,color:black,width:700px,padding:45px,border-radius:30px;
-    classDef reportNode fill:#ffe6cc,stroke:#d79b00,stroke-width:8px,color:black,width:700px,padding:45px,border-radius:30px;
-    classDef storageNode fill:#e1d5e7,stroke:#9673a6,stroke-width:8px,color:black,width:600px,padding:36px,border-radius:30px;
-    classDef externalNode fill:#f8cecc,stroke:#b85450,stroke-width:8px,color:black,width:600px,padding:36px,border-radius:30px;
+    %% Style definitions - NARROW width to ensure vertical flow
+    classDef mainNode fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:black,width:280px,padding:10px,border-radius:10px;
+    classDef moduleNode fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:black,width:260px,padding:10px,border-radius:10px;
+    classDef submoduleNode fill:#ffe6cc,stroke:#d79b00,stroke-width:2px,color:black,width:240px,padding:8px,border-radius:8px;
+    classDef storageNode fill:#e1d5e7,stroke:#9673a6,stroke-width:2px,color:black,width:200px,padding:6px,border-radius:8px;
+    classDef externalNode fill:#f8cecc,stroke:#b85450,stroke-width:2px,color:black,width:200px,padding:6px,border-radius:8px;
     
     %% Apply styles to nodes
-    class CLI cliNode;
-    class CMD cmdNode;
-    class TASK,CMPLX,EXPAND,SCHED taskNode;
-    class RULE,EVOL ruleNode;
-    class REPORT reportNode;
+    class CLI,CMD mainNode;
+    class TASK,RULE,REPORT moduleNode;
+    class CMPLX,EXPAND,SCHED,EVOL submoduleNode;
     class JSON,TASKFILES,RULEFILES,HTML storageNode;
     class AI,IDE externalNode;
     
-    %% Link styling
-    linkStyle default stroke:#333,stroke-width:8px;
+    %% Subgraph styling
+    classDef subgraphStyle fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black;
+    class Modules,TaskModules,RuleModules,Storage,External subgraphStyle;
 ```
 
 ### Core Modules
@@ -677,121 +674,4 @@ The dashboard provides:
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `set-status` | Update task status | `cursor-workflow set-status --id=3 --status=in-progress` |
-
-### Rule Management Commands
-
-| Command | Description | Example |
-|---------|-------------|---------|
-| `rule-find` | Find rules applicable to a task | `cursor-workflow rule-find --task-id=5` |
-| `verify` | Verify implementation against rules | `cursor-workflow verify --task-id=5 --path=src/components/` |
-
-### Analysis Commands
-
-| Command | Description | Example |
-|---------|-------------|---------|
-| `analyze-complexity` | Analyze task complexity | `cursor-workflow analyze-complexity` |
-| `complexity-report` | Generate a human-readable complexity report | `cursor-workflow complexity-report` |
-
-### Reporting Commands
-
-| Command | Description | Example |
-|---------|-------------|---------|
-| `report` | Generate a task report | `cursor-workflow report --id=5` |
-| `dashboard` | Generate a project dashboard | `cursor-workflow dashboard` |
-
-## Workflow Patterns
-
-### Starting a New Project
-
-1. **Define Project Scope**: Clearly outline the project's goals, objectives, and deliverables.
-2. **Identify Key Tasks**: Break down the project into manageable tasks.
-3. **Assign Resources**: Allocate resources (time, personnel) to each task.
-4. **Set Deadlines**: Establish realistic deadlines for task completion.
-5. **Monitor Progress**: Regularly track project progress.
-
-### Daily Development Workflow
-
-1. **Morning Standup**: Brief daily meeting to discuss progress, challenges, and plan for the day.
-2. **Task Prioritization**: Prioritize tasks based on urgency and importance.
-3. **Work Session**: Focus on the highest priority tasks.
-4. **Daily Review**: Reflect on the day's accomplishments and plan for the next day.
-
-### Task Creation and Breakdown
-
-1. **Define Task Scope**: Clearly articulate the task's purpose and objectives.
-2. **Identify Dependencies**: Determine tasks that must be completed before this one.
-3. **Break Down Complexity**: Divide large tasks into smaller, more manageable sub-tasks.
-4. **Assign Resources**: Allocate necessary resources (time, personnel) to each sub-task.
-
-### Task Completion and Verification
-
-1. **Implement Task**: Follow the defined task steps and guidelines.
-2. **Verify Completion**: Ensure the task meets all specified requirements.
-3. **Document Progress**: Record task completion and any issues encountered.
-4. **Request Review**: Seek feedback from peers or supervisors.
-5. **Iterate**: Incorporate feedback into future task implementations.
-
-## Integration with AI
-
-### Using with Cursor IDE
-
-The Cursor IDE integrates with the Cursor Workflow System to provide AI-assisted coding capabilities.
-
-### AI-assisted Task Expansion
-
-AI can assist in expanding tasks into subtasks, providing suggestions for task breakdown.
-
-### AI-driven Complexity Analysis
-
-AI can analyze task complexity and recommend subtasks or specialized expertise.
-
-## Customization
-
-### Environment Variables
-
-Configure the Cursor Workflow System with environment variables to suit your project needs.
-
-### Templates
-
-Use templates to standardize task definitions and ensure consistency across projects.
-
-## Advanced Features
-
-### Project Evolution
-
-The Cursor Workflow System supports project evolution by analyzing completed tasks and suggesting rule updates.
-
-### Task Metrics and Analysis
-
-The system provides detailed metrics and analysis for task completion, efficiency, and progress.
-
-## Best Practices
-
-1. **Define Clear Task Scope**: Ensure tasks are well-defined and aligned with project objectives.
-2. **Set Realistic Deadlines**: Establish achievable deadlines to maintain project momentum.
-3. **Monitor Progress Regularly**: Regularly track task completion and adjust as needed.
-4. **Document Task Details**: Maintain detailed records of task implementation and outcomes.
-5. **Seek Peer Review**: Regularly seek feedback from peers or supervisors for continuous improvement.
-
-## Troubleshooting
-
-### Common Issues
-
-- **Dependency Integrity**: Ensure task dependencies are maintained and validated.
-- **Rule Application**: Verify that rules are applied consistently and correctly.
-- **AI-assisted Features**: If AI-assisted features are not functioning as expected, check API connectivity and model performance.
-
-### Solution Steps
-
-1. **Validate Dependencies**: Use the `validate-dependencies` command to check for dependency integrity.
-2. **Review Rule Application**: Use the `verify` command to ensure rules are applied correctly.
-3. **Check AI Model**: If AI-assisted features are not working, verify the AI model's performance and connectivity.
-
-## Glossary
-
-- **Task**: A discrete unit of work that represents a specific development activity.
-- **Rule**: A development standard, coding convention, or best practice.
-- **Workflow**: The process of breaking down requirements into tasks, analyzing task complexity and dependencies, scheduling and prioritizing tasks, implementing tasks while following applicable rules, verifying completion and documenting progress, and evolving rules based on emerging patterns.
-- **Cursor IDE**: A development environment that integrates with the Cursor Workflow System for AI-assisted coding.
-- **Cursor Workflow System**: A comprehensive task-driven development framework that integrates task management with rules-based guidance.
+| `set-status` | Update task status | `
