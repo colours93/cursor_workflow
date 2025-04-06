@@ -159,27 +159,27 @@ The Cursor Workflow System consists of several interconnected components:
 ```mermaid
 graph TD
     subgraph System ["Cursor Workflow System"]
-        CLI[CLI Interface<br>scripts/dev.js]
-        Tasks[Task Management<br>tasks.js]
-        Rules[Rule System<br>rules.js]
-        Analysis[Complexity Analysis<br>complexity.js]
-        Scheduler[Task Scheduling<br>scheduler.js]
-        Reports[HTML Reporting<br>reports.js]
-        Evolution[Rule Evolution<br>evolution.js]
-        Expand[Task Expansion<br>expand.js]
-        Commands[Command Definitions<br>commands.js]
+        CLI["CLI Interface<br><i>scripts/dev.js</i><br><i>User command entry point</i>"]
+        Tasks["Task Management<br><i>tasks.js</i><br><i>Create, update, and track tasks</i>"]
+        Rules["Rule System<br><i>rules.js</i><br><i>Define and apply coding standards</i>"]
+        Analysis["Complexity Analysis<br><i>complexity.js</i><br><i>Evaluate task difficulty</i>"]
+        Scheduler["Task Scheduling<br><i>scheduler.js</i><br><i>Prioritize and sequence work</i>"]
+        Reports["HTML Reporting<br><i>reports.js</i><br><i>Generate visual dashboards</i>"]
+        Evolution["Rule Evolution<br><i>evolution.js</i><br><i>Improve standards over time</i>"]
+        Expand["Task Expansion<br><i>expand.js</i><br><i>Break down complex tasks</i>"]
+        Commands["Command Definitions<br><i>commands.js</i><br><i>Process user commands</i>"]
     end
     
-    subgraph Storage ["Storage"]
-        TasksJSON[tasks.json]
-        TaskFiles[Task MD Files]
-        RuleFiles[Rule MDC Files]
-        HTMLReports[HTML Reports]
+    subgraph Storage ["Storage Components"]
+        TasksJSON["tasks.json<br><i>Main task database</i>"]
+        TaskFiles["Task MD Files<br><i>Individual task details</i>"]
+        RuleFiles["Rule MDC Files<br><i>Coding standards definitions</i>"]
+        HTMLReports["HTML Reports<br><i>Generated visualizations</i>"]
     end
     
     subgraph External ["External Systems"]
-        LLMAPI[AI Models<br>Claude/GPT]
-        IDE[Cursor IDE]
+        LLMAPI["AI Models<br><i>Claude/GPT</i><br><i>Generate content & analysis</i>"]
+        IDE["Cursor IDE<br><i>Editor integration</i><br><i>Apply rules while coding</i>"]
     end
     
     CLI --> Commands
@@ -203,14 +203,15 @@ graph TD
     IDE <--> Rules
     IDE <--> Tasks
     
-    style System fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black
-    style Storage fill:#e8f4f8,stroke:#333,stroke-width:1px,color:black  
-    style External fill:#f9f2e6,stroke:#333,stroke-width:1px,color:black
-    style CLI fill:#d5e8d4,stroke:#333,stroke-width:2px,color:black
+    style System fill:#f5f5f5,stroke:#333,stroke-width:1px,color:black,padding:15px
+    style Storage fill:#e8f4f8,stroke:#333,stroke-width:1px,color:black,padding:15px
+    style External fill:#f9f2e6,stroke:#333,stroke-width:1px,color:black,padding:15px
     
-    classDef module fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px,color:black;
-    classDef storage fill:#d5e8d4,stroke:#82b366,stroke-width:1px,color:black;
-    classDef external fill:#ffe6cc,stroke:#d79b00,stroke-width:1px,color:black;
+    style CLI fill:#d5e8d4,stroke:#333,stroke-width:2px,color:black,width:220px,padding:10px
+    
+    classDef module fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px,color:black,width:220px,padding:10px;
+    classDef storage fill:#d5e8d4,stroke:#82b366,stroke-width:1px,color:black,width:220px,padding:10px;
+    classDef external fill:#ffe6cc,stroke:#d79b00,stroke-width:1px,color:black,width:220px,padding:10px;
     
     class Tasks,Rules,Analysis,Scheduler,Reports,Evolution,Expand,Commands module;
     class TasksJSON,TaskFiles,RuleFiles,HTMLReports storage;
