@@ -82,19 +82,19 @@ Cursor Workflow shines when paired with Cursor AI:
 
 ```mermaid
 graph LR
-    A[Create Tasks] -->|Parse PRD or Add Task| B[Analyze Complexity]
-    B -->|Identify Complex Tasks| C[Break Down Tasks]
-    C -->|Create Subtasks| D[Implement Tasks]
-    D -->|Code & Test| E[Track Progress]
-    E -->|Update Status| F[Complete Tasks]
+    A["Create Tasks<br><i>Define what needs to be built</i>"] -->|Parse PRD or Add Task| B["Analyze Complexity<br><i>Understand task difficulty</i>"]
+    B -->|Identify Complex Tasks| C["Break Down Tasks<br><i>Split into manageable pieces</i>"]
+    C -->|Create Subtasks| D["Implement Tasks<br><i>Write actual code</i>"]
+    D -->|Code & Test| E["Track Progress<br><i>Monitor status & updates</i>"]
+    E -->|Update Status| F["Complete Tasks<br><i>Mark work as finished</i>"]
     F -->|Mark as Done| A
     
-    style A fill:#f9d5e5,stroke:#333,stroke-width:2px,color:black
-    style B fill:#fbf0f0,stroke:#333,stroke-width:2px,color:black
-    style C fill:#daeaf6,stroke:#333,stroke-width:2px,color:black
-    style D fill:#c8eed9,stroke:#333,stroke-width:2px,color:black
-    style E fill:#ffe2c8,stroke:#333,stroke-width:2px,color:black
-    style F fill:#d7bde2,stroke:#333,stroke-width:2px,color:black
+    style A fill:#f9d5e5,stroke:#333,stroke-width:2px,color:black,width:200px,padding:10px
+    style B fill:#fbf0f0,stroke:#333,stroke-width:2px,color:black,width:200px,padding:10px
+    style C fill:#daeaf6,stroke:#333,stroke-width:2px,color:black,width:200px,padding:10px
+    style D fill:#c8eed9,stroke:#333,stroke-width:2px,color:black,width:200px,padding:10px
+    style E fill:#ffe2c8,stroke:#333,stroke-width:2px,color:black,width:200px,padding:10px
+    style F fill:#d7bde2,stroke:#333,stroke-width:2px,color:black,width:200px,padding:10px
     
     linkStyle default stroke:#333,stroke-width:1.5px,color:black
 ```
