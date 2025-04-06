@@ -157,112 +157,110 @@ PROJECT_VERSION=1.0.0
 The Cursor Workflow System consists of several interconnected components:
 
 ```mermaid
-flowchart TD
-    %% Define the main components with larger size and more details
-    CLI["<div style='font-size:28px; font-weight:bold'>⚙️ CLI Interface</div>
-         <div style='font-size:20px'><i>scripts/dev.js</i></div>
-         <div style='font-size:20px'>Command-line entry point</div>"]
+flowchart TB
+    %% Define the main components with clear hierarchy for vertical flow
+    CLI["<div style='font-size:24px; font-weight:bold'>⚙️ CLI Interface</div>
+         <div style='font-size:18px'><i>scripts/dev.js</i></div>
+         <div style='font-size:18px'>Command-line entry point</div>"]
     
-    CMD["<div style='font-size:28px; font-weight:bold'>🎮 Command Processor</div>
-         <div style='font-size:20px'><i>commands.js</i></div>
-         <div style='font-size:20px'>Routes user commands to modules</div>"]
+    CMD["<div style='font-size:24px; font-weight:bold'>🎮 Command Processor</div>
+         <div style='font-size:18px'><i>commands.js</i></div>
+         <div style='font-size:18px'>Routes user commands to modules</div>"]
     
     %% Task Management Components
-    TASK["<div style='font-size:28px; font-weight:bold'>📋 Task Management</div>
-          <div style='font-size:20px'><i>tasks.js</i></div>
-          <div style='font-size:20px'>Create and track tasks</div>"]
+    TASK["<div style='font-size:24px; font-weight:bold'>📋 Task Management</div>
+          <div style='font-size:18px'><i>tasks.js</i></div>
+          <div style='font-size:18px'>Create and track tasks</div>"]
     
-    EXPAND["<div style='font-size:28px; font-weight:bold'>🔀 Task Expansion</div>
-            <div style='font-size:20px'><i>expand.js</i></div>
-            <div style='font-size:20px'>Break down complex tasks</div>"]
+    EXPAND["<div style='font-size:24px; font-weight:bold'>🔀 Task Expansion</div>
+            <div style='font-size:18px'><i>expand.js</i></div>
+            <div style='font-size:18px'>Break down complex tasks</div>"]
     
-    CMPLX["<div style='font-size:28px; font-weight:bold'>🔍 Complexity Analysis</div>
-           <div style='font-size:20px'><i>complexity.js</i></div>
-           <div style='font-size:20px'>Evaluate task difficulty</div>"]
+    CMPLX["<div style='font-size:24px; font-weight:bold'>🔍 Complexity Analysis</div>
+           <div style='font-size:18px'><i>complexity.js</i></div>
+           <div style='font-size:18px'>Evaluate task difficulty</div>"]
     
-    SCHED["<div style='font-size:28px; font-weight:bold'>📅 Task Scheduling</div>
-           <div style='font-size:20px'><i>scheduler.js</i></div>
-           <div style='font-size:20px'>Prioritize work items</div>"]
+    SCHED["<div style='font-size:24px; font-weight:bold'>📅 Task Scheduling</div>
+           <div style='font-size:18px'><i>scheduler.js</i></div>
+           <div style='font-size:18px'>Prioritize work items</div>"]
     
     %% Rule System Components
-    RULE["<div style='font-size:28px; font-weight:bold'>📜 Rule System</div>
-          <div style='font-size:20px'><i>rules.js</i></div>
-          <div style='font-size:20px'>Define coding standards</div>"]
+    RULE["<div style='font-size:24px; font-weight:bold'>📜 Rule System</div>
+          <div style='font-size:18px'><i>rules.js</i></div>
+          <div style='font-size:18px'>Define coding standards</div>"]
     
-    EVOL["<div style='font-size:28px; font-weight:bold'>🔄 Rule Evolution</div>
-          <div style='font-size:20px'><i>evolution.js</i></div>
-          <div style='font-size:20px'>Improve standards over time</div>"]
+    EVOL["<div style='font-size:24px; font-weight:bold'>🔄 Rule Evolution</div>
+          <div style='font-size:18px'><i>evolution.js</i></div>
+          <div style='font-size:18px'>Improve standards over time</div>"]
     
     %% Reporting Components
-    REPORT["<div style='font-size:28px; font-weight:bold'>📊 HTML Reporting</div>
-            <div style='font-size:20px'><i>reports.js</i></div>
-            <div style='font-size:20px'>Generate visual dashboards</div>"]
+    REPORT["<div style='font-size:24px; font-weight:bold'>📊 HTML Reporting</div>
+            <div style='font-size:18px'><i>reports.js</i></div>
+            <div style='font-size:18px'>Generate visual dashboards</div>"]
     
     %% Storage Components
-    JSON["<div style='font-size:28px; font-weight:bold'>📄 tasks.json</div>
-          <div style='font-size:20px'>Main task database</div>"]
+    JSON["<div style='font-size:22px; font-weight:bold'>📄 tasks.json</div>
+          <div style='font-size:16px'>Main task database</div>"]
     
-    TASKFILES["<div style='font-size:28px; font-weight:bold'>📑 Task Files</div>
-               <div style='font-size:20px'>Individual MD task definitions</div>"]
+    TASKFILES["<div style='font-size:22px; font-weight:bold'>📑 Task Files</div>
+               <div style='font-size:16px'>Individual MD task definitions</div>"]
     
-    RULEFILES["<div style='font-size:28px; font-weight:bold'>📝 Rule Files</div>
-               <div style='font-size:20px'>MDC rule definitions</div>"]
+    RULEFILES["<div style='font-size:22px; font-weight:bold'>📝 Rule Files</div>
+               <div style='font-size:16px'>MDC rule definitions</div>"]
     
-    HTML["<div style='font-size:28px; font-weight:bold'>📈 HTML Reports</div>
-          <div style='font-size:20px'>Generated visualizations</div>"]
+    HTML["<div style='font-size:22px; font-weight:bold'>📈 HTML Reports</div>
+          <div style='font-size:16px'>Generated visualizations</div>"]
     
     %% External System Components
-    AI["<div style='font-size:28px; font-weight:bold'>🧠 AI Models</div>
-        <div style='font-size:20px'>Claude/GPT</div>
-        <div style='font-size:20px'>Generate content & analysis</div>"]
+    AI["<div style='font-size:22px; font-weight:bold'>🧠 AI Models</div>
+        <div style='font-size:16px'>Claude/GPT</div>
+        <div style='font-size:16px'>Generate content & analysis</div>"]
     
-    IDE["<div style='font-size:28px; font-weight:bold'>💻 Cursor IDE</div>
-         <div style='font-size:20px'>Editor integration</div>
-         <div style='font-size:20px'>Apply rules while coding</div>"]
+    IDE["<div style='font-size:22px; font-weight:bold'>💻 Cursor IDE</div>
+         <div style='font-size:16px'>Editor integration</div>
+         <div style='font-size:16px'>Apply rules while coding</div>"]
     
-    %% Define the connections
-    CLI ==> CMD
+    %% Define vertical connections - critical for TB flow
+    CLI --> CMD
     
-    %% Command connections to modules
-    CMD ==> TASK
-    CMD ==> RULE
-    CMD ==> CMPLX
-    CMD ==> SCHED
-    CMD ==> EXPAND
-    CMD ==> EVOL
-    CMD ==> REPORT
+    %% Command connections to modules in a vertical/branching pattern
+    CMD --> TASK
+    CMD --> RULE
+    CMD --> REPORT
     
-    %% Task management connections
-    TASK <==> JSON
-    TASK <==> TASKFILES
-    TASK --- CMPLX
-    TASK --- EXPAND
-    TASK --- SCHED
+    %% Task management vertical hierarchy
+    TASK --> CMPLX
+    TASK --> EXPAND
+    TASK --> SCHED
     
-    %% Rule system connections
-    RULE <==> RULEFILES
-    RULE --- EVOL
+    %% Storage connections - positioned below their respective modules
+    TASK --> JSON
+    TASK --> TASKFILES
+    
+    %% Rule system vertical hierarchy
+    RULE --> EVOL
+    RULE --> RULEFILES
     
     %% Reporting connections
-    REPORT ==> HTML
+    REPORT --> HTML
     
-    %% AI Integration
-    CMPLX <==> AI
-    EXPAND <==> AI
-    EVOL <==> AI
+    %% AI Integration - keep connections clean and vertical where possible
+    CMPLX --> AI
+    EXPAND --> AI
+    EVOL --> AI
     
-    %% IDE Integration
-    IDE <==> RULE
-    IDE <==> TASK
+    %% IDE Integration - keep connections clean 
+    RULE --> IDE
+    TASK --> IDE
     
-    %% Style definitions - using much larger boxes and more prominent styles
-    classDef cliNode fill:#d5e8d4,stroke:#82b366,stroke-width:6px,color:black,width:900px,padding:50px,border-radius:15px;
-    classDef cmdNode fill:#fff2cc,stroke:#d6b656,stroke-width:6px,color:black,width:900px,padding:50px,border-radius:15px;
-    classDef taskNode fill:#dae8fc,stroke:#6c8ebf,stroke-width:6px,color:black,width:900px,padding:50px,border-radius:15px;
-    classDef ruleNode fill:#d5e8d4,stroke:#82b366,stroke-width:6px,color:black,width:900px,padding:50px,border-radius:15px;
-    classDef reportNode fill:#ffe6cc,stroke:#d79b00,stroke-width:6px,color:black,width:900px,padding:50px,border-radius:15px;
-    classDef storageNode fill:#e1d5e7,stroke:#9673a6,stroke-width:6px,color:black,width:900px,padding:40px,border-radius:15px;
-    classDef externalNode fill:#f8cecc,stroke:#b85450,stroke-width:6px,color:black,width:900px,padding:40px,border-radius:15px;
+    %% Style definitions - NARROWER width for vertical flow
+    classDef cliNode fill:#d5e8d4,stroke:#82b366,stroke-width:4px,color:black,width:350px,padding:20px,border-radius:15px;
+    classDef cmdNode fill:#fff2cc,stroke:#d6b656,stroke-width:4px,color:black,width:350px,padding:20px,border-radius:15px;
+    classDef taskNode fill:#dae8fc,stroke:#6c8ebf,stroke-width:4px,color:black,width:350px,padding:20px,border-radius:15px;
+    classDef ruleNode fill:#d5e8d4,stroke:#82b366,stroke-width:4px,color:black,width:350px,padding:20px,border-radius:15px;
+    classDef reportNode fill:#ffe6cc,stroke:#d79b00,stroke-width:4px,color:black,width:350px,padding:20px,border-radius:15px;
+    classDef storageNode fill:#e1d5e7,stroke:#9673a6,stroke-width:4px,color:black,width:300px,padding:15px,border-radius:15px;
+    classDef externalNode fill:#f8cecc,stroke:#b85450,stroke-width:4px,color:black,width:300px,padding:15px,border-radius:15px;
     
     %% Apply styles to nodes
     class CLI cliNode;
@@ -274,7 +272,7 @@ flowchart TD
     class AI,IDE externalNode;
     
     %% Link styling
-    linkStyle default stroke:#333,stroke-width:4px;
+    linkStyle default stroke:#333,stroke-width:3px;
 ```
 
 ### Core Modules
@@ -679,421 +677,148 @@ The dashboard provides:
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `set-status` | Update task status | `cursor-workflow set-status --id=3 --status=done` |
-| `expand` | Break down task into subtasks | `cursor-workflow expand --id=5 --num=4` |
-| `add-dependency` | Add task dependency | `cursor-workflow add-dependency --id=5 --depends-on=3` |
-| `remove-dependency` | Remove task dependency | `cursor-workflow remove-dependency --id=5 --depends-on=3` |
-| `validate-dependencies` | Check dependency integrity | `cursor-workflow validate-dependencies` |
-| `fix-dependencies` | Fix invalid dependencies | `cursor-workflow fix-dependencies` |
-| `clear-subtasks` | Remove all subtasks | `cursor-workflow clear-subtasks --id=5` |
+| `set-status` | Update task status | `cursor-workflow set-status --id=3 --status=in-progress` |
+| `add-dependency` | Add a dependency to a task | `cursor-workflow add-dependency --id=5 --depends-on=3` |
+| `remove-dependency` | Remove a dependency from a task | `cursor-workflow remove-dependency --id=5 --depends-on=3` |
+| `validate-dependencies` | Validate all task dependencies | `cursor-workflow validate-dependencies` |
+| `fix-dependencies` | Fix invalid task dependencies | `cursor-workflow fix-dependencies` |
+| `analyze-complexity` | Analyze task complexity | `cursor-workflow analyze-complexity --id=5` |
+| `complexity-report` | Generate a complexity report | `cursor-workflow complexity-report` |
+| `schedule-tasks` | Generate a task schedule | `cursor-workflow schedule-tasks` |
+| `set-priority` | Set task priority | `cursor-workflow set-priority --id=5 --priority=high` |
+| `set-hours` | Set estimated hours for a task | `cursor-workflow set-hours --id=5 --hours=8` |
+| `set-due` | Set due date for a task | `cursor-workflow set-due --id=5 --date=2025-04-15` |
 
 ### Rule Management Commands
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `rule-list` | List all rules | `cursor-workflow rule-list` |
-| `rule-show` | Show rule details | `cursor-workflow rule-show --id=typescript_standards` |
-| `rule-find` | Find rules for a task | `cursor-workflow rule-find --task-id=5` |
-| `verify` | Verify against rules | `cursor-workflow verify --task-id=5 --path=src/` |
+| `rule-find` | Find rules applicable to a task | `cursor-workflow rule-find --task-id=5` |
+| `verify` | Verify implementation against rules | `cursor-workflow verify --task-id=5 --path=src/components/` |
+| `analyze` | Analyze completed tasks for patterns | `cursor-workflow analyze --completed-tasks` |
+| `suggest` | Generate rule update suggestions | `cursor-workflow suggest` |
+| `apply-suggestion` | Apply a suggested rule update | `cursor-workflow apply-suggestion --id=suggestion-1` |
 
 ### Analysis Commands
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `analyze-complexity` | Analyze task complexity | `cursor-workflow analyze-complexity` |
-| `complexity-report` | Show complexity report | `cursor-workflow complexity-report` |
-| `analyze` | Analyze patterns in tasks | `cursor-workflow analyze --completed-tasks` |
-| `suggest` | Suggest rule updates | `cursor-workflow suggest` |
-| `apply-suggestion` | Apply rule suggestion | `cursor-workflow apply-suggestion --id=1` |
-
-### Scheduling Commands
-
-| Command | Description | Example |
-|---------|-------------|---------|
-| `schedule-tasks` | Generate task schedule | `cursor-workflow schedule-tasks` |
-| `set-priority` | Set task priority | `cursor-workflow set-priority --id=5 --priority=high` |
-| `set-hours` | Set estimated hours | `cursor-workflow set-hours --id=5 --hours=8` |
-| `set-due` | Set due date | `cursor-workflow set-due --id=5 --date=2025-04-15` |
+| `analyze-complexity` | Analyze task complexity | `cursor-workflow analyze-complexity --id=5` |
+| `complexity-report` | Generate a complexity report | `cursor-workflow complexity-report` |
+| `analyze` | Analyze completed tasks for patterns | `cursor-workflow analyze --completed-tasks` |
 
 ### Reporting Commands
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `report` | Generate task HTML report | `cursor-workflow report --id=5` |
-| `dashboard` | Generate project dashboard | `cursor-workflow dashboard` |
+| `report` | Generate a task report | `cursor-workflow report --id=5 --output=reports/task-5.html` |
+| `dashboard` | Generate a project dashboard | `cursor-workflow dashboard --output=reports/dashboard.html` |
 
 ## Workflow Patterns
 
-```mermaid
-flowchart TD
-    subgraph "Cursor Workflow Patterns"
-        direction TB
-        
-        subgraph "Start New Project"
-            A1[Initialize System] --> A2[Create Rules]
-            A2 --> A3[Parse PRD]
-            A3 --> A4[Analyze Tasks]
-            A4 --> A5[Expand Complex Tasks]
-            A5 --> A6[Schedule Tasks]
-        end
-        
-        subgraph "Daily Development"
-            B1[Check Next Task] --> B2[Review Details]
-            B2 --> B3[Start Working]
-            B3 --> B4[Follow Rules]
-            B4 --> B5[Mark Complete]
-            B5 --> B6[Update Dashboard]
-            B6 --> B1
-        end
-        
-        subgraph "Task Creation"
-            C1[Create Task] --> C2[Analyze Complexity]
-            C2 --> C3[Expand to Subtasks]
-            C3 --> C4[Set Dependencies]
-            C4 --> C5[Assign Priorities]
-            C5 --> C6[Generate Files]
-        end
-        
-        subgraph "Task Completion"
-            D1[Implement Task] --> D2[Verify Against Rules]
-            D2 --> D3[Run Tests]
-            D3 --> D4[Mark Complete]
-            D4 --> D5[Generate Report]
-            D5 --> D6[Update Dashboard]
-        end
-        
-        A6 -.-> B1
-        B6 -.-> C1
-        C6 -.-> D1
-        D6 -.-> B1
-        
-        classDef start fill:#d5e8d4,stroke:#82b366,stroke-width:1px,color:black;
-        classDef daily fill:#dae8fc,stroke:#6c8ebf,stroke-width:1px,color:black;
-        classDef creation fill:#ffe6cc,stroke:#d79b00,stroke-width:1px,color:black;
-        classDef completion fill:#e1d5e7,stroke:#9673a6,stroke-width:1px,color:black;
-        
-        class A1,A2,A3,A4,A5,A6 start;
-        class B1,B2,B3,B4,B5,B6 daily;
-        class C1,C2,C3,C4,C5,C6 creation;
-        class D1,D2,D3,D4,D5,D6 completion;
-    end
-```
-
 ### Starting a New Project
 
-1. **Initialize the Workflow System**:
-   ```bash
-   cursor-workflow init
-   ```
-
-2. **Create Initial Rules**:
-   - Define core rules in `.cursor/rules/`
-   - Use rule templates as a starting point
-
-3. **Parse Product Requirements**:
-   ```bash
-   cursor-workflow parse-prd --input=product-requirements.md
-   ```
-
-4. **Analyze Task Complexity**:
-   ```bash
-   cursor-workflow analyze-complexity
-   ```
-
-5. **Expand Complex Tasks**:
-   ```bash
-   cursor-workflow expand --id=1 --research
-   ```
-
-6. **Generate Task Schedule**:
-   ```bash
-   cursor-workflow schedule-tasks
-   ```
+1. Initialize the workflow system
+2. Parse the PRD to generate tasks
+3. Set up project rules
+4. Schedule tasks and start development
 
 ### Daily Development Workflow
 
-1. **Check Next Task**:
-   ```bash
-   cursor-workflow next
-   ```
-
-2. **Review Task Details**:
-   ```bash
-   cursor-workflow show --id=5 --with-rules
-   ```
-
-3. **Start Working on Task**:
-   ```bash
-   cursor-workflow set-status --id=5 --status=in-progress
-   ```
-
-4. **Implement Following Rules**:
-   - Reference applicable rules during development
-   - Use Cursor IDE to automatically apply rules
-
-5. **Mark Task as Complete**:
-   ```bash
-   cursor-workflow set-status --id=5 --status=done
-   ```
-
-6. **Generate Updated Dashboard**:
-   ```bash
-   cursor-workflow dashboard
-   ```
+1. Review pending tasks and dependencies
+2. Select the next task to work on
+3. Implement the task while following applicable rules
+4. Verify completion and document progress
+5. Update task status and schedule
 
 ### Task Creation and Breakdown
 
-1. **Create a New Task**:
-   ```bash
-   cursor-workflow add-task --prompt="Implement user profile page"
-   ```
-
-2. **Analyze Complexity**:
-   ```bash
-   cursor-workflow analyze-complexity --id=5 --research
-   ```
-
-3. **Expand into Subtasks**:
-   ```bash
-   cursor-workflow expand --id=5 --num=4 --research
-   ```
-
-4. **Set Dependencies**:
-   ```bash
-   cursor-workflow add-dependency --id=5.1 --depends-on=3
-   ```
-
-5. **Assign Priorities**:
-   ```bash
-   cursor-workflow set-priority --id=5.1 --priority=high
-   ```
-
-6. **Generate Task Files**:
-   ```bash
-   cursor-workflow generate
-   ```
+1. Create tasks from PRD or manually
+2. Break down complex tasks into subtasks
+3. Analyze task complexity and dependencies
+4. Schedule and prioritize tasks
 
 ### Task Completion and Verification
 
-1. **Implement the Task**:
-   - Follow requirements and applicable rules
-   - Implement all necessary subtasks
-
-2. **Verify Against Rules**:
-   ```bash
-   cursor-workflow verify --task-id=5 --path=src/components/profile/
-   ```
-
-3. **Run Test Strategy**:
-   - Execute tests as defined in the task
-   - Ensure all acceptance criteria are met
-
-4. **Mark Task Complete**:
-   ```bash
-   cursor-workflow set-status --id=5 --status=done
-   ```
-
-5. **Generate Task Report**:
-   ```bash
-   cursor-workflow report --id=5
-   ```
-
-6. **Update Project Dashboard**:
-   ```bash
-   cursor-workflow dashboard
-   ```
+1. Implement tasks while following applicable rules
+2. Verify completion against task requirements
+3. Check code against applicable rules
+4. Document implementation notes and test strategy
 
 ## Integration with AI
 
 ### Using with Cursor IDE
 
-The Cursor Workflow System integrates seamlessly with the Cursor IDE:
-
-1. **Rule Access**: Cursor AI can access and apply rules from `.cursor/rules/`
-2. **Task Context**: The AI can use task details to understand requirements
-3. **Code Generation**: Generate code that follows project-specific rules
-4. **Automated Verification**: Check if generated code complies with rules
+1. Enable AI-assisted coding in the Cursor IDE
+2. Define project rules and guidelines
+3. Apply rules while coding to ensure consistency
 
 ### AI-assisted Task Expansion
 
-Use AI to break down complex tasks:
-
-```bash
-# Expand with AI assistance
-cursor-workflow expand --id=5 --research
-
-# Provide additional context
-cursor-workflow expand --id=5 --prompt="Focus on Redux integration"
-```
-
-The AI will:
-1. Analyze the task description and details
-2. Research relevant technical approaches
-3. Create logical subtasks with detailed instructions
-4. Suggest implementation patterns based on rules
+1. Use AI to break down complex tasks into subtasks
+2. Analyze task complexity and dependencies
+3. Schedule and prioritize tasks
 
 ### AI-driven Complexity Analysis
 
-AI can analyze task complexity:
-
-```bash
-# Analyze with AI
-cursor-workflow analyze-complexity --research
-```
-
-The AI considers:
-- Task description semantics
-- Technical domain knowledge
-- Implementation patterns
-- Dependencies and prerequisites
-- Similar tasks from the past
+1. Use AI to analyze task complexity
+2. Consider factors such as description length, dependencies, and technical domain
+3. Generate a complexity score and recommendations
 
 ## Customization
 
 ### Environment Variables
 
-Customize system behavior with environment variables:
+Customize the workflow system with environment variables:
 
-```
-# API Keys
-ANTHROPIC_API_KEY=your_api_key
-
-# LLM Settings
-MODEL=claude-3-7-sonnet-20250219
-MAX_TOKENS=4000
-TEMPERATURE=0.7
-
-# Default Values
-DEFAULT_SUBTASKS=3
-DEFAULT_PRIORITY=medium
-DEFAULT_ESTIMATED_HOURS=4
-
-# Project Info
-PROJECT_NAME=My Amazing Project
-PROJECT_VERSION=1.0.0
-```
-
-These can be set in a `.env` file or in your environment.
+- API keys for AI-assisted features
+- Model settings for AI models
+- Project settings (name, version)
 
 ### Templates
 
-Customize templates for:
+Customize task and rule templates to fit project requirements:
 
-- **Task Files**: Modify `templates/task-template.md`
-- **Rule Files**: Modify `templates/rule-template.mdc`
-- **HTML Reports**: Customize HTML generation in `scripts/modules/reports.js`
+- Task templates define the structure of task files
+- Rule templates define the structure of rule files
 
 ## Advanced Features
 
 ### Project Evolution
 
-The system can help evolve project standards over time:
-
-1. **Pattern Analysis**:
-   ```bash
-   cursor-workflow analyze --completed-tasks --last=20
-   ```
-
-2. **Rule Suggestions**:
-   ```bash
-   cursor-workflow suggest
-   ```
-
-3. **Review Suggestions**:
-   - Review suggested rule changes
-   - Modify if necessary
-
-4. **Apply Updates**:
-   ```bash
-   cursor-workflow apply-suggestion --id=suggestion-1
-   ```
-
-This creates a feedback loop where project standards evolve based on actual implementation patterns.
+1. Analyze completed tasks for patterns
+2. Generate rule update suggestions
+3. Apply suggested rule updates
+4. Adapt rules and best practices as the project grows
 
 ### Task Metrics and Analysis
 
-Gather insights about your development process:
-
-```bash
-# Generate a metrics report
-cursor-workflow metrics-report
-```
-
-This provides:
-- Average completion time by priority
-- Dependency chain lengths
-- Complexity distribution
-- Rule adherence statistics
-- Task breakdown patterns
+1. Track task completion time and estimated time
+2. Analyze task completion trends
+3. Identify bottlenecks and areas for improvement
 
 ## Best Practices
 
-### Task Management
-
-1. **Right-sized Tasks**: Create tasks that take 1-2 days to complete
-2. **Clear Dependencies**: Make dependencies explicit and avoid circular references
-3. **Detailed Descriptions**: Include enough detail for anyone to understand the task
-4. **Testable Completion**: Define clear verification criteria
-5. **Regular Updates**: Keep task status up to date
-
-### Rule Creation
-
-1. **Actionable Guidelines**: Rules should provide clear, specific guidance
-2. **Practical Examples**: Include real-world examples from your codebase
-3. **Reasonable Scope**: Keep rules focused on specific domains or file types
-4. **Clear Applicability**: Define when rules should be applied
-5. **Regular Updates**: Evolve rules as project needs change
-
-### Workflow Process
-
-1. **Consistent Process**: Follow the same workflow for all tasks
-2. **Regular Reviews**: Generate and review dashboards weekly
-3. **Documentation**: Update task details and documentation as you progress
-4. **Progressive Refinement**: Start simple and add detail as needed
-5. **Feedback Loop**: Use metrics to improve your process
+1. Break down complex tasks into manageable subtasks
+2. Prioritize tasks based on dependencies and priority
+3. Follow applicable rules and guidelines
+4. Document implementation notes and test strategies
+5. Regularly review and update project rules
 
 ## Troubleshooting
 
-### Common Issues
-
-1. **Dependency Errors**:
-   - Run `cursor-workflow validate-dependencies` to find issues
-   - Use `cursor-workflow fix-dependencies` to resolve them
-
-2. **Task File Inconsistencies**:
-   - Regenerate task files with `cursor-workflow generate`
-   - Check for JSON syntax errors in tasks.json
-
-3. **Rule Application Problems**:
-   - Verify rule globs are correctly defined
-   - Check that rules are referenced in applicable tasks
-
-4. **Command Not Found**:
-   - Ensure the system is properly installed
-   - Check that dependencies are installed with `npm install`
-
-5. **AI Integration Issues**:
-   - Verify API keys are correctly set in .env
-   - Check network connectivity for AI services
-
-### Getting Help
-
-- Check the documentation in the `docs/` directory
-- Review error messages for specific guidance
-- Check for updates in the GitHub repository
+- Check the system architecture diagram for component connections
+- Verify environment variables and API keys
+- Ensure all dependencies are installed and up-to-date
+- Check the task lifecycle and status transitions
+- Validate task dependencies and fix any issues
 
 ## Glossary
 
-- **Task**: A discrete unit of work to be implemented
-- **Subtask**: A smaller component of a larger task
-- **Rule**: A development guideline or standard
-- **Dependency**: A relationship where one task requires another to be completed first
-- **Complexity**: A measure of how difficult a task is to implement
-- **Priority**: The relative importance of a task
-- **Status**: The current state of a task in its lifecycle
-- **Glob Pattern**: A pattern used to match file paths
-- **Front Matter**: Metadata at the beginning of a markdown file
-- **Critical Rule**: An essential guideline that must be followed
-- **Verification**: The process of checking if a task meets requirements
-- **Schedule**: A timeline for task completion
-- **Dashboard**: A visual representation of project status 
+- **Task**: Discrete unit of work representing a development activity
+- **Rule**: Development standard, coding convention, or best practice
+- **Workflow**: Process of breaking down requirements, implementing tasks, and evolving rules
+- **PRD**: Product Requirements Document
+- **DAG**: Directed acyclic graph
+- **AI**: Artificial Intelligence
+- **IDE**: Integrated Development Environment
