@@ -160,64 +160,64 @@ The Cursor Workflow System consists of several interconnected components:
 graph TB
     subgraph "Cursor Workflow System 🚀"
         direction TB
-        CLI["⚙️ CLI Interface<br><i>scripts/dev.js</i><br><i>User command entry point</i>"]
+        CLI["<div style='font-size:24px'>⚙️ CLI Interface</div><div style='font-size:18px'><i>scripts/dev.js</i></div><div style='font-size:18px'><i>User command entry point</i></div>"]
         
-        Commands["🎮 Command Definitions<br><i>commands.js</i><br><i>Process user commands</i>"]
+        Commands["<div style='font-size:24px'>🎮 Command Definitions</div><div style='font-size:18px'><i>commands.js</i></div><div style='font-size:18px'><i>Process user commands</i></div>"]
         
-        CLI ---> Commands
+        CLI ===> Commands
         
         subgraph "Core Module System 📦"
             direction TB
-            Tasks["📋 Task Management<br><i>tasks.js</i><br><i>Create, update, and track tasks</i>"]
-            Rules["📜 Rule System<br><i>rules.js</i><br><i>Define and apply coding standards</i>"]
-            Analysis["🔍 Complexity Analysis<br><i>complexity.js</i><br><i>Evaluate task difficulty</i>"]
-            Scheduler["📅 Task Scheduling<br><i>scheduler.js</i><br><i>Prioritize and sequence work</i>"]
-            Reports["📊 HTML Reporting<br><i>reports.js</i><br><i>Generate visual dashboards</i>"]
-            Evolution["🔄 Rule Evolution<br><i>evolution.js</i><br><i>Improve standards over time</i>"]
-            Expand["🔀 Task Expansion<br><i>expand.js</i><br><i>Break down complex tasks</i>"]
+            Tasks["<div style='font-size:24px'>📋 Task Management</div><div style='font-size:18px'><i>tasks.js</i></div><div style='font-size:18px'><i>Create, update, and track tasks</i></div>"]
+            Rules["<div style='font-size:24px'>📜 Rule System</div><div style='font-size:18px'><i>rules.js</i></div><div style='font-size:18px'><i>Define and apply coding standards</i></div>"]
+            Analysis["<div style='font-size:24px'>🔍 Complexity Analysis</div><div style='font-size:18px'><i>complexity.js</i></div><div style='font-size:18px'><i>Evaluate task difficulty</i></div>"]
+            Scheduler["<div style='font-size:24px'>📅 Task Scheduling</div><div style='font-size:18px'><i>scheduler.js</i></div><div style='font-size:18px'><i>Prioritize and sequence work</i></div>"]
+            Reports["<div style='font-size:24px'>📊 HTML Reporting</div><div style='font-size:18px'><i>reports.js</i></div><div style='font-size:18px'><i>Generate visual dashboards</i></div>"]
+            Evolution["<div style='font-size:24px'>🔄 Rule Evolution</div><div style='font-size:18px'><i>evolution.js</i></div><div style='font-size:18px'><i>Improve standards over time</i></div>"]
+            Expand["<div style='font-size:24px'>🔀 Task Expansion</div><div style='font-size:18px'><i>expand.js</i></div><div style='font-size:18px'><i>Break down complex tasks</i></div>"]
         end
         
-        Commands ---> Tasks
-        Commands ---> Rules
-        Commands ---> Analysis
-        Commands ---> Scheduler
-        Commands ---> Reports
-        Commands ---> Evolution
-        Commands ---> Expand
+        Commands ===> Tasks
+        Commands ===> Rules
+        Commands ===> Analysis
+        Commands ===> Scheduler
+        Commands ===> Reports
+        Commands ===> Evolution
+        Commands ===> Expand
     end
     
     subgraph "Storage Components 💾"
         direction TB
-        TasksJSON["📄 tasks.json<br><i>Main task database</i>"]
-        TaskFiles["📑 Task MD Files<br><i>Individual task details</i>"]
-        RuleFiles["📝 Rule MDC Files<br><i>Coding standards definitions</i>"]
-        HTMLReports["📈 HTML Reports<br><i>Generated visualizations</i>"]
+        TasksJSON["<div style='font-size:24px'>📄 tasks.json</div><div style='font-size:18px'><i>Main task database</i></div>"]
+        TaskFiles["<div style='font-size:24px'>📑 Task MD Files</div><div style='font-size:18px'><i>Individual task details</i></div>"]
+        RuleFiles["<div style='font-size:24px'>📝 Rule MDC Files</div><div style='font-size:18px'><i>Coding standards definitions</i></div>"]
+        HTMLReports["<div style='font-size:24px'>📈 HTML Reports</div><div style='font-size:18px'><i>Generated visualizations</i></div>"]
     end
     
     subgraph "External Systems 🌐"
         direction TB
-        LLMAPI["🧠 AI Models<br><i>Claude/GPT</i><br><i>Generate content & analysis</i>"]
-        IDE["💻 Cursor IDE<br><i>Editor integration</i><br><i>Apply rules while coding</i>"]
+        LLMAPI["<div style='font-size:24px'>🧠 AI Models</div><div style='font-size:18px'><i>Claude/GPT</i></div><div style='font-size:18px'><i>Generate content & analysis</i></div>"]
+        IDE["<div style='font-size:24px'>💻 Cursor IDE</div><div style='font-size:18px'><i>Editor integration</i></div><div style='font-size:18px'><i>Apply rules while coding</i></div>"]
     end
     
-    Tasks <---> TasksJSON
-    Tasks <---> TaskFiles
-    Rules <---> RuleFiles
-    Reports ---> HTMLReports
+    Tasks <====> TasksJSON
+    Tasks <====> TaskFiles
+    Rules <====> RuleFiles
+    Reports ====> HTMLReports
     
-    Analysis <---> LLMAPI
-    Expand <---> LLMAPI
-    Evolution <---> LLMAPI
+    Analysis <====> LLMAPI
+    Expand <====> LLMAPI
+    Evolution <====> LLMAPI
     
-    IDE <---> Rules
-    IDE <---> Tasks
+    IDE <====> Rules
+    IDE <====> Tasks
     
-    classDef cliStyle fill:#d5e8d4,stroke:#82b366,stroke-width:3px,color:black,width:600px,padding:25px;
-    classDef moduleStyle fill:#dae8fc,stroke:#6c8ebf,stroke-width:3px,color:black,width:600px,padding:25px;
-    classDef commandStyle fill:#fff2cc,stroke:#d6b656,stroke-width:3px,color:black,width:600px,padding:25px;
-    classDef storageStyle fill:#d5e8d4,stroke:#82b366,stroke-width:3px,color:black,width:500px,padding:25px;
-    classDef externalStyle fill:#ffe6cc,stroke:#d79b00,stroke-width:3px,color:black,width:500px,padding:25px;
-    classDef subgraphStyle fill:#f5f5f5,stroke:#333,stroke-width:2px,color:black,padding:40px;
+    classDef cliStyle fill:#d5e8d4,stroke:#82b366,stroke-width:4px,color:black,width:800px,padding:40px;
+    classDef moduleStyle fill:#dae8fc,stroke:#6c8ebf,stroke-width:4px,color:black,width:800px,padding:40px;
+    classDef commandStyle fill:#fff2cc,stroke:#d6b656,stroke-width:4px,color:black,width:800px,padding:40px;
+    classDef storageStyle fill:#d5e8d4,stroke:#82b366,stroke-width:4px,color:black,width:700px,padding:40px;
+    classDef externalStyle fill:#ffe6cc,stroke:#d79b00,stroke-width:4px,color:black,width:700px,padding:40px;
+    classDef subgraphStyle fill:#f5f5f5,stroke:#333,stroke-width:3px,color:black,padding:60px;
     
     class CLI cliStyle;
     class Tasks,Rules,Analysis,Scheduler,Reports,Evolution,Expand moduleStyle;
